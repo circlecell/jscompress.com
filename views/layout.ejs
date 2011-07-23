@@ -1,10 +1,47 @@
 <!doctype html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-  	<%- body %>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Minify Javascript Online / Online JavaScript Packer</title>
+
+    <meta name="keywords" content="javascript compressor, compress javascript, minify javascript, minify js online, online javascript packer, js packer tool, online jsmin, uglify js">
+    <meta name="description" content="Free online instant javascript compression tool. Copy and paste your code in or upload multiple files to combine them together.">
+ 
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css' />
+    <link type="text/css" href="/stylesheets/lessframework.css" rel="stylesheet" />
+    <link type="text/css" href="/stylesheets/app.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width; initial-scale=1" />
+    <!-- Add "maximum-scale=1" to fix the Mobile Safari auto-zoom bug on orientation changes,
+        but keep in mind that it will disable user-zooming completely. Bad for accessibility. -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div id="pageWrapper">
+    <header>
+      <h1><a href="/">Online Javascript compressor</a></h1>
+    </header>
+
+    <article class="box">
+      <%- body %>
+    </article>
+ 
+    <footer>
+      <p style="float: right; margin:12px; padding:0;">
+        <a href="http://brightb.it" title="Built by Brightbit"><img src="/images/brightbit-hexlogo-64x64.png" /></a>
+      </p>
+      <article class="box small">
+        <p>Copyright &copy; 2011 Brightbit</p>
+        <p>Service developed and provided by <a href="http://brightb.it">Brightbit</a> - Powered by <a href="http://nodejs.org">Node.js</a></p>
+      </article>
+    </footer>
+    
+    <!-- GA Tracker -->
+    
+ </div>
+</body>
 </html>

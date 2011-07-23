@@ -5,9 +5,16 @@
 
 var express = require('express');
 
-// @link https://github.com/felixge/node-formidable
+// Formidable multiple file uploads
+// @link https://github.com/felixge/node-formidable/
 var formidable = require('formidable');
 
+// UglifyJS
+// @link https://github.com/mishoo/UglifyJS/
+var ujs_jsp = require("uglify-js").parser;
+var ujs_pro = require("uglify-js").uglify;
+
+// Express
 var app = module.exports = express.createServer();
 
 // Configuration
@@ -31,12 +38,33 @@ app.configure('production', function(){
 // Routes
 app.get('/', function(req, res){
   res.render('index', {
-    title: 'JSCompress.com'
+    title: 'JSCompress.com',
+    js_in: null,
+    js_out: null,
+    err: false
   });
 });
 
-app.post('/upload', function(req, res) {
-  
+app.post('/compress', function(req, res) {
+  var err = false;
+  var js_in = req.body.js_in;
+
+  // Compress JS
+  try {
+    var ast = ujs_jsp.parse(js_in); // parse code and get the initial AST
+    ast = ujs_pro.ast_mangle(ast); // get a new AST with mangled names
+    ast = ujs_pro.ast_squeeze(ast); // get an AST with compression optimizations
+    var js_out = ujs_pro.gen_code(ast); // compressed code here
+  } catch(e) {
+    err = e;
+  }
+
+  // Template
+  res.render('index', {
+    js_in: js_in,
+    js_out: js_out,
+    err: err
+  });
 });
 
 app.listen(3000);

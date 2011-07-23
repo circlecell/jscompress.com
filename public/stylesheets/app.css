@@ -1,0 +1,32 @@
+/**
+ * App Styles
+ */
+table {
+    width: 100%;
+    background: #fff;
+}
+table thead tr th,
+table tbody td {
+    padding: 10px;
+    vertical-align: middle;
+}
+/* thead/th is used for blue column labels */
+
+table thead tr th {
+	background: #d1e4f2;
+	color: #627789;
+	border-top: 1px solid #cfccc2;
+	font-weight: bold;
+	text-shadow: 0em 1px #fff;
+    text-align: left;
+	white-space: nowrap;
+}
+table tbody tr {
+    border-top: 1px solid #cfccc2;
+}
+table tbody td {
+    border-top: 1px solid #cfccc2;
+}
+table tr.even {
+    background: #f5f7f8;
+}

@@ -1,0 +1,292 @@
+/*  Less Framework 3
+    by Joni Korpi
+    http://lessframework.com    */
+
+
+/*  Resets
+    ------  */
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, 
+p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em, 
+img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, 
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, 
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, hgroup, 
+menu, footer, header, nav, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+article, aside, canvas, figure, figure img, figcaption, hgroup,
+footer, header, nav, section, audio, video {
+    display: block;
+}
+
+a img {border: 0;}
+
+figure {position: relative;}
+figure img {width: 100%;}
+
+
+/*  Typography presets
+    ------------------  */
+
+.gigantic {
+    font-size: 110px;
+    line-height: 120px;
+    letter-spacing: -2px;
+}
+
+.huge, h1 {
+    font-size: 68px;
+    line-height: 72px;
+    letter-spacing: -1px;
+}
+
+.large, h2 {
+    font-size: 42px;
+    line-height: 48px;
+}
+
+.big, h3 {
+    font-size: 26px;
+    line-height: 36px;
+}
+
+.normal, body {
+    font: 16px/24px Helvetica, Arial, sans-serif;
+}
+
+.small {
+    font-size: 13px;
+    line-height: 18px;
+} 
+
+
+/*  Default 8-column layout
+    60 px columns, 24 px gutters, 60 px margins, 768 px total
+    ---------------------------------------------------------
+    1     2      3      4      5      6      7      8     
+    60px  144px  228px  312px  396px  480px  564px  648px   */
+
+body {
+    background: rgb(232,232,232);
+    padding: 84px 60px 0;
+    width: 648px;
+    -webkit-tap-highlight-color: rgb(255,255,0);
+}
+
+::selection         {background: rgb(255,255,0);}
+::-moz-selection    {background: rgb(255,255,0);}
+img::selection      {background: transparent;}
+img::-moz-selection {background: transparent;}
+
+
+
+
+
+/**
+ * ==============================================================
+ * Page styles
+ */
+
+#pageWrapper {
+    
+}
+
+article.box, div.box {
+    margin-bottom: 24px;
+    padding: 24px;
+    
+    background: #FFF;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+} 
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', Georgia, serif;
+    -moz-text-shadow: yellow 0 5px 5px;
+    -webkit-text-shadow: #FFF 0 1px;
+    text-shadow: rgba(255,255,255,1) 1px 1px 0;
+}
+
+h2 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-top: 24px;
+}
+
+h2:first-child {
+    margin-top: 0;
+}
+
+section, aside, div {
+    margin-top: 24px;
+}
+
+section:first-child {
+    margin-top: 0;
+}
+
+ul {
+    list-style-type: square;
+    list-style-position: outside;
+    margin: 24px 0 0 16px;
+}
+
+p {
+    margin: 24px 0 0 0;
+}
+
+p:first-child {
+    margin: 0;
+}
+
+footer {
+    clear: both;
+    margin-bottom: 30px;
+}
+
+footer p {
+    margin: 8px 0 0 0;
+}
+
+a {
+
+}
+
+header h1 {
+    font-size: 42px;
+    line-height: 48px;
+}
+header h1 a {
+    color: #000;
+    text-decoration: none;
+}
+
+
+/**
+ * FORM Styles
+ * @see http://www.vooshthemes.com/blog/design-tutorial/create-a-clean-and-stylish-css3-contact-form/
+ */
+label { 
+    font-size: 20px;
+    color: #555; 
+}
+
+input, textarea {
+    padding: 8px; 
+    margin: 4px 0 20px 0; 
+    background: #fff; 
+    width: 220px; 
+    font-size: 14px; 
+    color: #555; 
+    border: 1px #ddd solid;
+    
+    /* -- CSS3 Shadow - create a shadow around each input element -- */ 
+    -webkit-box-shadow: 0px 0px 4px #aaa;
+    -moz-box-shadow: 0px 0px 4px #aaa; 
+    box-shadow: 0px 0px 4px #aaa;
+    
+    /* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */       
+    -webkit-transition: background 0.3s linear;                         
+}
+
+textarea {
+    width: 97%;
+    height: 200px;
+}
+
+input:hover, textarea:hover { 
+    background: #eee; 
+}
+    
+input.submit,
+button.submit {
+    color: #eee; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+    padding: 7px 14px;
+    background-color: #18a5cc;
+    border: none;
+    font-size: 16px;
+    
+    /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+    -webkit-transition: -webkit-box-shadow 0.3s linear;
+    
+    /* -- CSS3 - Rounded Corners -- */
+    -moz-border-radius: 4px; 
+    -webkit-border-radius: 4px;
+    border-radius: 4px; 
+                    
+    /* -- CSS3 Shadow - create a shadow around each input element -- */ 
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#18a5cc), to(#0a85a8)); 
+    background: -moz-linear-gradient(25% 75% 90deg,#0a85a8, #18a5cc);       
+} 
+
+input.submit:hover,
+button.submit:hover {       
+    -webkit-box-shadow: 0px 0px 20px #555;
+    -moz-box-shadow: 0px 0px 20px #aaa; 
+    box-shadow: 0px 0px 20px #555;  
+    cursor:  pointer;
+} 
+
+
+/*  13-column layout
+    60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
+    ---------------------------------------------------------------------------------------
+    1     2      3      4      5      6      7      8      9      10     11     12     13
+    60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px  984px  1068px   */
+
+@media only screen and (min-width: 1212px) {
+    
+    body {
+        padding: 96px 72px 0;
+        width: 1068px;
+    }
+    
+}
+
+
+/*  5-column layout
+    60 px columns, 24 px gutters, 42 px margins, 480 px total
+    ---------------------------------------------------------
+    1     2      3      4      5
+    60px  144px  228px  312px  396px    */
+
+@media only screen and (max-width: 767px) and (min-width: 480px) {
+    
+    body {
+        padding: 60px 42px 0;
+        width: 396px;
+        /* Prevents Mobile Safari from bumping up font sizes in landscape */
+        -webkit-text-size-adjust: 100%; 
+    }
+    
+}
+
+
+/*  3-column layout
+    60 px columns, 24 px gutters, 46 px margins, 320 px total
+    ---------------------------------------------------------
+    1     2      3
+    60px  144px  228px  */
+
+@media only screen and (max-width: 479px) {
+    
+    body {
+        padding: 48px 46px 0;
+        width: 228px;
+        /* Prevents Mobile Safari from bumping up font sizes in landscape */
+        -webkit-text-size-adjust: 100%;
+    }
+    
+}
+
+body {
+    padding-top: 0;
+}

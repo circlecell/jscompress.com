@@ -1,2 +1,29 @@
-<h1><%= title %></h1>
-<p>Welcome to <%= title %>!!</p>
+
+      <section>
+        <% if(err) { %>
+          <p class="app_error"><%= err %></p>
+        <% } %>
+        <form action="/compress" method="post">
+          <p><textarea name="js_in" id="js_in" rows="40" cols="80"><%= js_in %></textarea></p>
+          <p><button type="submit" class="submit">Compress Javascript</button></p>
+          <% if(js_out) { %>
+            <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%= js_out %></textarea></p>
+          <% } %>
+        </form>
+      </section>
+ 
+      <section> 
+        <h2>What Is This?</h2>
+
+        <p>JSCompress.com is an online javascript compressor that allows you to compress and minify your javascript files. Compressed javascript files are ideal for production environments since they typically reduce the size of the file by 30-90%. Most of the filesize reduction is achieved by removing comments and extra whitespace characters that are not needed by web browsers or visitors.</p>
+
+        <h2>Why Would I Want To Compress Javascript?</h2>
+
+        <p>There are a number of reasons why compressing your javascript files is a good idea:</p>
+        <ul>
+          <li>Quicker download times for your users.</li>
+          <li>Reduced bandwidth consumption of your website.</li>
+          <li>Reduced number of HTTP requests on your server when combining many javascript files into one compressed file, thus reducing the server load and allowing more visitors to access your website.</li>
+          <li>Comments and whitespace are not needed for javascript execution; Removing them will speed up script execution times.</li>
+        </ul>
+      </section>
