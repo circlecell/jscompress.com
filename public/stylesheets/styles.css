@@ -151,7 +151,7 @@ footer p {
 }
 
 a {
-
+ color: #448CCB;
 }
 
 header h1 {
@@ -313,4 +313,18 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  {
 .tab_content {
     padding: 20px;
     font-size: 1.2em;
+}
+
+#pageWrapper {
+    position: relative;
+}
+#content {
+    margin-left: 170px;
+}
+#ad_side {
+    width: 160px;
+    height: 600px;
+    position: absolute;
+    top: 50px;
+    left: 0;
 }
