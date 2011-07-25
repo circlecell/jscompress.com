@@ -66,8 +66,7 @@ figure img {width: 100%;}
 
 body {
     background: rgb(232,232,232);
-    padding: 84px 60px 0;
-    padding-top: 10px;
+    padding: 20px;
     -webkit-tap-highlight-color: rgb(255,255,0);
 }
 
