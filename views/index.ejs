@@ -75,6 +75,9 @@
           <li>Reduced number of HTTP requests on your server when combining many javascript files into one compressed file, thus reducing the server load and allowing more visitors to access your website.</li>
           <li>Comments and whitespace are not needed for javascript execution; Removing them will speed up script execution times.</li>
         </ul>
+
+        <h2>What Javascript Compression Method is Used?</h2>
+        <p>JSCompress.com uses <a href="https://github.com/mishoo/UglifyJS">UglifyJS</a> for all javascript minification and compression. A previous version of this site was written in PHP and used <a href="http://www.crockford.com/javascript/jsmin.html">JSMin</a> and <a href="http://dean.edwards.name/packer/">Packer</a> methods, but the PHP implementations of the libraries were flawed, outdated, untested, and led to broken output javascript in some cases.</p>
       </section>
 
       <script type="text/javascript"> 
