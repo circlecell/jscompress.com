@@ -39,8 +39,8 @@ app.configure('production', function(){
 app.get('/', function(req, res){
   res.render('index', {
     title: 'JSCompress.com',
-    js_in: null,
-    js_out: null,
+    js_in: '',
+    js_out: '',
     err: false
   });
 });
@@ -53,10 +53,10 @@ app.post('/compress', function(req, res) {
   try {
     var ast = ujs_jsp.parse(js_in); // parse code and get the initial AST
     ast = ujs_pro.ast_mangle(ast); // get a new AST with mangled names
-    ast = ujs_pro.ast_squeeze(ast); // get an AST with compression optimizations
+    //ast = ujs_pro.ast_squeeze(ast); // get an AST with compression optimizations
     var js_out = ujs_pro.gen_code(ast); // compressed code here
   } catch(e) {
-    err = e;
+    err = e.message;
   }
 
   // Template

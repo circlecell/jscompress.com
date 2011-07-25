@@ -1,11 +1,13 @@
 
       <section>
         <% if(err) { %>
-          <p class="app_error"><%= err %></p>
+          <div class="app_errors">
+            <ul><li><%= err %></li></ul>
+          </div>
         <% } %>
         <form action="/compress" method="post">
           <p><textarea name="js_in" id="js_in" rows="40" cols="80"><%= js_in %></textarea></p>
-          <p><button type="submit" class="submit">Compress Javascript</button></p>
+          <button type="submit" class="submit">Compress Javascript</button>
           <% if(js_out) { %>
             <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%= js_out %></textarea></p>
           <% } %>

@@ -124,7 +124,7 @@ h2:first-child {
 }
 
 section, aside, div {
-    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 section:first-child {
@@ -289,4 +289,22 @@ button.submit:hover {
 
 body {
     padding-top: 0;
+}
+
+
+/* error display */
+.app_errors {
+    padding: 10px 16px;
+    border: 1px solid #e2d0d0;
+    background: #fcf0f0;
+    color: #280b0b;
+}
+.app_errors ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.app_errors li {
+    margin: 5px 0;
+    padding: 0;
 }
