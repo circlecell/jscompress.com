@@ -64,16 +64,10 @@ figure img {width: 100%;}
 } 
 
 
-/*  Default 8-column layout
-    60 px columns, 24 px gutters, 60 px margins, 768 px total
-    ---------------------------------------------------------
-    1     2      3      4      5      6      7      8     
-    60px  144px  228px  312px  396px  480px  564px  648px   */
-
 body {
     background: rgb(232,232,232);
     padding: 84px 60px 0;
-    width: 648px;
+    padding-top: 10px;
     -webkit-tap-highlight-color: rgb(255,255,0);
 }
 
@@ -95,7 +89,9 @@ img::-moz-selection {background: transparent;}
     
 }
 
-article.box, div.box {
+article.box,
+section.box,
+div.box {
     margin-bottom: 24px;
     padding: 24px;
     
@@ -123,7 +119,7 @@ h2:first-child {
     margin-top: 0;
 }
 
-section, aside, div {
+section, aside {
     margin-bottom: 24px;
 }
 
@@ -138,7 +134,7 @@ ul {
 }
 
 p {
-    margin: 24px 0 0 0;
+    margin: 10px 0;
 }
 
 p:first-child {
@@ -197,7 +193,7 @@ input, textarea {
 
 textarea {
     width: 97%;
-    height: 200px;
+    height: 250px;
 }
 
 input:hover, textarea:hover { 
@@ -235,62 +231,9 @@ button.submit:hover {
     cursor:  pointer;
 } 
 
-
-/*  13-column layout
-    60 px columns, 24 px gutters, 72 px margins, 1212 px total (extra space for scrollbars)
-    ---------------------------------------------------------------------------------------
-    1     2      3      4      5      6      7      8      9      10     11     12     13
-    60px  144px  228px  312px  396px  480px  564px  648px  732px  816px  900px  984px  1068px   */
-
-@media only screen and (min-width: 1212px) {
-    
-    body {
-        padding: 96px 72px 0;
-        width: 1068px;
-    }
-    
+.clear {
+    clear: both;
 }
-
-
-/*  5-column layout
-    60 px columns, 24 px gutters, 42 px margins, 480 px total
-    ---------------------------------------------------------
-    1     2      3      4      5
-    60px  144px  228px  312px  396px    */
-
-@media only screen and (max-width: 767px) and (min-width: 480px) {
-    
-    body {
-        padding: 60px 42px 0;
-        width: 396px;
-        /* Prevents Mobile Safari from bumping up font sizes in landscape */
-        -webkit-text-size-adjust: 100%; 
-    }
-    
-}
-
-
-/*  3-column layout
-    60 px columns, 24 px gutters, 46 px margins, 320 px total
-    ---------------------------------------------------------
-    1     2      3
-    60px  144px  228px  */
-
-@media only screen and (max-width: 479px) {
-    
-    body {
-        padding: 48px 46px 0;
-        width: 228px;
-        /* Prevents Mobile Safari from bumping up font sizes in landscape */
-        -webkit-text-size-adjust: 100%;
-    }
-    
-}
-
-body {
-    padding-top: 0;
-}
-
 
 /* error display */
 .app_errors {
@@ -307,4 +250,67 @@ body {
 .app_errors li {
     margin: 5px 0;
     padding: 0;
+}
+
+
+/**
+ * tabs
+ * @link http://www.sohtanaka.com/web-design/examples/tabs/
+ */
+ul.tabs {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #999;
+    border-left: 1px solid #999;
+    width: 100%;
+}
+ul.tabs li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #999;
+    border-left: none;
+    margin-bottom: -1px;
+    background: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs li a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    font-size: 1.2em;
+    padding: 0 20px;
+    border: 1px solid #fff;
+    outline: none;
+}
+ul.tabs li a:hover {
+    background: #ccc;
+}   
+html ul.tabs li.active, html ul.tabs li.active a:hover  {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+}
+.tab_container {
+    border: 1px solid #999;
+    border-top: none;
+    clear: both;
+    float: left; 
+    width: 100%;
+    background: #fff;
+    -moz-border-radius-bottomright: 5px;
+    -khtml-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -khtml-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+}
+.tab_content {
+    padding: 20px;
+    font-size: 1.2em;
 }

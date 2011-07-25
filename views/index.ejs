@@ -1,20 +1,53 @@
 
-      <section>
+      <section class="box">
         <% if(err) { %>
           <div class="app_errors">
             <ul><li><%= err %></li></ul>
           </div>
         <% } %>
-        <form action="/compress" method="post">
-          <p><textarea name="js_in" id="js_in" rows="40" cols="80"><%= js_in %></textarea></p>
-          <button type="submit" class="submit">Compress Javascript</button>
-          <% if(js_out) { %>
-            <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%= js_out %></textarea></p>
-          <% } %>
-        </form>
+
+        <ul class="tabs"> 
+          <li><a href="#js_in">Copy &amp; Paste Javascript Code</a></li> 
+          <li><a href="#js_files">Upload Javascript Files</a></li> 
+          <li class="js_out"><a href="#js_out">Output</a></li>
+        </ul> 
+        <div class="tab_container"> 
+
+          <div id="js_in" class="tab_content">
+            <!-- Multi-part form upload -->
+            <form action="/" method="post" enctype="multipart/form-data">
+              <h2>Javascript Code Input</h2>
+              <textarea name="js_in" id="js_in" rows="40" cols="80"><%= js_in %></textarea>
+              <button type="submit" class="submit">Compress Javascript</button>
+            </form>
+          </div>
+
+          <div id="js_files" class="tab_content">
+            <!-- Multi-part form upload -->
+            <form action="/" method="post" enctype="multipart/form-data">
+              <h2>Javascript File Upload</h2>
+              <p>Multiple file uploads will be combined <strong>in order</strong> and compressed together as one file.</p>
+              <div id="js_files_fields">
+                <div><input type="file" name="js_file_0" /></div>
+                <div><input type="file" name="js_file_1" /></div>
+              </div>
+              <p><a id="js_files_add" href="#">+ Upload Another File</a></p>
+              <button type="submit" class="submit">Upload Files &amp; Compress Javascript</button>
+            </form>
+          </div>
+
+          <div id="js_out" class="tab_content">
+              <!-- JS Output -->
+              <h2>Compressed Javascript Output</h2>
+              <form action="get">
+                <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%= js_out %></textarea></p>
+              </form>
+          </div>
+        </div>
+        <div class="clear"></div>
       </section>
  
-      <section> 
+      <section class="box">
         <h2>What Is This?</h2>
 
         <p>JSCompress.com is an online javascript compressor that allows you to compress and minify your javascript files. Compressed javascript files are ideal for production environments since they typically reduce the size of the file by 30-90%. Most of the filesize reduction is achieved by removing comments and extra whitespace characters that are not needed by web browsers or visitors.</p>
@@ -29,3 +62,36 @@
           <li>Comments and whitespace are not needed for javascript execution; Removing them will speed up script execution times.</li>
         </ul>
       </section>
+
+      <script type="text/javascript"> 
+      $(document).ready(function() {
+
+        //Default Action
+        $(".tab_content").hide(); // Hide all content
+        <% if (js_out) { %>
+          $("ul.tabs li.js_out").addClass("active").show(); //Activate first tab
+          $("#js_out").show(); // Show first tab content
+        <% } else { %>
+          $("ul.tabs li:first").addClass("active").show(); //Activate first tab
+          $(".tab_content:first").show(); //Show first tab content
+        <% } %>
+        
+        // On Click Event
+        $("ul.tabs li").click(function() {
+          $("ul.tabs li").removeClass("active"); //Remove any "active" class
+          $(this).addClass("active"); //Add "active" class to selected tab
+          $(".tab_content").hide(); //Hide all tab content
+          var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+          $(activeTab).fadeIn(); //Fade in the active content
+          return false;
+        });
+
+        // Add another file field
+        // Add file box
+        $('#js_files_add').click(function() {
+          var input = $('#js_files_fields div:first-child').html();
+          $('#js_files_fields').append('<div>' + input + '</div>');
+          return false;
+        });
+      });
+      </script> 

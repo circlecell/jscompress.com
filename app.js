@@ -7,7 +7,10 @@ var express = require('express');
 
 // Formidable multiple file uploads
 // @link https://github.com/felixge/node-formidable/
-var formidable = require('formidable');
+var formidable = require('formidable'),
+    http = require('http'),
+    sys = require('sys'),
+    fs = require('fs');
 
 // UglifyJS
 // @link https://github.com/mishoo/UglifyJS/
@@ -45,26 +48,98 @@ app.get('/', function(req, res){
   });
 });
 
-app.post('/compress', function(req, res) {
-  var err = false;
-  var js_in = req.body.js_in;
+app.post('/', function(req, res) {
+  // Variables
+  var err = false,
+      js_in = '',
+      js_out = '',
+      finished = false;
 
-  // Compress JS
-  try {
-    var ast = ujs_jsp.parse(js_in); // parse code and get the initial AST
-    ast = ujs_pro.ast_mangle(ast); // get a new AST with mangled names
-    //ast = ujs_pro.ast_squeeze(ast); // get an AST with compression optimizations
-    var js_out = ujs_pro.gen_code(ast); // compressed code here
-  } catch(e) {
-    err = e.message;
-  }
+  // Finish request
+  var finish = function() {
+    // Can't run more than once
+    if(finished) {
+      return;
+    }
+    console.log('---------------------------\n', 'Finished');
 
-  // Template
-  res.render('index', {
-    js_in: js_in,
-    js_out: js_out,
-    err: err
+    finished = true;
+
+    // Compress JS
+    try {
+      var ast = ujs_jsp.parse(js_in); // parse code and get the initial AST
+      ast = ujs_pro.ast_mangle(ast); // get a new AST with mangled names
+      //ast = ujs_pro.ast_squeeze(ast); // get an AST with compression optimizations
+      js_out = ujs_pro.gen_code(ast); // compressed code here
+    } catch(e) {
+      err = e.message;
+    }
+
+    // Template
+    res.render('index', {
+      js_in: js_in,
+      js_out: js_out,
+      err: err
+    });
+  };
+
+  // Multiple file upload
+  var form = new formidable.IncomingForm(),
+      files = [],
+      fields = [];
+  //form.uploadDir = TEST_TMP;
+  form.parse(req, function(err, fields, files) {
+    // Direct JS string
+    if(fields.js_in) {
+      js_in += fields.js_in;
+    }
+
+    // If we have uploaded files
+    var i = 0;
+    var len = Object.keys(files).length;
+    if(files && len > 0) {
+      console.log('= GOT FILES (' + len + ')');
+      for(key in files) {
+        i++;
+        var file = files[key];
+        console.log(len, file);
+        fs.readFile(file.path, function(err, data) {
+          if(err) {
+            next();
+            return finish();
+          }
+          js_in += '\n\n/** ' + file.name + ' **/\n' + data.toString();
+
+          // Check if this is the last file
+          if(i == len) {
+            finish();
+          }
+        });
+      }
+    } else {
+      // No files, only fields
+      finish();
+    }
   });
+
+  // Formidable events
+  /*
+  form
+    .on('field', function(field, value) {
+      fields[field] = value;
+    })
+    .on('file', function(field, file) {
+      files.push(file);
+    })
+    .on('end', function() {
+      console.log('-> form processing done');
+
+      
+    });
+  */
+
+  // Parse form
+  form.parse(req);
 });
 
 app.listen(3000);
