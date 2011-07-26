@@ -106,8 +106,14 @@
         // Add another file field
         // Add file box
         $('#js_files_add').click(function() {
-          var input = $('#js_files_fields div:first-child').html();
-          $('#js_files_fields').append('<div>' + input + '</div>');
+          var icount = $('#js_files_fields input').length;
+          console.log(icount);
+          var input = $('#js_files_fields div:first-child').clone()
+            .find('input')
+            .attr('name', 'js_file_' + icount)
+            .end()
+            .appendTo('#js_files_fields');
+          console.log(input);
           return false;
         });
       });
