@@ -49,6 +49,8 @@ app.get('/', function(req, res){
 });
 
 app.post('/', function(req, res) {
+  console.log('Receiving POST...');
+
   // Variables
   var err = false,
       js_in = '',
@@ -56,7 +58,7 @@ app.post('/', function(req, res) {
       finished = false;
 
   // Finish request
-  var finish = function() {
+  var finish = function(_js_in) {
     // Can't run more than once
     if(finished) {
       return;
@@ -66,13 +68,17 @@ app.post('/', function(req, res) {
     finished = true;
 
     // Compress JS
-    try {
-      var ast = ujs_jsp.parse(js_in); // parse code and get the initial AST
-      ast = ujs_pro.ast_mangle(ast); // get a new AST with mangled names
-      //ast = ujs_pro.ast_squeeze(ast); // get an AST with compression optimizations
-      js_out = ujs_pro.gen_code(ast); // compressed code here
-    } catch(e) {
-      err = e.message;
+    if(_js_in) {
+      try {
+        var ast = ujs_jsp.parse(_js_in); // parse code and get the initial AST
+        ast = ujs_pro.ast_mangle(ast); // get a new AST with mangled names
+        //ast = ujs_pro.ast_squeeze(ast); // get an AST with compression optimizations
+        js_out = ujs_pro.gen_code(ast); // compressed code here
+      } catch(e) {
+        err = e.message;
+      }
+    } else {
+      err = "No javascript input was found";
     }
 
     // Template
@@ -83,12 +89,22 @@ app.post('/', function(req, res) {
     });
   };
 
+  // JS input only
+  try {
+    if("undefined" != typeof(req.body.js_in)) {
+      finish(req.body.js_in);
+    }
+  } catch (e) {}
+
   // Multiple file upload
   var form = new formidable.IncomingForm(),
       files = [],
       fields = [];
-  //form.uploadDir = TEST_TMP;
   form.parse(req, function(err, fields, files) {
+    if(err) {
+      return finish();
+    }
+
     // Direct JS string
     if(fields.js_in) {
       js_in += fields.js_in;
@@ -106,19 +122,19 @@ app.post('/', function(req, res) {
         fs.readFile(file.path, function(err, data) {
           if(err) {
             next();
-            return finish();
+            return finish(js_in);
           }
           js_in += "\n" + data.toString();
 
           // Check if this is the last file
           if(i == len) {
-            finish();
+            finish(js_in);
           }
         });
       }
     } else {
       // No files, only fields
-      finish();
+      finish(js_in);
     }
   });
 });
