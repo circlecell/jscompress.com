@@ -1,10 +1,9 @@
 {
-    "name": "JSCompress.com"
-  , "version": "0.0.1"
-  , "private": true
+    "name": "jscompress"
+  , "version": "0.0.2"
   , "dependencies": {
       "express": "2.4.3"
-    , "ejs": ">= 0.0.1"
+    , "ejs": "0.4.3"
     , "formidable": "1.0.2"
     , "uglify-js": "1.0.6"
   }
