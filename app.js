@@ -121,9 +121,6 @@ app.post('/', function(req, res) {
       finish();
     }
   });
-
-  // Parse form
-  form.parse(req);
 });
 
 var port = process.env.PORT || 3000;
