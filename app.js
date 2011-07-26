@@ -61,7 +61,7 @@ app.post('/', function(req, res) {
     if(finished) {
       return;
     }
-    console.log('---------------------------\n', 'Finished');
+    //console.log('---------------------------\n', 'Finished');
 
     finished = true;
 
@@ -98,17 +98,17 @@ app.post('/', function(req, res) {
     var i = 0;
     var len = Object.keys(files).length;
     if(files && len > 0) {
-      console.log('= GOT FILES (' + len + ')');
+      //console.log('= GOT FILES (' + len + ')');
       for(key in files) {
         i++;
         var file = files[key];
-        console.log(len, file);
+        //console.log(len, file);
         fs.readFile(file.path, function(err, data) {
           if(err) {
             next();
             return finish();
           }
-          js_in += '\n\n/** ' + file.name + ' **/\n' + data.toString();
+          js_in += "\n" + data.toString();
 
           // Check if this is the last file
           if(i == len) {
@@ -121,22 +121,6 @@ app.post('/', function(req, res) {
       finish();
     }
   });
-
-  // Formidable events
-  /*
-  form
-    .on('field', function(field, value) {
-      fields[field] = value;
-    })
-    .on('file', function(field, file) {
-      files.push(file);
-    })
-    .on('end', function() {
-      console.log('-> form processing done');
-
-      
-    });
-  */
 
   // Parse form
   form.parse(req);
