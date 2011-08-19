@@ -114,24 +114,13 @@ app.post('/', function(req, res) {
     var i = 0;
     var len = Object.keys(files).length;
     if(files && len > 0) {
-      //console.log('= GOT FILES (' + len + ')');
+      console.log('= GOT FILES (' + len + ')');
       for(key in files) {
-        i++;
         var file = files[key];
-        //console.log(len, file);
-        fs.readFile(file.path, function(err, data) {
-          if(err) {
-            next();
-            return finish(js_in);
-          }
-          js_in += "\n" + data.toString();
-
-          // Check if this is the last file
-          if(i == len) {
-            finish(js_in);
-          }
-        });
+        // Synchronous file reads to ensure they stay in the order they were uploaded
+        js_in += "// --- file[" + file.name + "] ---\n\n" + fs.readFileSync(file.path) + "\n\n";
       }
+      finish(js_in);
     } else {
       // No files, only fields
       finish(js_in);
