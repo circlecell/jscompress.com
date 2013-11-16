@@ -1,3 +1,4 @@
+<% layout('layout') -%>
 
       <section class="box">
         <% if(err) { %>
@@ -6,12 +7,12 @@
           </div>
         <% } %>
 
-        <ul class="tabs"> 
-          <li><a href="#js_in">Copy &amp; Paste Javascript Code</a></li> 
-          <li><a href="#js_files">Upload Javascript Files</a></li> 
+        <ul class="tabs">
+          <li><a href="#js_in">Copy &amp; Paste Javascript Code</a></li>
+          <li><a href="#js_files">Upload Javascript Files</a></li>
           <li class="js_out"><a href="#js_out">Output</a></li>
-        </ul> 
-        <div class="tab_container"> 
+        </ul>
+        <div class="tab_container">
 
           <div id="js_in" class="tab_content">
             <!-- Multi-part form upload -->
@@ -66,7 +67,7 @@
               <!-- JS Output -->
               <h2>Compressed Javascript Output</h2>
               <form action="get">
-                <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%= js_out %></textarea></p>
+                <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%-js_out.replace(/&(?!amp;)/g, '&amp;')%></textarea></p>
               </form>
           </div>
         </div>
@@ -92,7 +93,7 @@
         <p>JSCompress.com uses <a href="https://github.com/mishoo/UglifyJS">UglifyJS</a> for all javascript minification and compression. A previous version of this site was written in PHP and used <a href="http://www.crockford.com/javascript/jsmin.html">JSMin</a> and <a href="http://dean.edwards.name/packer/">Packer</a> methods, but the PHP implementations of the libraries were flawed, outdated, untested, and led to broken output javascript in some cases.</p>
       </section>
 
-      <script type="text/javascript"> 
+      <script type="text/javascript">
       $(document).ready(function() {
 
         //Default Action
@@ -104,7 +105,7 @@
           $("ul.tabs li:first").addClass("active").show(); //Activate first tab
           $(".tab_content:first").show(); //Show first tab content
         <% } %>
-        
+
         // On Click Event
         $("ul.tabs li").click(function() {
           $("ul.tabs li").removeClass("active"); //Remove any "active" class
@@ -129,4 +130,4 @@
           return false;
         });
       });
-      </script> 
+      </script>

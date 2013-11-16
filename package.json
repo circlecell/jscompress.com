@@ -1,14 +1,14 @@
 {
   "name": "jscompress",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
-    "node": "0.8.x",
-    "npm":  "1.1.x"
+    "node": "0.10.x",
+    "npm": "1.2.x"
   },
   "dependencies": {
-    "express": "2.5.11",
-    "ejs": "0.7.1",
-    "formidable": "1.0.11",
-    "uglify-js": "1.3.4"
+    "express": "3.4.4",
+    "express-partials": "*",
+    "ejs-locals": "~1.0.2",
+    "uglify-js": "1.3.5"
   }
 }

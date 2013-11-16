@@ -4,6 +4,8 @@
  */
 
 var express = require('express');
+var ejs_engine = require('ejs-locals');
+var partials = require('express-partials');
 
 // Formidable multiple file uploads
 // @link https://github.com/felixge/node-formidable/
@@ -18,24 +20,27 @@ var ujs_jsp = require("uglify-js").parser;
 var ujs_pro = require("uglify-js").uglify;
 
 // Express
-var app = module.exports = express.createServer();
+var app = express();
 
 // Configuration
 app.configure(function(){
+  // use ejs-locals for all ejs templates:
+  app.engine('ejs', ejs_engine);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-  app.use(express.bodyParser());
+  app.use(express.bodyParser({ keepExtensions: true }));
   app.use(express.methodOverride());
   app.use(app.router);
+  app.use(partials());
   app.use(express.static(__dirname + '/public'));
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.configure('production', function(){
-  app.use(express.errorHandler()); 
+  app.use(express.errorHandler());
 });
 
 // Routes
@@ -44,6 +49,7 @@ app.get('/', function(req, res){
     title: 'JSCompress.com',
     js_in: '',
     js_out: '',
+    test_out: 'if ($( this ).html() == "&lt;&lt;") {  }',
     err: false
   });
 });
@@ -63,7 +69,7 @@ app.post('/', function(req, res) {
     if(finished) {
       return;
     }
-    //console.log('---------------------------\n', 'Finished');
+    console.log('---------------------------\n', 'Finished');
 
     finished = true;
 
@@ -81,6 +87,11 @@ app.post('/', function(req, res) {
       err = "No javascript input was found";
     }
 
+    console.log("IN:\n");
+    console.log(_js_in);
+    console.log("OUT:\n");
+    console.log(js_out);
+
     // Template
     res.render('index', {
       js_in: js_in,
@@ -96,21 +107,13 @@ app.post('/', function(req, res) {
     }
   } catch (e) {}
 
-  // Multiple file upload
-  var form = new formidable.IncomingForm(),
-      files = [],
-      fields = [];
-  form.parse(req, function(err, fields, files) {
-    if(err) {
-      return finish();
-    }
-
     // Direct JS string
-    if(fields.js_in) {
-      js_in += fields.js_in;
+    if(req.body.js_in) {
+      js_in += req.body.js_in;
     }
 
     // If we have uploaded files
+    var files = req.files;
     var i = 0;
     var len = Object.keys(files).length;
     if(files && len > 0) {
@@ -120,12 +123,8 @@ app.post('/', function(req, res) {
         // Synchronous file reads to ensure they stay in the order they were uploaded
         js_in += "// --- file[" + file.name + "] ---\n\n" + fs.readFileSync(file.path) + "\n\n";
       }
-      finish(js_in);
-    } else {
-      // No files, only fields
-      finish(js_in);
     }
-  });
+    finish(js_in);
 });
 
 var port = process.env.PORT || 3000;
