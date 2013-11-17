@@ -5,7 +5,6 @@
 
 var express = require('express');
 var ejs_engine = require('ejs-locals');
-var partials = require('express-partials');
 
 var http = require('http'),
     sys = require('sys'),
@@ -28,7 +27,6 @@ app.configure(function(){
   app.use(express.bodyParser({ keepExtensions: true }));
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(partials());
   app.use(express.static(__dirname + '/public'));
 });
 
@@ -52,7 +50,7 @@ app.get('/', function(req, res){
 });
 
 app.post('/', function(req, res) {
-  console.log('Receiving POST...');
+  /* console.log('Receiving POST...'); */
 
   // Variables
   var err = false,
@@ -66,7 +64,7 @@ app.post('/', function(req, res) {
     if(finished) {
       return;
     }
-    console.log('---------------------------\n', 'Finished');
+    /* console.log('---------------------------\n', 'Finished'); */
 
     finished = true;
 
@@ -83,11 +81,6 @@ app.post('/', function(req, res) {
     } else {
       err = "No javascript input was found";
     }
-
-    console.log("IN:\n");
-    console.log(_js_in);
-    console.log("OUT:\n");
-    console.log(js_out);
 
     // Template
     res.render('index', {
