@@ -7,10 +7,7 @@ var express = require('express');
 var ejs_engine = require('ejs-locals');
 var partials = require('express-partials');
 
-// Formidable multiple file uploads
-// @link https://github.com/felixge/node-formidable/
-var formidable = require('formidable'),
-    http = require('http'),
+var http = require('http'),
     sys = require('sys'),
     fs = require('fs');
 
