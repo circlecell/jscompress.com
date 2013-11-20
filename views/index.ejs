@@ -67,7 +67,7 @@
               <!-- JS Output -->
               <h2>Compressed Javascript Output</h2>
               <form action="get">
-                <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%-js_out.replace(/&(?!amp;)/g, '&amp;')%></textarea></p>
+                <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%-js_out.replace(/&(?!amp;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')%></textarea></p>
               </form>
           </div>
         </div>
