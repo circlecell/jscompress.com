@@ -18,7 +18,7 @@
             <!-- Multi-part form upload -->
             <form action="/" method="post" enctype="multipart/form-data">
               <h2>Javascript Code Input</h2>
-              <textarea name="js_in" id="js_in" rows="40" cols="80"><%= js_in %></textarea>
+              <textarea name="js_in" id="js_in" rows="40" cols="80" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"><%= js_in %></textarea>
               <p>
                 <script type="text/javascript"><!--
                 google_ad_client = "pub-3241315962888840";
@@ -67,7 +67,7 @@
               <!-- JS Output -->
               <h2>Compressed Javascript Output</h2>
               <form action="get">
-                <p><textarea name="js_out" id="js_out" rows="40" cols="80"><%-js_out.replace(/&(?!amp;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')%></textarea></p>
+                <p><textarea name="js_out" id="js_out" rows="40" cols="80" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"><%-js_out.replace(/&(?!amp;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')%></textarea></p>
               </form>
           </div>
         </div>
@@ -77,7 +77,12 @@
       <section class="box">
         <h2>What Is This?</h2>
 
-        <p>JSCompress.com is an online javascript compressor that allows you to compress and minify your javascript files. Compressed javascript files are ideal for production environments since they typically reduce the size of the file by 30-90%. Most of the filesize reduction is achieved by removing comments and extra whitespace characters that are not needed by web browsers or visitors.</p>
+        <p>JSCompress.com is an online javascript compressor that allows you to
+        compress and minify your javascript files. Compressed javascript files
+        are ideal for production environments since they typically reduce the
+        size of the file by 30-90%. Most of the filesize reduction is achieved
+        by removing comments and extra whitespace characters that are not
+        needed by web browsers or visitors.</p>
 
         <h2>Why Would I Want To Compress Javascript?</h2>
 
@@ -85,12 +90,18 @@
         <ul>
           <li>Quicker download times for your users.</li>
           <li>Reduced bandwidth consumption of your website.</li>
-          <li>Reduced number of HTTP requests on your server when combining many javascript files into one compressed file, thus reducing the server load and allowing more visitors to access your website.</li>
-          <li>Comments and whitespace are not needed for javascript execution; Removing them will speed up script execution times.</li>
+          <li>Reduced number of HTTP requests on your server when combining
+          many javascript files into one compressed file, thus reducing the
+          server load and allowing more visitors to access your website.</li>
+          <li>Comments and whitespace are not needed for javascript execution;
+          Removing them will reduce file size and speed up script execution
+          times.</li>
         </ul>
 
         <h2>What Javascript Compression Method is Used?</h2>
-        <p>JSCompress.com uses <a href="https://github.com/mishoo/UglifyJS">UglifyJS</a> for all javascript minification and compression. A previous version of this site was written in PHP and used <a href="http://www.crockford.com/javascript/jsmin.html">JSMin</a> and <a href="http://dean.edwards.name/packer/">Packer</a> methods, but the PHP implementations of the libraries were flawed, outdated, untested, and led to broken output javascript in some cases.</p>
+        <p>JSCompress.com uses <a
+        href="https://github.com/mishoo/UglifyJS">UglifyJS</a> for all
+        javascript minification and compression.</p>
       </section>
 
       <script type="text/javascript">
