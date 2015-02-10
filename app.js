@@ -11,9 +11,8 @@ var http = require('http'),
     fs = require('fs');
 
 // UglifyJS
-// @link https://github.com/mishoo/UglifyJS/
-var ujs_jsp = require("uglify-js").parser;
-var ujs_pro = require("uglify-js").uglify;
+// @link https://github.com/mishoo/UglifyJS2
+var UglifyJS = require("uglify-js");
 
 // Express
 var app = express();
@@ -71,10 +70,7 @@ app.post('/', function(req, res) {
     // Compress JS
     if(_js_in) {
       try {
-        var ast = ujs_jsp.parse(_js_in); // parse code and get the initial AST
-        ast = ujs_pro.ast_mangle(ast); // get a new AST with mangled names
-        //ast = ujs_pro.ast_squeeze(ast); // get an AST with compression optimizations
-        js_out = ujs_pro.gen_code(ast); // compressed code here
+        js_out = UglifyJS.minify(_js_in, { fromString: true }).code; // compressed code here
       } catch(e) {
         err = e.message;
       }
