@@ -67,8 +67,9 @@
               <!-- JS Output -->
               <h2>Compressed Javascript Output</h2>
               <form action="get">
-                <p><textarea name="js_out" id="js_out" rows="40" cols="80" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"><%-js_out.replace(/&(?!amp;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')%></textarea></p>
+                <p><textarea name="js_out" id="js_out_textarea" rows="40" cols="80" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"><%-js_out.replace(/&(?!amp;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')%></textarea></p>
               </form>
+              <button id="js_out_download" class="submit">Download .JS File</button>
           </div>
         </div>
         <div class="clear"></div>
@@ -141,4 +142,33 @@
           return false;
         });
       });
+
+      // @link http://stackoverflow.com/questions/609530/download-textarea-contents-as-a-file-using-only-javascript-no-server-side
+      function saveTextAsFile() {
+          var textToWrite = $("#js_out_textarea").text();
+          var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+          var fileNameToSaveAs = 'output.min.js';
+
+          var downloadLink = document.createElement("a");
+          downloadLink.download = fileNameToSaveAs;
+          downloadLink.innerHTML = "Download .JS";
+          if (window.webkitURL != null)
+          {
+              // Chrome allows the link to be clicked
+              // without actually adding it to the DOM.
+              downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+          }
+          else
+          {
+              // Firefox requires the link to be added to the DOM
+              // before it can be clicked.
+              downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+              downloadLink.onclick = destroyClickedElement;
+              downloadLink.style.display = "none";
+              document.body.appendChild(downloadLink);
+          }
+
+          downloadLink.click();
+      }
+      $("#js_out_download").click(saveTextAsFile);
       </script>

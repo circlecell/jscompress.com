@@ -23,6 +23,7 @@ app.configure(function(){
   app.engine('ejs', ejs_engine);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  app.use(express.limit('10mb'));
   app.use(express.bodyParser({ keepExtensions: true }));
   app.use(express.methodOverride());
   app.use(app.router);
@@ -103,7 +104,7 @@ app.post('/', function(req, res) {
     var i = 0;
     var len = Object.keys(files).length;
     if(files && len > 0) {
-      console.log('= GOT FILES (' + len + ')');
+      //console.log('= GOT FILES (' + len + ')');
       for(key in files) {
         var file = files[key];
         // Synchronous file reads to ensure they stay in the order they were uploaded
