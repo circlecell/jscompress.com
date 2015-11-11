@@ -291,7 +291,8 @@ ul.tabs li a {
 ul.tabs li a:hover {
   background: #ccc;
 }
-html ul.tabs li.active, html ul.tabs li.active a:hover  {
+ul.tabs li a.active,
+ul.tabs li a:hover  {
   background: #fff;
   border-bottom: 1px solid #fff;
 }

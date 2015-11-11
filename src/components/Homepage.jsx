@@ -51,6 +51,37 @@ export default class Homepage extends React.Component {
   }
 
   /**
+   * Click to download output code
+   *
+   * @link http://stackoverflow.com/questions/609530/download-textarea-contents-as-a-file-using-only-javascript-no-server-side
+   */
+  handleDownloadClick(event) {
+    event.preventDefault();
+
+    var textToWrite = this.refs.output.value;
+    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+    var fileNameToSaveAs = 'output.min.js';
+
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download .JS";
+    if (window.webkitURL != null) {
+      // Chrome allows the link to be clicked
+      // without actually adding it to the DOM.
+      downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    } else {
+      // Firefox requires the link to be added to the DOM
+      // before it can be clicked.
+      downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+      downloadLink.onclick = destroyClickedElement;
+      downloadLink.style.display = "none";
+      document.body.appendChild(downloadLink);
+    }
+
+    downloadLink.click();
+  }
+
+  /**
    * Click to change tab
    */
   handleTabClick(event, tab) {
@@ -73,6 +104,20 @@ export default class Homepage extends React.Component {
   }
 
   /**
+   * Get link class
+   */
+  getLinkClass(tab) {
+    let activeTab = this.state.activeTab;
+    let classes = {
+      'code'  : activeTab === 'code' ? 'active' : '',
+      'files' : activeTab === 'files' ? 'active' : '',
+      'output': activeTab === 'output' ? 'active' : ''
+    };
+
+    return classes[tab];
+  }
+
+  /**
    * Render
    */
   render() {
@@ -89,9 +134,9 @@ export default class Homepage extends React.Component {
         {appErrors}
 
         <ul className="tabs">
-          <li><a href="#code" onClick={(e) => this.handleTabClick(e, 'code')}>Copy &amp; Paste Javascript Code</a></li>
-          <li><a href="#files" onClick={(e) => this.handleTabClick(e, 'files')}>Upload Javascript Files</a></li>
-          <li><a href="#output" onClick={(e) => this.handleTabClick(e, 'output')}>Output</a></li>
+          <li><a href="#code" onClick={(e) => this.handleTabClick(e, 'code')} className={this.getLinkClass('code')}>Copy &amp; Paste Javascript Code</a></li>
+          <li><a href="#files" onClick={(e) => this.handleTabClick(e, 'files')} className={this.getLinkClass('files')}>Upload Javascript Files</a></li>
+          <li><a href="#output" onClick={(e) => this.handleTabClick(e, 'output')} className={this.getLinkClass('output')}>Output</a></li>
         </ul>
         <div className="tab_container">
 
@@ -125,9 +170,9 @@ export default class Homepage extends React.Component {
           <div id="js_out" ref="js_out" className={this.getTabClass('output')}>
               <h2>Compressed Javascript Output</h2>
               <form action="get">
-                <p><textarea name="js_out" id="js_out_textarea" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" value={ this.state.outputJS } /></p>
+                <p><textarea name="js_out" id="js_out_textarea" ref="output" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" value={ this.state.outputJS } /></p>
               </form>
-              <button id="js_out_download" className="submit" onClick={this.handleDownloadClick}>Download .JS File</button>
+              <button id="js_out_download" className="submit" onClick={this.handleDownloadClick.bind(this)}>Download .JS File</button>
           </div>
         </div>
         <div className="clear"></div>
