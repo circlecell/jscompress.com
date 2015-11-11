@@ -1,2 +1,4 @@
 .DS_Store
 node_modules
+lib
+public/js/bundle.js
