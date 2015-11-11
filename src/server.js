@@ -4,6 +4,7 @@ import Homepage from './components/Homepage';
 import express from 'express';
 import bodyParser from 'body-parser';
 import UglifyJS from 'uglify-js';
+import _ from 'lodash';
 
 
 let app = express();
@@ -38,7 +39,7 @@ function sendResponseForInputJS(res, inputJS) {
   let err;
 
   // Ensure we have some code
-  if (inputJS == '') {
+  if (_.isEmpty(inputJS)) {
     res.status(400).send({ error: 'Input code is empty' });
     return;
   }

@@ -9,9 +9,8 @@ export default class Homepage extends React.Component {
     super();
 
     this.state = {
-      js_in: "",
-      js_out: "",
-      err: null,
+      outputJS: "",
+      error: null,
       activeTab: 'code'
     }
   }
@@ -19,9 +18,8 @@ export default class Homepage extends React.Component {
   /**
    * Click 'Compress Javascript' button
    */
-  handleCompressClick(e) {
-    console.log('> handleCompressClick!');
-    e.preventDefault();
+  handleCompressClick(event) {
+    event.preventDefault();
 
     fetch('/api/js', {
       method: 'post',
@@ -30,52 +28,85 @@ export default class Homepage extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        code: this.refs.js_in.value
+        code: this.refs.inputJS.value
       })
     }).then(function(response) {
       return response.json();
-    }).then(function(jsonResponse) {
-      this.setState({ js_out: jsonResponse.js_out.code });
-    }).catch(function(error) {
-      this.setState({ err: 'Error: Unable to compress JavaScript'});
+    }).then((jsonResponse) => {
+      if (jsonResponse.error) {
+        this.setState({
+          activeTab: 'code',
+          error: 'Error: ' + jsonResponse.error
+        });
+      } else {
+        this.setState({
+          activeTab: 'output',
+          outputJS: jsonResponse.code,
+          error: null
+        });
+      }
+    }).catch((error) => {
+      this.setState({ error: 'Error: Unable to compress JavaScript' });
     });
+  }
+
+  /**
+   * Click to change tab
+   */
+  handleTabClick(event, tab) {
+    event.preventDefault();
+    this.setState({ activeTab: tab });
+  }
+
+  /**
+   * Get tab class
+   */
+  getTabClass(tab) {
+    let activeTab = this.state.activeTab;
+    let classes = {
+      'code'  : activeTab === 'code' ? 'show' : 'hide',
+      'files' : activeTab === 'files' ? 'show' : 'hide',
+      'output': activeTab === 'output' ? 'show' : 'hide'
+    };
+
+    return classes[tab] + ' tab_content';
   }
 
   /**
    * Render
    */
   render() {
-    var appErrors;
-    if (this.state.err) {
+    let appErrors;
+    if (this.state.error) {
       appErrors = <div className="app_errors">
-        <ul><li>{ this.state.err }</li></ul>
+        <ul><li>{ this.state.error }</li></ul>
       </div>;
     }
 
     return (
       <div id="HomepageComponent">
       <section className="box">
-      {appErrors}
+        {appErrors}
 
         <ul className="tabs">
-          <li><a href="#js_in">Copy &amp; Paste Javascript Code</a></li>
-          <li><a href="#js_files">Upload Javascript Files</a></li>
-          <li className="js_out"><a href="#js_out">Output</a></li>
+          <li><a href="#code" onClick={(e) => this.handleTabClick(e, 'code')}>Copy &amp; Paste Javascript Code</a></li>
+          <li><a href="#files" onClick={(e) => this.handleTabClick(e, 'files')}>Upload Javascript Files</a></li>
+          <li><a href="#output" onClick={(e) => this.handleTabClick(e, 'output')}>Output</a></li>
         </ul>
         <div className="tab_container">
 
-          <div id="js_in" className="tab_content">
-            <form action="/" method="post" encType="multipart/form-data">
+          <div id="js_in" ref="js_in" className={this.getTabClass('code')}>
+            <form action="/api/js" method="post">
               <h2>Javascript Code Input</h2>
-              <textarea name="js_in" id="js_in" ref="js_in" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" value={ this.state.js_in } />
+              <textarea name="inputJS" id="inputJS" ref="inputJS" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
               <p>
                 <Ad slot="0991193574" width={728} height={90} />
               </p>
-              <button type="submit" className="submit" onClick={this.handleCompressClick}>Compress Javascript</button>
+              <button type="submit" className="submit" onClick={this.handleCompressClick.bind(this)}>Compress Javascript</button>
             </form>
           </div>
 
-          <div id="js_files" className="tab_content">
+          <div id="js_files" ref="js_files" className={this.getTabClass('files')}>
             <form action="/" method="post" encType="multipart/form-data">
               <h2>Javascript File Upload</h2>
               <p>Multiple file uploads will be combined <strong>in order</strong> and compressed together as one file.</p>
@@ -91,10 +122,10 @@ export default class Homepage extends React.Component {
             </form>
           </div>
 
-          <div id="js_out" className="tab_content">
+          <div id="js_out" ref="js_out" className={this.getTabClass('output')}>
               <h2>Compressed Javascript Output</h2>
               <form action="get">
-                <p><textarea name="js_out" id="js_out_textarea" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" value={ this.state.js_out.replace(/&(?!amp;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') } /></p>
+                <p><textarea name="js_out" id="js_out_textarea" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" value={ this.state.outputJS } /></p>
               </form>
               <button id="js_out_download" className="submit" onClick={this.handleDownloadClick}>Download .JS File</button>
           </div>

@@ -6,12 +6,12 @@
 /*  Resets
     ------  */
 
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, 
-p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em, 
-img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, 
-dl, dt, dd, ol, ul, li, fieldset, form, label, legend, 
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em,
+img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figure, figcaption, hgroup, 
+article, aside, canvas, details, figure, figcaption, hgroup,
 menu, footer, header, nav, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
@@ -61,7 +61,7 @@ figure img {width: 100%;}
 .small {
     font-size: 13px;
     line-height: 18px;
-} 
+}
 
 
 body {
@@ -85,7 +85,7 @@ img::-moz-selection {background: transparent;}
  */
 
 #pageWrapper {
-    
+
 }
 
 article.box,
@@ -93,12 +93,12 @@ section.box,
 div.box {
     margin-bottom: 24px;
     padding: 24px;
-    
+
     background: #FFF;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-} 
+}
 
 
 h1, h2, h3, h4, h5, h6 {
@@ -167,27 +167,27 @@ header h1 a {
  * FORM Styles
  * @see http://www.vooshthemes.com/blog/design-tutorial/create-a-clean-and-stylish-css3-contact-form/
  */
-label { 
+label {
     font-size: 20px;
-    color: #555; 
+    color: #555;
 }
 
 input, textarea {
-    padding: 8px; 
-    margin: 4px 0 20px 0; 
-    background: #fff; 
-    width: 220px; 
-    font-size: 14px; 
-    color: #555; 
+    padding: 8px;
+    margin: 4px 0 20px 0;
+    background: #fff;
+    width: 220px;
+    font-size: 14px;
+    color: #555;
     border: 1px #ddd solid;
-    
-    /* -- CSS3 Shadow - create a shadow around each input element -- */ 
+
+    /* -- CSS3 Shadow - create a shadow around each input element -- */
     -webkit-box-shadow: 0px 0px 4px #aaa;
-    -moz-box-shadow: 0px 0px 4px #aaa; 
+    -moz-box-shadow: 0px 0px 4px #aaa;
     box-shadow: 0px 0px 4px #aaa;
-    
-    /* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */       
-    -webkit-transition: background 0.3s linear;                         
+
+    /* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */
+    -webkit-transition: background 0.3s linear;
 }
 
 textarea {
@@ -195,40 +195,40 @@ textarea {
     height: 250px;
 }
 
-input:hover, textarea:hover { 
-    background: #eee; 
+input:hover, textarea:hover {
+    background: #eee;
 }
-    
+
 input.submit,
 button.submit {
-    color: #eee; 
-    text-transform: uppercase; 
+    color: #eee;
+    text-transform: uppercase;
     margin-top: 10px;
     padding: 7px 14px;
     background-color: #18a5cc;
     border: none;
     font-size: 16px;
-    
+
     /* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
     -webkit-transition: -webkit-box-shadow 0.3s linear;
-    
+
     /* -- CSS3 - Rounded Corners -- */
-    -moz-border-radius: 4px; 
+    -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
-    border-radius: 4px; 
-                    
-    /* -- CSS3 Shadow - create a shadow around each input element -- */ 
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#18a5cc), to(#0a85a8)); 
-    background: -moz-linear-gradient(25% 75% 90deg,#0a85a8, #18a5cc);       
-} 
+    border-radius: 4px;
+
+    /* -- CSS3 Shadow - create a shadow around each input element -- */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#18a5cc), to(#0a85a8));
+    background: -moz-linear-gradient(25% 75% 90deg,#0a85a8, #18a5cc);
+}
 
 input.submit:hover,
-button.submit:hover {       
+button.submit:hover {
     -webkit-box-shadow: 0px 0px 20px #555;
-    -moz-box-shadow: 0px 0px 20px #aaa; 
-    box-shadow: 0px 0px 20px #555;  
+    -moz-box-shadow: 0px 0px 20px #aaa;
+    box-shadow: 0px 0px 20px #555;
     cursor:  pointer;
-} 
+}
 
 .clear {
     clear: both;
@@ -257,73 +257,79 @@ button.submit:hover {
  * @link http://www.sohtanaka.com/web-design/examples/tabs/
  */
 ul.tabs {
-    margin: 0;
-    padding: 0;
-    float: left;
-    list-style: none;
-    height: 32px;
-    border-bottom: 1px solid #999;
-    border-left: 1px solid #999;
-    width: 100%;
+  margin: 0;
+  padding: 0;
+  float: left;
+  list-style: none;
+  height: 32px;
+  border-bottom: 1px solid #999;
+  border-left: 1px solid #999;
+  width: 100%;
 }
 ul.tabs li {
-    float: left;
-    margin: 0;
-    padding: 0;
-    height: 31px;
-    line-height: 31px;
-    border: 1px solid #999;
-    border-left: none;
-    margin-bottom: -1px;
-    background: #e0e0e0;
-    overflow: hidden;
-    position: relative;
+  float: left;
+  margin: 0;
+  padding: 0;
+  height: 31px;
+  line-height: 31px;
+  border: 1px solid #999;
+  border-left: none;
+  margin-bottom: -1px;
+  background: #e0e0e0;
+  overflow: hidden;
+  position: relative;
 }
 ul.tabs li a {
-    text-decoration: none;
-    color: #000;
-    display: block;
-    font-size: 1.2em;
-    padding: 0 20px;
-    border: 1px solid #fff;
-    outline: none;
+  text-decoration: none;
+  color: #000;
+  display: block;
+  font-size: 1.2em;
+  padding: 0 20px;
+  border: 1px solid #fff;
+  outline: none;
 }
 ul.tabs li a:hover {
-    background: #ccc;
-}   
+  background: #ccc;
+}
 html ul.tabs li.active, html ul.tabs li.active a:hover  {
-    background: #fff;
-    border-bottom: 1px solid #fff;
+  background: #fff;
+  border-bottom: 1px solid #fff;
 }
 .tab_container {
-    border: 1px solid #999;
-    border-top: none;
-    clear: both;
-    float: left; 
-    width: 100%;
-    background: #fff;
-    -moz-border-radius-bottomright: 5px;
-    -khtml-border-radius-bottomright: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    -khtml-border-radius-bottomleft: 5px;
-    -webkit-border-bottom-left-radius: 5px;
+  border: 1px solid #999;
+  border-top: none;
+  clear: both;
+  float: left;
+  width: 100%;
+  background: #fff;
+  -moz-border-radius-bottomright: 5px;
+  -khtml-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -khtml-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
 }
 .tab_content {
-    padding: 20px;
-    font-size: 1.2em;
+  padding: 20px;
+  font-size: 1.2em;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
 }
 
 #pageWrapper {
-    position: relative;
+  position: relative;
 }
 #content {
-    margin-left: 170px;
+  margin-left: 170px;
 }
 #ad_side {
-    width: 160px;
-    height: 600px;
-    position: absolute;
-    top: 50px;
-    left: 0;
+  width: 160px;
+  height: 600px;
+  position: absolute;
+  top: 50px;
+  left: 0;
 }
