@@ -16,7 +16,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // Parse application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: '10mb'
+}));
 
 // No need to advertise our tech stack
 app.set('x-powered-by', false);
@@ -66,32 +68,6 @@ app.post('/api/js', function (req, res) {
   }
 
   sendResponseForInputJS(res, req.body.code);
-});
-
-// Upload and compress several JS files together
-app.post('/api/jsfiles', function (req, res) {
-  // Ensure request has content
-  if (!req.files) {
-    res.status(400).send({ error: 'No files have been uploaded' });
-    return;
-  }
-
-  let inputJS = '';
-
-  // If we have uploaded files
-  let files = req.files;
-  let i = 0;
-  let len = Object.keys(files).length;
-  if(files && len > 0) {
-    //console.log('= GOT FILES (' + len + ')');
-    for(key in files) {
-      let file = files[key];
-      // Synchronous file reads to ensure they stay in the order they were uploaded
-      inputJS += "// --- file[" + file.name + "] ---\n\n" + fs.readFileSync(file.path) + "\n\n";
-    }
-  }
-
-  sendResponseForInputJS(res, inputJS);
 });
 
 

@@ -1,6 +1,10 @@
 import React from 'react';
 import Ad from './Ad';
 
+import promise from 'es6-promise'
+import fetch from 'isomorphic-fetch';
+promise.polyfill();
+
 export default class Homepage extends React.Component {
   /**
    * Initial state
@@ -16,11 +20,9 @@ export default class Homepage extends React.Component {
   }
 
   /**
-   * Click 'Compress Javascript' button
+   * Compress JavaScript via server call
    */
-  handleCompressClick(event) {
-    event.preventDefault();
-
+  _compressJS(inputJS) {
     fetch('/api/js', {
       method: 'post',
       headers: {
@@ -28,7 +30,7 @@ export default class Homepage extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        code: this.refs.inputJS.value
+        code: inputJS
       })
     }).then(function(response) {
       return response.json();
@@ -48,6 +50,73 @@ export default class Homepage extends React.Component {
     }).catch((error) => {
       this.setState({ error: 'Error: Unable to compress JavaScript' });
     });
+  }
+
+  /**
+   * Click 'Compress Javascript' button
+   */
+  handleCompressClick(event) {
+    event.preventDefault();
+    this._compressJS(this.refs.inputJS.value);
+  }
+
+  /**
+   * Click 'Upload JavaScript'
+   */
+  handleUploadClick(event) {
+    console.log('> handleUploadClick');
+    event.preventDefault();
+
+    let inputJS;
+
+    // Read file
+    function readFileAsync(fileObject, readFileDoneCallback) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var fileContents = e.target.result;
+        readFileDoneCallback.call(null, fileContents);
+      };
+      reader.readAsText(fileObject);
+    }
+
+    // Loop through files
+    let fileContentsDict = {};
+    let filesOrder = [];
+    let files  = document.querySelectorAll('input[type=file]');
+    console.log(files);
+    let filesCount = 0;
+    let filesProcessedCount = 0;
+    for (var i = 0; i < files.length; i++) {
+      let file = files[i];
+      filesOrder.push(file.name);
+
+      // Ensure we have a file
+      if (!file.files || !file.files[0]) {
+        continue;
+      }
+
+      filesCount++;
+      console.log('> Processing file: ' + file.name);
+
+      readFileAsync(file.files[0], (fileContents) => {
+        console.log('> Got file contents!: ' + file.name);
+        filesProcessedCount++;
+        fileContentsDict[file.name] = "// --- file[" + file.name + "] ---\n\n" + fileContents + "\n\n";
+
+        // If this is the LAST file processed, time to combine!
+        if (filesProcessedCount === filesCount) {
+          console.log('> Time to combine!: ' + file.name);
+
+          // Ensure files are joined IN ORDER, regardless of which ones finished first
+          filesOrder.forEach((fileName) => {
+            inputJS += fileContentsDict[fileName];
+          });
+
+          // Compress it!
+          this._compressJS(inputJS);
+        }
+      });
+    }
   }
 
   /**
@@ -163,7 +232,7 @@ export default class Homepage extends React.Component {
               <p>
                 <Ad slot="0991193574" width={728} height={90} />
               </p>
-              <button type="submit" className="submit" onClick={this.handleUploadClick}>Upload Files &amp; Compress Javascript</button>
+              <button type="submit" className="submit" onClick={this.handleUploadClick.bind(this)}>Upload Files &amp; Compress Javascript</button>
             </form>
           </div>
 
