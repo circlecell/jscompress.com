@@ -13,7 +13,9 @@ export default class Homepage extends React.Component {
     super();
 
     this.state = {
+      inputJS: "",
       outputJS: "",
+      stats: null,
       error: null,
       activeTab: 'code'
     }
@@ -22,7 +24,7 @@ export default class Homepage extends React.Component {
   /**
    * Compress JavaScript via server call
    */
-  _compressJS(inputJS) {
+  _compressJS(inputJS, tab) {
     fetch('/api/js', {
       method: 'post',
       headers: {
@@ -37,13 +39,17 @@ export default class Homepage extends React.Component {
     }).then((jsonResponse) => {
       if (jsonResponse.error) {
         this.setState({
-          activeTab: 'code',
+          activeTab: tab || 'code',
+          stats: null,
+          inputJS: inputJS,
           error: 'Error: ' + jsonResponse.error
         });
       } else {
         this.setState({
           activeTab: 'output',
+          inputJS: inputJS,
           outputJS: jsonResponse.code,
+          stats: jsonResponse.stats,
           error: null
         });
       }
@@ -64,7 +70,6 @@ export default class Homepage extends React.Component {
    * Click 'Upload JavaScript'
    */
   handleUploadClick(event) {
-    console.log('> handleUploadClick');
     event.preventDefault();
 
     let inputJS;
@@ -83,7 +88,6 @@ export default class Homepage extends React.Component {
     let fileContentsDict = {};
     let filesOrder = [];
     let files  = document.querySelectorAll('input[type=file]');
-    console.log(files);
     let filesCount = 0;
     let filesProcessedCount = 0;
     for (var i = 0; i < files.length; i++) {
@@ -96,16 +100,13 @@ export default class Homepage extends React.Component {
       }
 
       filesCount++;
-      console.log('> Processing file: ' + file.name);
 
       readFileAsync(file.files[0], (fileContents) => {
-        console.log('> Got file contents!: ' + file.name);
         filesProcessedCount++;
         fileContentsDict[file.name] = "// --- file[" + file.name + "] ---\n\n" + fileContents + "\n\n";
 
         // If this is the LAST file processed, time to combine!
         if (filesProcessedCount === filesCount) {
-          console.log('> Time to combine!: ' + file.name);
 
           // Ensure files are joined IN ORDER, regardless of which ones finished first
           filesOrder.forEach((fileName) => {
@@ -113,7 +114,7 @@ export default class Homepage extends React.Component {
           });
 
           // Compress it!
-          this._compressJS(inputJS);
+          this._compressJS(inputJS, 'files');
         }
       });
     }
@@ -142,7 +143,9 @@ export default class Homepage extends React.Component {
       // Firefox requires the link to be added to the DOM
       // before it can be clicked.
       downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-      downloadLink.onclick = destroyClickedElement;
+      downloadLink.onclick = function () {
+        document.body.removeChild(downloadLink);
+      };
       downloadLink.style.display = "none";
       document.body.appendChild(downloadLink);
     }
@@ -197,6 +200,11 @@ export default class Homepage extends React.Component {
       </div>;
     }
 
+    // For some reason, React locks the <textarea> input when we use a "value" attribute, so we have to do this...
+    if (this.state.inputJS !== '') {
+      this.refs.inputJS.value = this.state.inputJS;
+    }
+
     return (
       <div id="HomepageComponent">
       <section className="box">
@@ -242,6 +250,7 @@ export default class Homepage extends React.Component {
                 <p><textarea name="js_out" id="js_out_textarea" ref="output" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" value={ this.state.outputJS } /></p>
               </form>
               <button id="js_out_download" className="submit" onClick={this.handleDownloadClick.bind(this)}>Download .JS File</button>
+              <span className="js_stats">Stats: <mark>{ this.state.stats ? (this.state.stats.change_pct * 100).toFixed(2) : 0 }%</mark> compression, saving <mark>{ this.state.stats ? this.state.stats.change_kb : 0 } kb</mark></span>
           </div>
         </div>
         <div className="clear"></div>

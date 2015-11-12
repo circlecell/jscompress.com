@@ -55,7 +55,14 @@ function sendResponseForInputJS(res, inputJS) {
 
   res.status(200).send({
     code: outputJS.code,
-    map: outputJS.map
+    map: outputJS.map,
+    stats: {
+      input_size:  inputJS.length,
+      output_size: outputJS.code.length,
+      change_size: inputJS.length - outputJS.code.length,
+      change_kb:   _.round((inputJS.length - outputJS.code.length) / 1024, 2),
+      change_pct:  _.round(1 - (outputJS.code.length / inputJS.length), 2)
+    }
   });
 }
 

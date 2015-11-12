@@ -334,3 +334,16 @@ ul.tabs li a:hover  {
   top: 50px;
   left: 0;
 }
+
+.js_stats {
+  display: inline-block;
+  background: #eee;
+  padding: 4px 10px;
+  margin-left: 2em;
+  font-size: 0.8em;
+}
+.js_stats mark {
+  display: inline-block;
+  background: #ccc;
+  padding: 5px;
+}
