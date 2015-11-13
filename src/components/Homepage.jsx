@@ -13,6 +13,7 @@ export default class Homepage extends React.Component {
     super();
 
     this.state = {
+      loading: false,
       inputJS: "",
       outputJS: "",
       stats: null,
@@ -25,6 +26,10 @@ export default class Homepage extends React.Component {
    * Compress JavaScript via server call
    */
   _compressJS(inputJS, tab) {
+    // Loading
+    this.setState({ loading: true });
+
+    // Run server compression
     fetch('/api/js', {
       method: 'post',
       headers: {
@@ -38,14 +43,18 @@ export default class Homepage extends React.Component {
       return response.json();
     }).then((jsonResponse) => {
       if (jsonResponse.error) {
+        // Show error
         this.setState({
-          activeTab: tab || 'code',
           stats: null,
+          loading: false,
           inputJS: inputJS,
+          activeTab: tab || 'code',
           error: 'Error: ' + jsonResponse.error
         });
       } else {
+        // Show output result
         this.setState({
+          loading: false,
           activeTab: 'output',
           inputJS: inputJS,
           outputJS: jsonResponse.code,
@@ -54,7 +63,11 @@ export default class Homepage extends React.Component {
         });
       }
     }).catch((error) => {
-      this.setState({ error: 'Error: Unable to compress JavaScript' });
+      // Show error
+      this.setState({
+        loading: false,
+        error: 'Error: Unable to compress JavaScript'
+      });
     });
   }
 
@@ -72,7 +85,7 @@ export default class Homepage extends React.Component {
   handleUploadClick(event) {
     event.preventDefault();
 
-    let inputJS;
+    let inputJS = '';
 
     // Read file
     function readFileAsync(fileObject, readFileDoneCallback) {
@@ -200,6 +213,11 @@ export default class Homepage extends React.Component {
       </div>;
     }
 
+    let loading;
+    if (this.state.loading === true) {
+      loading = <div className="js_loading"><span>Crunching those bits! ...</span></div>;
+    }
+
     // For some reason, React locks the <textarea> input when we use a "value" attribute, so we have to do this...
     if (this.state.inputJS !== '') {
       this.refs.inputJS.value = this.state.inputJS;
@@ -216,6 +234,7 @@ export default class Homepage extends React.Component {
           <li><a href="#output" onClick={(e) => this.handleTabClick(e, 'output')} className={this.getLinkClass('output')}>Output</a></li>
         </ul>
         <div className="tab_container">
+          {loading}
 
           <div id="js_in" ref="js_in" className={this.getTabClass('code')}>
             <form action="/api/js" method="post">
