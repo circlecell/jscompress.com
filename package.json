@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Online JavaScript Compression Tool",
   "main": "lib/server.js",
+  "engines": {
+    "node": "4.2.2"
+  },
   "scripts": {
     "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --plugins transform-react-jsx --presets es2015",
     "bundle": "./node_modules/browserify/bin/cmd.js lib/client.js -o public/js/bundle.js",
