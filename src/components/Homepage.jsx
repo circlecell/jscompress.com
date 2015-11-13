@@ -13,6 +13,7 @@ export default class Homepage extends React.Component {
 
     this.state = {
       loading: false,
+      fileInputs: 1,
       inputJS: "",
       outputJS: "",
       stats: null,
@@ -76,6 +77,16 @@ export default class Homepage extends React.Component {
   handleCompressClick(event) {
     event.preventDefault();
     this._compressJS(this.refs.inputJS.value);
+  }
+
+  /**
+   * Click 'Add Another File' link
+   */
+  handleUploadAddFileClick(event) {
+    event.preventDefault();
+
+    // Add file input
+    this.setState({ fileInputs: this.state.fileInputs + 1 });
   }
 
   /**
@@ -249,10 +260,9 @@ export default class Homepage extends React.Component {
               <h2>Javascript File Upload</h2>
               <p>Multiple file uploads will be combined <strong>in order</strong> and compressed together as one file.</p>
               <div id="js_files_fields">
-                <div><input type="file" name="js_file_0" /></div>
-                <div><input type="file" name="js_file_1" /></div>
+                {this._renderFileInputs()}
               </div>
-              <p><a id="js_files_add" href="#">+ Upload Another File</a></p>
+              <p><a id="js_files_add" href="#" onClick={this.handleUploadAddFileClick.bind(this)}>+ Upload Another File</a></p>
               <div id="bsap_1304144" className="bsarocks bsap_28c05c8923a305f9880df4be2546b9aa"></div>
               <button type="submit" className="submit" onClick={this.handleUploadClick.bind(this)}>Upload Files &amp; Compress Javascript</button>
             </form>
@@ -301,5 +311,15 @@ export default class Homepage extends React.Component {
       </section>
     </div>
     );
+  }
+
+  _renderFileInputs() {
+    var inputs = [];
+    for(let i = 0; i < this.state.fileInputs; i++) {
+      let fileInputKey = 'js_file_' + i;
+      inputs.push(<div><input type="file" name={fileInputKey} key={fileInputKey} /></div>);
+    }
+
+    return <div>{inputs}</div>;
   }
 }
