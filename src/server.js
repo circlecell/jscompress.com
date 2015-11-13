@@ -81,7 +81,8 @@ app.post('/api/js', function (req, res) {
 // SERVER ---------------------------------------------
 
 // Start server
-let server = app.listen(1337, function () {
+let port = process.env.PORT || 1337;
+let server = app.listen(port, function () {
   let host = server.address().address;
   let port = server.address().port;
 
