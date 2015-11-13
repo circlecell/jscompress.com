@@ -1,5 +1,4 @@
 import React from 'react';
-import Ad from './Ad';
 
 import promise from 'es6-promise'
 import fetch from 'isomorphic-fetch';
@@ -240,9 +239,7 @@ export default class Homepage extends React.Component {
             <form action="/api/js" method="post">
               <h2>Javascript Code Input</h2>
               <textarea name="inputJS" id="inputJS" ref="inputJS" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
-              <p>
-                <Ad slot="0991193574" width={728} height={90} />
-              </p>
+              <div id="bsap_1304144" className="bsarocks bsap_28c05c8923a305f9880df4be2546b9aa"></div>
               <button type="submit" className="submit" onClick={this.handleCompressClick.bind(this)}>Compress Javascript</button>
             </form>
           </div>
@@ -256,9 +253,7 @@ export default class Homepage extends React.Component {
                 <div><input type="file" name="js_file_1" /></div>
               </div>
               <p><a id="js_files_add" href="#">+ Upload Another File</a></p>
-              <p>
-                <Ad slot="0991193574" width={728} height={90} />
-              </p>
+              <div id="bsap_1304144" className="bsarocks bsap_28c05c8923a305f9880df4be2546b9aa"></div>
               <button type="submit" className="submit" onClick={this.handleUploadClick.bind(this)}>Upload Files &amp; Compress Javascript</button>
             </form>
           </div>
