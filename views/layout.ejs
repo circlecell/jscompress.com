@@ -13,8 +13,6 @@
     <![endif]-->
     <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css' />
     <link type="text/css" href="/stylesheets/styles.css" rel="stylesheet" />
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -23,22 +21,14 @@
       <h1><a href="/">Online Javascript Compression Tool</a></h1>
     </header>
 
-    <div id="content">
-     <%- body %>
-    </div>
+    <div id="content"><%- content %></div>
 
     <div id="ad_side">
-      <script type="text/javascript"><!--
-        google_ad_client = "pub-3241315962888840";
-        /* JSCompress.com - Side 160x600 */
-        google_ad_slot = "7552546142";
-        google_ad_width = 160;
-        google_ad_height = 600;
-        //-->
-      </script>
-      <script type="text/javascript"
-      src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-      </script>
+      <!-- JSCompress.com - Side 160x600 -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:160px;height:600px"
+           data-ad-client="ca-pub-3241315962888840"
+           data-ad-slot="7552546142"></ins>
     </div>
 
     <footer>
@@ -47,6 +37,14 @@
         <p>Powered by <a href="http://nodejs.org">Node.js</a> and <a href="https://github.com/mishoo/UglifyJS">UglifyJS</a>. Source code on <a href="https://github.com/vlucas/jscompress.com">GitHub</a>.</p>
       </article>
     </footer>
+
+    <script src="/js/bundle.js"></script>
+
+    <!-- Adsense -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 
     <!-- GA Tracker -->
     <script>
