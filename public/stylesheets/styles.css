@@ -27,6 +27,9 @@ img::-moz-selection {background: transparent;}
  * Page styles
  */
 
+.box {
+  clear: both;
+}
 .box header {
   padding: 10px 0;
 }
