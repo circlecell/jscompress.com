@@ -16,7 +16,11 @@
   "author": "Vance Lucas",
   "license": "GPL-3.0",
   "dependencies": {
+    "babel-cli": "^6.1.2",
+    "babel-plugin-transform-react-jsx": "^6.0.18",
+    "babel-preset-es2015": "^6.1.2",
     "body-parser": "^1.14.1",
+    "browserify": "^12.0.1",
     "ejs": "^2.3.4",
     "es6-promise": "^3.0.2",
     "express": "^4.13.3",
@@ -24,12 +28,7 @@
     "lodash": "^3.10.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
-    "uglify-js": "^2.5.0",
-    "browserify": "^12.0.1",
-    "babel-cli": "^6.1.2",
-    "babel-plugin-transform-react-jsx": "^6.0.18",
-    "babel-preset-es2015": "^6.1.2"
+    "uglify-js": "^2.5.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

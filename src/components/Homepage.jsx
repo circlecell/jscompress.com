@@ -204,12 +204,12 @@ export default class Homepage extends React.Component {
   getLinkClass(tab) {
     let activeTab = this.state.activeTab;
     let classes = {
-      'code'  : activeTab === 'code' ? 'active' : '',
-      'files' : activeTab === 'files' ? 'active' : '',
-      'output': activeTab === 'output' ? 'active' : ''
+      'code'  : activeTab === 'code' ? 'pure-menu-selected' : '',
+      'files' : activeTab === 'files' ? 'pure-menu-selected' : '',
+      'output': activeTab === 'output' ? 'pure-menu-selected' : ''
     };
 
-    return classes[tab];
+    return 'pure-menu-item ' + classes[tab];
   }
 
   /**
@@ -235,84 +235,59 @@ export default class Homepage extends React.Component {
 
     return (
       <div id="HomepageComponent">
-      <section className="box">
-        {appErrors}
+        <div className="box">
+          <header>
+            <h1><a href="/">Online Javascript Compression Tool</a></h1>
+          </header>
+          <section>
+            {appErrors}
+            <div className="pure-menu pure-menu-horizontal">
+              <ul className="pure-menu-list">
+                <li className={this.getLinkClass('code')}><a href="#code" onClick={(e) => this.handleTabClick(e, 'code')} className="pure-menu-link">Copy &amp; Paste Javascript Code</a></li>
+                <li className={this.getLinkClass('files')}><a href="#files" onClick={(e) => this.handleTabClick(e, 'files')} className="pure-menu-link">Upload Javascript Files</a></li>
+                <li className={this.getLinkClass('output')}><a href="#output" onClick={(e) => this.handleTabClick(e, 'output')} className="pure-menu-link">Output</a></li>
+              </ul>
+            </div>
+            <div className="tab_container">
+              {loading}
 
-        <ul className="tabs">
-          <li><a href="#code" onClick={(e) => this.handleTabClick(e, 'code')} className={this.getLinkClass('code')}>Copy &amp; Paste Javascript Code</a></li>
-          <li><a href="#files" onClick={(e) => this.handleTabClick(e, 'files')} className={this.getLinkClass('files')}>Upload Javascript Files</a></li>
-          <li><a href="#output" onClick={(e) => this.handleTabClick(e, 'output')} className={this.getLinkClass('output')}>Output</a></li>
-        </ul>
-        <div className="tab_container">
-          {loading}
-
-          <div id="js_in" ref="js_in" className={this.getTabClass('code')}>
-            <form action="/api/js" method="post">
-              <h2>Javascript Code Input</h2>
-              <textarea name="inputJS" id="inputJS" ref="inputJS" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
-              <div id="bsap_1304144" className="bsarocks bsap_28c05c8923a305f9880df4be2546b9aa"></div>
-              <button type="submit" className="submit" onClick={this.handleCompressClick.bind(this)}>Compress Javascript</button>
-            </form>
-          </div>
-
-          <div id="js_files" ref="js_files" className={this.getTabClass('files')}>
-            <form action="/" method="post" encType="multipart/form-data">
-              <h2>Javascript File Upload</h2>
-              <p>Multiple file uploads will be combined <strong>in order</strong> and compressed together as one file.</p>
-              <div id="js_files_fields">
-                {this._renderFileInputs()}
+              <div id="js_in" ref="js_in" className={this.getTabClass('code')}>
+                <form action="/api/js" method="post">
+                  <textarea name="inputJS" id="inputJS" ref="inputJS" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+                  <div id="bsap_1304144" className="bsarocks bsap_28c05c8923a305f9880df4be2546b9aa"></div>
+                  <button type="submit" className="pure-button pure-button-primary" onClick={this.handleCompressClick.bind(this)}>Compress Javascript</button>
+                </form>
               </div>
-              <p><a id="js_files_add" href="#" onClick={this.handleUploadAddFileClick.bind(this)}>+ Upload Another File</a></p>
-              <div id="bsap_1304144" className="bsarocks bsap_28c05c8923a305f9880df4be2546b9aa"></div>
-              <button type="submit" className="submit" onClick={this.handleUploadClick.bind(this)}>Upload Files &amp; Compress Javascript</button>
-            </form>
-          </div>
 
-          <div id="js_out" ref="js_out" className={this.getTabClass('output')}>
-              <h2>Compressed Javascript Output</h2>
-              <form action="get">
-                <p><textarea name="js_out" id="js_out_textarea" ref="output" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" value={ this.state.outputJS } /></p>
-              </form>
-              <button id="js_out_download" className="submit" onClick={this.handleDownloadClick.bind(this)}>Download .JS File</button>
-              <span className="js_stats">Stats: <mark>{ this.state.stats ? (this.state.stats.change_pct * 100).toFixed(2) : 0 }%</mark> compression, saving <mark>{ this.state.stats ? this.state.stats.change_kb : 0 } kb</mark></span>
-          </div>
+              <div id="js_files" ref="js_files" className={this.getTabClass('files')}>
+                <form action="/" method="post" encType="multipart/form-data">
+                  <p>Multiple file uploads will be combined <strong>in order</strong> and compressed together as one file.</p>
+                  <div id="js_files_fields">
+                    {this._renderFileInputs()}
+                  </div>
+                  <p><a id="js_files_add" href="#" onClick={this.handleUploadAddFileClick.bind(this)} className="pure-button">+ Add Another File</a></p>
+                  <div id="bsap_1304144" className="bsarocks bsap_28c05c8923a305f9880df4be2546b9aa"></div>
+                  <button type="submit" className="pure-button pure-button-primary" onClick={this.handleUploadClick.bind(this)}>Upload Files &amp; Compress Javascript</button>
+                </form>
+              </div>
+
+              <div id="js_out" ref="js_out" className={this.getTabClass('output')}>
+                  <form action="get">
+                    <textarea name="js_out" id="js_out_textarea" ref="output" rows="40" cols="80" spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" value={ this.state.outputJS } />
+                  </form>
+                  <button id="js_out_download" className="pure-button pure-button-primary" onClick={this.handleDownloadClick.bind(this)}>Download .JS File</button>
+                  <span className="js_stats">Stats: <mark>{ this.state.stats ? (this.state.stats.change_pct * 100).toFixed(2) : 0 }%</mark> compression, saving <mark>{ this.state.stats ? this.state.stats.change_kb : 0 } kb</mark></span>
+              </div>
+            </div>
+          </section>
         </div>
-        <div className="clear"></div>
-      </section>
-
-      <section className="box">
-        <h2>What Is This?</h2>
-
-        <p>JSCompress.com is an online javascript compressor that allows you to
-        compress and minify your javascript files. Compressed javascript files
-        are ideal for production environments since they typically reduce the
-        size of the file by 30-90%. Most of the filesize reduction is achieved
-        by removing comments and extra whitespace characters that are not
-        needed by web browsers or visitors.</p>
-
-        <h2>Why Would I Want To Compress Javascript?</h2>
-
-        <p>There are a number of reasons why compressing your javascript files is a good idea:</p>
-        <ul>
-          <li>Quicker download times for your users.</li>
-          <li>Reduced bandwidth consumption of your website.</li>
-          <li>Reduced number of HTTP requests on your server when combining
-          many javascript files into one compressed file, thus reducing the
-          server load and allowing more visitors to access your website.</li>
-          <li>Comments and whitespace are not needed for javascript execution;
-          Removing them will reduce file size and speed up script execution
-          times.</li>
-        </ul>
-
-        <h2>What Javascript Compression Method is Used?</h2>
-        <p>JSCompress.com uses <a
-        href="https://github.com/mishoo/UglifyJS2">UglifyJS2</a> for all
-        javascript minification and compression.</p>
-      </section>
-    </div>
+      </div>
     );
   }
 
+  /**
+   * Render list of file inputs for file uploads
+   */
   _renderFileInputs() {
     var inputs = [];
     for(let i = 0; i < this.state.fileInputs; i++) {
