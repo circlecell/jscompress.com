@@ -4,19 +4,32 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body>
-		<h1>Tiny POW</h1>
-		<h3>Input</h3>
-		<textarea id="input" cols="100" rows="20">
-function test() {
-	var longVariableName = 42;
-	alert(longVariableName);
-}
+		<h1>Online Javascript Compression Tool</h1>
+        <main>
+            <ul class="tab-nav">
+    			<li data-tab="copy-paste" class="tab-nav-item">Copy &amp; Paste Javascript Code</li>
+    			<li data-tab="upload" class="tab-nav-item">Upload Javascript Files</li>
+    			<li data-tab="output" class="tab-nav-item">Output</li>
+    		</ul>
+    		<div class="tabs">
+    			<div class="tab-pane" id="copy-paste">
+                    <textarea id="code">
+            function test() {
+                var longVariableName = 42;
+                alert(longVariableName);
+            }
+                    </textarea>
+    			</div>
+    			<div class="tab-pane" id="upload">
+    				<input type="file" multiple id="upload-input">
+    			</div>
+    			<div class="tab-pane" id="output">
+    				<output id="output"></output>
+                    <a class="button" id="download" download="compressed.js">Download</a>
+    			</div>
+    		</div>
+        </main>
 
-		</textarea>
-		<br><br><br>
-
-		<h3>Output</h3>
-		<output id="output"></output>
 		<script src="js/app.js"></script>
 	</body>
 </html>

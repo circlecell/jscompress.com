@@ -47,10 +47,6 @@ var app =
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _matreshka = __webpack_require__(1);
@@ -69,38 +65,104 @@ var app =
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*eslint new-cap: ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}]*/
 	
-	exports.default = window.app = new (function (_MK) {
-		_inherits(Application, _MK);
+	module.exports = new (function (_MK) {
+	    _inherits(Application, _MK);
 	
-		function Application() {
-			var _this;
+	    function Application() {
+	        var _this;
 	
-			_classCallCheck(this, Application);
+	        _classCallCheck(this, Application);
 	
-			(_this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this)), _this).bindNode({
-				input: '#input',
-				output: '#output'
-			}).linkProps('output', 'input', _this.minify, { debounce: true });
-			//.onDebounce('input::input', () => this.output);
-			//console.log('Hello world');
-			//alert('hello world');
-			return _this;
-		}
+	        (_this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this)), _this).set({ activeTabName: 'copy-paste' }).bindNode({
+	            code: '#code',
+	            output: '#output'
+	        }).bindNode('activeTabName', '.tab-nav > li', {
+	            on: 'click',
+	            setValue: function setValue(v) {
+	                this.classList.toggle('active', v == this.dataset.tab);
+	            },
+	            getValue: function getValue() {
+	                return this.dataset.tab;
+	            },
+	            initialize: function initialize(_ref) {
+	                var _this2 = this;
 	
-		_createClass(Application, [{
-			key: 'minify',
-			value: function minify(code) {
-				var compressor = _uglifyJsBrowser2.default.Compressor({});
-				var ast = _uglifyJsBrowser2.default.parse(code);
+	                var $nodes = _ref.$nodes;
 	
-				ast.figure_out_scope();
-				ast = ast.transform(compressor);
-				ast.mangle_names();
-				return ast.print_to_string();
-			}
-		}]);
+	                this.addEventListener('click', function () {
+	                    var _iteratorNormalCompletion = true;
+	                    var _didIteratorError = false;
+	                    var _iteratorError = undefined;
 	
-		return Application;
+	                    try {
+	                        for (var _iterator = $nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                            var node = _step.value;
+	
+	                            node.classList.toggle('active', node == _this2);
+	                        }
+	                    } catch (err) {
+	                        _didIteratorError = true;
+	                        _iteratorError = err;
+	                    } finally {
+	                        try {
+	                            if (!_iteratorNormalCompletion && _iterator.return) {
+	                                _iterator.return();
+	                            }
+	                        } finally {
+	                            if (_didIteratorError) {
+	                                throw _iteratorError;
+	                            }
+	                        }
+	                    }
+	                });
+	            }
+	        }).bindNode('activeTabName', '.tabs > div', {
+	            setValue: function setValue(v) {
+	                this.style.display = v === this.id ? '' : 'none';
+	            }
+	        }).bindNode('files', '#upload', _matreshka2.default.binders.dropFiles()).bindNode('files', '#upload-input', _matreshka2.default.binders.file('text')).bindNode('outputDataURI', '#download', _matreshka2.default.binders.prop('href')).linkProps('input', 'code', null, { setOnInit: false }).linkProps('input', 'files', function (files) {
+	            return files.map(function (file) {
+	                return file.readerResult;
+	            }).join(';');
+	        }, { setOnInit: false }).linkProps('inputSize', 'input', function (input) {
+	            return new Blob([input], { type: 'text/javascript' }).size;
+	        }).linkProps('output', 'input', _this.minify, { debounce: true, setOnInit: false }).linkProps('outputBlob', 'output', function (output) {
+	            return new Blob([output], { type: 'text/javascript' });
+	        }).linkProps('outputDataURI', 'outputBlob', URL.createObjectURL).linkProps('outputSize', 'outputBlob', function (blob) {
+	            return blob.size;
+	        })
+	        // NOT WORK
+	        .linkProps('compression', 'inputSize outputSize', function (inSize, outSize) {
+	            return 100 - outSize / inSize * 100;
+	        })
+	        // NOT WORK
+	        .linkProps('saving', 'inputSize outputSize', function (inSize, outSize) {
+	            return (inSize - outSize) / 1024;
+	        }).on({
+	            'change:files': function changeFiles() {
+	                return _this.set('code', '', { skipLinks: true });
+	            },
+	            'change:output': function changeOutput() {
+	                return _this.activeTabName = 'output';
+	            }
+	        });
+	        return _this;
+	    }
+	
+	    _createClass(Application, [{
+	        key: 'minify',
+	        value: function minify(code) {
+	            var compressor = _uglifyJsBrowser2.default.Compressor({});
+	            var ast = _uglifyJsBrowser2.default.parse(code);
+	
+	            ast.figure_out_scope();
+	            ast = ast.transform(compressor);
+	            ast.mangle_names();
+	            return ast.print_to_string();
+	        }
+	    }]);
+	
+	    return Application;
 	}(_matreshka2.default))();
 
 /***/ },

@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    background: #efefef;
+    border-top: 3px solid #F8DC3B;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 90%;
+}
+
+
+.tab-nav {
+    margin-bottom: 30px;
+    li {
+        padding: .5em 1em;
+        cursor: pointer;
+        display: inline-block;
+        border-bottom: 3px solid transparent;
+
+        &.active {
+            border-bottom-color: #aaa;;
+        }
+    }
+}
+
+
+.tab-pane {
+    height: 500px;
+}
+
+#copy-paste {
+    textarea {
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+        height: 90%;
+    }
+}
+
+
+.button {
+    background-color: #0078e7;
+    color: #fff;
+    padding: .5em 1em;
+    text-decoration: none;
+}

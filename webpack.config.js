@@ -22,7 +22,8 @@ module.exports = [{
 	output: {
 		path: `${__dirname}/js`,
 		filename: "[name].js",
-		library: "[name]"
+		library: "[name]",
+        libraryTarget: 'var'
 	},
 	module: {
 		preLoaders: [{
@@ -61,5 +62,3 @@ module.exports = [{
 	   })
    ]
 }];
-
-Господа, в проект нужно подключить либу, которая создаёт глобальную переменную.
