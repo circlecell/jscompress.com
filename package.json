@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "exports-loader": "^0.6.3",
-    "matreshka": "^1.8.1",
+    "matreshka": "^1.8.2-pre-1",
     "uglify-js": "^2.6.2"
   }
 }

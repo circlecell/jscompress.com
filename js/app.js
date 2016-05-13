@@ -47,15 +47,21 @@ var app =
 
 	'use strict';
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _minify = __webpack_require__(3);
+	
+	var _minify2 = _interopRequireDefault(_minify);
 	
 	var _matreshka = __webpack_require__(1);
 	
 	var _matreshka2 = _interopRequireDefault(_matreshka);
 	
-	var _uglifyJsBrowser = __webpack_require__(2);
+	var _tabNav = __webpack_require__(4);
 	
-	var _uglifyJsBrowser2 = _interopRequireDefault(_uglifyJsBrowser);
+	var _tabNav2 = _interopRequireDefault(_tabNav);
+	
+	var _tabPane = __webpack_require__(5);
+	
+	var _tabPane2 = _interopRequireDefault(_tabPane);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -63,106 +69,73 @@ var app =
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*eslint new-cap: ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}]*/
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _MK$binders = _matreshka2.default.binders;
+	var dropFiles = _MK$binders.dropFiles;
+	var file = _MK$binders.file;
+	var prop = _MK$binders.prop;
+	
+	
+	var getJSBlob = function getJSBlob(data) {
+		return new Blob([data], {
+			type: 'text/javascript'
+		});
+	};
 	
 	module.exports = new (function (_MK) {
-	    _inherits(Application, _MK);
+		_inherits(Application, _MK);
 	
-	    function Application() {
-	        var _this;
+		function Application() {
+			var _this;
 	
-	        _classCallCheck(this, Application);
+			_classCallCheck(this, Application);
 	
-	        (_this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this)), _this).set({ activeTabName: 'copy-paste' }).bindNode({
-	            code: '#code',
-	            output: '#output'
-	        }).bindNode('activeTabName', '.tab-nav > li', {
-	            on: 'click',
-	            setValue: function setValue(v) {
-	                this.classList.toggle('active', v == this.dataset.tab);
-	            },
-	            getValue: function getValue() {
-	                return this.dataset.tab;
-	            },
-	            initialize: function initialize(_ref) {
-	                var _this2 = this;
+			(_this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this)), _this).set({
+				activeTabName: 'copy-paste'
+			}).bindNode({
+				code: '#code',
+				output: '#output',
+				outputDataURI: ['#download', prop('href')],
+				activeTabName: ['.tab-nav > li', (0, _tabNav2.default)()],
+				files: ['#upload', dropFiles('text')]
+			}).bindNode({
+				activeTabName: ['.tabs > .tab-pane', (0, _tabPane2.default)()],
+				files: ['#upload-input', file('text')]
+			}).linkProps('input', 'code', null, {
+				setOnInit: false,
+				debounce: true
+			}).linkProps('input', 'files', function (files) {
+				return files.map(function (file) {
+					return file.readerResult;
+				}).join(';');
+			}, {
+				setOnInit: false
+			}).linkProps('inputBlob', 'input', getJSBlob).linkProps('inputSize', 'inputBlob', function (blob) {
+				return blob.size;
+			}).linkProps('output', 'input', _minify2.default, {
+				debounce: true,
+				setOnInit: false
+			}).linkProps('outputBlob', 'output', getJSBlob).linkProps('outputDataURI', 'outputBlob', URL.createObjectURL).linkProps('outputSize', 'outputBlob', function (blob) {
+				return blob.size;
+			}).linkProps('compression', 'inputSize outputSize', function (inSize, outSize) {
+				return 100 - outSize / inSize * 100;
+			}).linkProps('saving', 'inputSize outputSize', function (inSize, outSize) {
+				return (inSize - outSize) / 1024;
+			}).on({
+				'change:files': function changeFiles() {
+					return _this.set('code', '', {
+						skipLinks: true
+					});
+				},
+				'change:output': function changeOutput() {
+					return _this.activeTabName = 'output';
+				}
+			});
+			return _this;
+		}
 	
-	                var $nodes = _ref.$nodes;
-	
-	                this.addEventListener('click', function () {
-	                    var _iteratorNormalCompletion = true;
-	                    var _didIteratorError = false;
-	                    var _iteratorError = undefined;
-	
-	                    try {
-	                        for (var _iterator = $nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                            var node = _step.value;
-	
-	                            node.classList.toggle('active', node == _this2);
-	                        }
-	                    } catch (err) {
-	                        _didIteratorError = true;
-	                        _iteratorError = err;
-	                    } finally {
-	                        try {
-	                            if (!_iteratorNormalCompletion && _iterator.return) {
-	                                _iterator.return();
-	                            }
-	                        } finally {
-	                            if (_didIteratorError) {
-	                                throw _iteratorError;
-	                            }
-	                        }
-	                    }
-	                });
-	            }
-	        }).bindNode('activeTabName', '.tabs > div', {
-	            setValue: function setValue(v) {
-	                this.style.display = v === this.id ? '' : 'none';
-	            }
-	        }).bindNode('files', '#upload', _matreshka2.default.binders.dropFiles()).bindNode('files', '#upload-input', _matreshka2.default.binders.file('text')).bindNode('outputDataURI', '#download', _matreshka2.default.binders.prop('href')).linkProps('input', 'code', null, { setOnInit: false }).linkProps('input', 'files', function (files) {
-	            return files.map(function (file) {
-	                return file.readerResult;
-	            }).join(';');
-	        }, { setOnInit: false }).linkProps('inputSize', 'input', function (input) {
-	            return new Blob([input], { type: 'text/javascript' }).size;
-	        }).linkProps('output', 'input', _this.minify, { debounce: true, setOnInit: false }).linkProps('outputBlob', 'output', function (output) {
-	            return new Blob([output], { type: 'text/javascript' });
-	        }).linkProps('outputDataURI', 'outputBlob', URL.createObjectURL).linkProps('outputSize', 'outputBlob', function (blob) {
-	            return blob.size;
-	        })
-	        // NOT WORK
-	        .linkProps('compression', 'inputSize outputSize', function (inSize, outSize) {
-	            return 100 - outSize / inSize * 100;
-	        })
-	        // NOT WORK
-	        .linkProps('saving', 'inputSize outputSize', function (inSize, outSize) {
-	            return (inSize - outSize) / 1024;
-	        }).on({
-	            'change:files': function changeFiles() {
-	                return _this.set('code', '', { skipLinks: true });
-	            },
-	            'change:output': function changeOutput() {
-	                return _this.activeTabName = 'output';
-	            }
-	        });
-	        return _this;
-	    }
-	
-	    _createClass(Application, [{
-	        key: 'minify',
-	        value: function minify(code) {
-	            var compressor = _uglifyJsBrowser2.default.Compressor({});
-	            var ast = _uglifyJsBrowser2.default.parse(code);
-	
-	            ast.figure_out_scope();
-	            ast = ast.transform(compressor);
-	            ast.mangle_names();
-	            return ast.print_to_string();
-	        }
-	    }]);
-	
-	    return Application;
+		return Application;
 	}(_matreshka2.default))();
 
 /***/ },
@@ -171,7 +144,7 @@ var app =
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;;(function(__root) {
 	/*
-		Matreshka v1.8.1 (2016-04-23)
+		Matreshka v1.8.2-pre-1 (2016-05-13)
 		JavaScript Framework by Andrey Gubanov
 		Released under the MIT license
 		More info: http://matreshka.io
@@ -1136,7 +1109,7 @@ var app =
 	            values.push(util.deepFind(_this, _key));
 	          }
 	        }
-	        _protect[key + objectData.id] = 1;
+	        _protect[evt.key + objectData.id] = 1;
 	        core._defineSpecial(object, key, evtOptions.hideProperty);
 	        core.set(object, key, getter.apply(object, values), evt);
 	      }
@@ -3721,7 +3694,7 @@ var app =
 	matreshka = function (MK) {
 	  return MK;
 	}(matreshka_dir_amd_modules_matreshka);
-	 matreshka.version="1.8.1";									(function () {
+	 matreshka.version="1.8.2-pre-1";									(function () {
 				// hack for systemjs builder
 				var d = "define";
 				// I don't know how to define modules with no dependencies (since we use AMDClean)
@@ -3771,6 +3744,108 @@ var app =
 	
 	/*** EXPORTS FROM exports-loader ***/
 	module.exports = UglifyJS;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = minify;
+	
+	var _uglifyJsBrowser = __webpack_require__(2);
+	
+	var _uglifyJsBrowser2 = _interopRequireDefault(_uglifyJsBrowser);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function minify(code) {
+	    var compressor = _uglifyJsBrowser2.default.Compressor({});
+	    var ast = _uglifyJsBrowser2.default.parse(code);
+	
+	    ast.figure_out_scope();
+	    ast = ast.transform(compressor);
+	    ast.mangle_names();
+	    return ast.print_to_string();
+	} /*eslint new-cap: ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}]*/
+	;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function () {
+	    return {
+	        on: 'click',
+	        setValue: function setValue(v) {
+	            this.classList.toggle('active', v == this.dataset.tab);
+	        },
+	        getValue: function getValue() {
+	            return this.dataset.tab;
+	        },
+	        initialize: function initialize(_ref) {
+	            var _this = this;
+	
+	            var $nodes = _ref.$nodes;
+	
+	            this.addEventListener('click', function () {
+	                var _iteratorNormalCompletion = true;
+	                var _didIteratorError = false;
+	                var _iteratorError = undefined;
+	
+	                try {
+	                    for (var _iterator = $nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                        var node = _step.value;
+	
+	                        node.classList.toggle('active', node == _this);
+	                    }
+	                } catch (err) {
+	                    _didIteratorError = true;
+	                    _iteratorError = err;
+	                } finally {
+	                    try {
+	                        if (!_iteratorNormalCompletion && _iterator.return) {
+	                            _iterator.return();
+	                        }
+	                    } finally {
+	                        if (_didIteratorError) {
+	                            throw _iteratorError;
+	                        }
+	                    }
+	                }
+	            });
+	        }
+	    };
+	};
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function () {
+	    return {
+	        setValue: function setValue(v) {
+	            this.style.display = v === this.id ? '' : 'none';
+	        }
+	    };
+	};
+	
+	;
 
 /***/ }
 /******/ ]);
