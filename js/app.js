@@ -63,6 +63,10 @@ var app =
 	
 	var _tabPane2 = _interopRequireDefault(_tabPane);
 	
+	var _fileList = __webpack_require__(6);
+	
+	var _fileList2 = _interopRequireDefault(_fileList);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71,10 +75,7 @@ var app =
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _MK$binders = _matreshka2.default.binders;
-	var dropFiles = _MK$binders.dropFiles;
-	var file = _MK$binders.file;
-	var prop = _MK$binders.prop;
+	var prop = _matreshka2.default.binders.prop;
 	
 	
 	var getJSBlob = function getJSBlob(data) {
@@ -92,16 +93,16 @@ var app =
 			_classCallCheck(this, Application);
 	
 			(_this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this)), _this).set({
-				activeTabName: 'copy-paste'
+				activeTabName: 'upload',
+				fileList: new _fileList2.default()
 			}).bindNode({
 				code: '#code',
 				output: '#output',
 				outputDataURI: ['#download', prop('href')],
-				activeTabName: ['.tab-nav > li', (0, _tabNav2.default)()],
-				files: ['#upload', dropFiles('text')]
+				activeTabName: ['.tab-nav > li', (0, _tabNav2.default)()]
 			}).bindNode({
-				activeTabName: ['.tabs > .tab-pane', (0, _tabPane2.default)()],
-				files: ['#upload-input', file('text')]
+				activeTabName: ['.tabs > .tab-pane', (0, _tabPane2.default)()]
+	
 			}).linkProps('input', 'code', null, {
 				setOnInit: false,
 				debounce: true
@@ -184,7 +185,7 @@ var app =
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;;(function(__root) {
 	/*
-		Matreshka v1.8.2-pre-1 (2016-05-13)
+		Matreshka v1.9.1 (2016-05-21)
 		JavaScript Framework by Andrey Gubanov
 		Released under the MIT license
 		More info: http://matreshka.io
@@ -578,6 +579,7 @@ var app =
 	    },
 	    output: function () {
 	      return {
+	        on: null,
 	        getValue: function () {
 	          var _this = this;
 	          return _this.value || _this.textContent;
@@ -645,6 +647,7 @@ var app =
 	    },
 	    style: function (property) {
 	      return {
+	        on: null,
 	        getValue: function () {
 	          var _this = this;
 	          return _this.style[property] || getComputedStyle(_this, null).getPropertyValue(property);
@@ -670,7 +673,8 @@ var app =
 	        getValue: function (evt) {
 	          var files = evt.domEvent || [];
 	          return this.multiple ? files : files[0] || null;
-	        }
+	        },
+	        setValue: null
 	      };
 	    },
 	    dropFiles: function (readAs) {
@@ -693,7 +697,18 @@ var app =
 	        },
 	        getValue: function (o) {
 	          return o.domEvent || [];
-	        }
+	        },
+	        setValue: null
+	      };
+	    },
+	    dragOver: function () {
+	      return {
+	        on: 'dragover dragenter dragleave dragend drop',
+	        getValue: function (evt) {
+	          var eventType = evt.domEvent && evt.domEvent.type;
+	          return eventType == 'dragover' || eventType == 'dragenter';
+	        },
+	        setValue: null
 	      };
 	    }
 	  };
@@ -1553,7 +1568,7 @@ var app =
 	        self: object,
 	        key: key,
 	        $nodes: $nodes,
-	        node: node
+	        node: $nodes[0]
 	      }, node = $nodes[index], isUndefined = typeof special.value == 'undefined', _binder, _evt, foundBinder, _options, i, domEvt, mkHandler, val;
 	    if (binder === null) {
 	      _binder = {};
@@ -1591,7 +1606,7 @@ var app =
 	        var v = objectData.special[key].value,
 	          // dirty hack for this one https://github.com/matreshkajs/matreshka/issues/19
 	          _v = evt && typeof evt.onChangeValue == 'string' && typeof v == 'number' ? v + '' : v, i;
-	        if (evt && evt.changedNode == node && evt.onChangeValue == _v)
+	        if (evt && evt.changedNode == node && evt.onChangeValue == _v && evt.binder == _binder)
 	          return;
 	        _options = { value: v };
 	        for (i in options) {
@@ -1637,7 +1652,8 @@ var app =
 	            core.set(object, key, value, {
 	              fromNode: true,
 	              changedNode: node,
-	              onChangeValue: value
+	              onChangeValue: value,
+	              binder: _binder
 	            });
 	          }
 	        }
@@ -2816,11 +2832,11 @@ var app =
 	      MK._defineSpecial(_this, key);
 	      return _this.set(key, v, evt);
 	    },
-	    addDataKeys: function (keys) {
-	      var _this = this._initMK(), objectData = map.get(_this), args = arguments, i;
-	      if (!args.length || !keys)
+	    addDataKeys: function (_keys) {
+	      var _this = this._initMK(), objectData = map.get(_this), args = arguments, i, keys;
+	      if (!args.length || !_keys)
 	        return _this;
-	      keys = args.length > 1 ? args : keys instanceof Array ? keys : MK.trim(keys).split(/\s+/);
+	      keys = args.length > 1 ? args : _keys instanceof Array ? _keys : MK.trim(_keys).split(/\s+/);
 	      for (i = 0; i < keys.length; i++) {
 	        if (!objectData.keys[keys[i]]) {
 	          objectData.keys[keys[i]] = 1;
@@ -3734,7 +3750,7 @@ var app =
 	matreshka = function (MK) {
 	  return MK;
 	}(matreshka_dir_amd_modules_matreshka);
-	 matreshka.version="1.8.2-pre-1";									(function () {
+	 matreshka.version="1.9.1";									(function () {
 				// hack for systemjs builder
 				var d = "define";
 				// I don't know how to define modules with no dependencies (since we use AMDClean)
@@ -3780,51 +3796,51 @@ var app =
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 	
 	exports.default = function () {
-	    return {
-	        on: 'click',
-	        setValue: function setValue(v) {
-	            this.classList.toggle('active', v == this.dataset.tab);
-	        },
-	        getValue: function getValue() {
-	            return this.dataset.tab;
-	        },
-	        initialize: function initialize(_ref) {
-	            var _this = this;
+		return {
+			on: 'click',
+			setValue: function setValue(v) {
+				this.classList.toggle('active', v == this.dataset.tab);
+			},
+			getValue: function getValue() {
+				return this.dataset.tab;
+			},
+			initialize: function initialize(_ref) {
+				var _this = this;
 	
-	            var $nodes = _ref.$nodes;
+				var $nodes = _ref.$nodes;
 	
-	            this.addEventListener('click', function () {
-	                var _iteratorNormalCompletion = true;
-	                var _didIteratorError = false;
-	                var _iteratorError = undefined;
+				this.addEventListener('click', function () {
+					var _iteratorNormalCompletion = true;
+					var _didIteratorError = false;
+					var _iteratorError = undefined;
 	
-	                try {
-	                    for (var _iterator = $nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                        var node = _step.value;
+					try {
+						for (var _iterator = $nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+							var node = _step.value;
 	
-	                        node.classList.toggle('active', node == _this);
-	                    }
-	                } catch (err) {
-	                    _didIteratorError = true;
-	                    _iteratorError = err;
-	                } finally {
-	                    try {
-	                        if (!_iteratorNormalCompletion && _iterator.return) {
-	                            _iterator.return();
-	                        }
-	                    } finally {
-	                        if (_didIteratorError) {
-	                            throw _iteratorError;
-	                        }
-	                    }
-	                }
-	            });
-	        }
-	    };
+							node.classList.toggle('active', node == _this);
+						}
+					} catch (err) {
+						_didIteratorError = true;
+						_iteratorError = err;
+					} finally {
+						try {
+							if (!_iteratorNormalCompletion && _iterator.return) {
+								_iterator.return();
+							}
+						} finally {
+							if (_didIteratorError) {
+								throw _iteratorError;
+							}
+						}
+					}
+				});
+			}
+		};
 	};
 
 /***/ },
@@ -3834,18 +3850,134 @@ var app =
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 	
 	exports.default = function () {
-	    return {
-	        setValue: function setValue(v) {
-	            this.style.display = v === this.id ? '' : 'none';
-	        }
-	    };
+		return {
+			setValue: function setValue(v) {
+				this.style.display = v === this.id ? '' : 'none';
+			}
+		};
 	};
 	
 	;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _matreshka = __webpack_require__(3);
+	
+	var _matreshka2 = _interopRequireDefault(_matreshka);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _MK$binders = _matreshka2.default.binders;
+	var dropFiles = _MK$binders.dropFiles;
+	var file = _MK$binders.file;
+	var className = _MK$binders.className;
+	var dragOver = _MK$binders.dragOver;
+	
+	var FileList = function (_MK$Array) {
+		_inherits(FileList, _MK$Array);
+	
+		function FileList() {
+			var _Object$getPrototypeO;
+	
+			var _temp, _this;
+	
+			var data = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	
+			_classCallCheck(this, FileList);
+	
+			(_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(FileList)).call.apply(_Object$getPrototypeO, [this].concat(_toConsumableArray(data)))), _this), _this.itemRenderer = '\n\t\t<div>\n\t\t\t{{name}}\n\t\t\t<span class="remove">REMOVE</span>\n\t\t</div>\n\t', _temp).bindNode({
+				sandbox: '#upload',
+				container: ':sandbox .file-list',
+				fileWrapper: ':sandbox .file-wrapper',
+				files: [':bound(fileWrapper)', dropFiles('text')],
+				length: [':sandbox .clear, :sandbox .compress', {
+					setValue: function setValue(v) {
+						this.disabled = !v;
+					}
+				}]
+			}).bindNode({
+				files: [':sandbox .file-input', file('text')]
+			}).on({
+				'*@click::(.remove)': function clickRemove(evt) {
+					return _this.pull(evt.self);
+				},
+				'change:files': function changeFiles() {
+					_this.recreate(_this.files.map(function (_ref) {
+						var name = _ref.name;
+						var readerResult = _ref.readerResult;
+						return { name: name, readerResult: readerResult };
+					}));
+				},
+				'click::(.compress)': function clickCompress() {
+					alert('yey');
+				},
+				'click::(.clear)': function clickClear() {
+					return _this.recreate();
+				}
+			}).bindNode('dragovered', ':bound(fileWrapper)', className('dragovered')).bindNode({ // dragOver
+				dragovered: [':bound(fileWrapper)', dragOver()]
+			}).rerender();
+			return _this;
+		}
+	
+		return FileList;
+	}(_matreshka2.default.Array);
+	
+	/*
+	const app = new Matreshka.Class({
+	  'extends': Matreshka,
+	  constructor: function() {
+		this
+		.set('dragovered', false)
+		.bindNode('dragovered', '.matreshka-file-wrapper', {
+		  on: null,
+		  getValue: null,
+			 setValue(v) {console.log(this)
+			   this.classList.toggle('dragovered', !!v)
+			 }
+		   })
+		  .bindNode({
+			sandbox: '.matreshka-file-wrapper',
+			dragovered: [':sandbox', {
+			  on: 'dragover dragenter dragleave dragend drop',
+			  getValue(o) {
+				const eventType = o.domEvent && o.domEvent.type;
+				if(o.domEvent) {
+				  //o.domEvent.preventDefault();
+				}
+			   console.log(eventType == 'dragover' || eventType == 'dragenter')
+				return eventType == 'dragover' || eventType == 'dragenter';
+			  },
+			  setValue: null
+			}]
+		  })
+	
+		.on('change:dragovered', evt => console.log('ha dragovered', this.dragovered))
+	  }
+	});*/
+	
+	
+	exports.default = FileList;
 
 /***/ }
 /******/ ]);

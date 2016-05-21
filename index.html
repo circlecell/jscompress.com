@@ -21,7 +21,18 @@
                     </textarea>
     			</div>
     			<div class="tab-pane" id="upload">
-    				<input type="file" multiple id="upload-input">
+					<div class="file-wrapper">
+						<input type="file" multiple id="file-input" class="file-input">
+						<div class="file-list">
+							<label for="file-input" class="file-label">Choose files</label> or drag them here.
+							<div class="buttons">
+								<button class="button compress">Concat &amp; compress</button>
+								<button class="button clear">Remove all</button>
+							</div>
+
+							<div class="no-files"></div>
+						</div>
+					</div>
     			</div>
     			<div class="tab-pane" id="output">
     				<output id="output"></output>

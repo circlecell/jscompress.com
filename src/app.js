@@ -2,10 +2,9 @@ import minify from './minify';
 import MK from 'matreshka';
 import tabNavBinder from './tab-nav.binder';
 import tabPaneBinder from './tab-pane.binder';
+import FileList from './file-list.class';
 
-const {
-	dropFiles, file, prop
-} = MK.binders;
+const { prop } = MK.binders;
 
 const getJSBlob = data => new Blob([data], {
     type: 'text/javascript'
@@ -15,18 +14,18 @@ module.exports = new class Application extends MK {
 	constructor() {
 		super()
 			.set({
-				activeTabName: 'copy-paste'
+				activeTabName: 'upload',
+				fileList: new FileList()
 			})
 			.bindNode({
 				code: '#code',
 				output: '#output',
 				outputDataURI: ['#download', prop('href')],
-				activeTabName: ['.tab-nav > li', tabNavBinder()],
-				files: ['#upload', dropFiles('text')],
+				activeTabName: ['.tab-nav > li', tabNavBinder()]
 			})
 			.bindNode({
 				activeTabName: ['.tabs > .tab-pane', tabPaneBinder()],
-				files: ['#upload-input', file('text')]
+
 			})
 			.linkProps('input', 'code', null, {
 				setOnInit: false,
