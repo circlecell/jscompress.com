@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile-uglifyjs": "uglifyjs --self -c -m -o ./node_modules/uglify-js/uglify-js-browser.js",
-    "postinstall": "npm run compile-uglifyjs"
+    "postinstall": "npm run compile-uglifyjs",
+    "develop:serve": "static",
+    "develop:bundle": "webpack --watch",
+    "develop": "npm-run-all --parallel develop:*"
   },
   "repository": {
     "type": "git",
@@ -35,6 +38,8 @@
     "eslint-plugin-jsx-a11y": "^1.2.0",
     "eslint-plugin-react": "^5.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "node-static": "^0.7.7",
+    "npm-run-all": "^2.1.1",
     "postcss-calc": "^5.2.1",
     "postcss-cssnext": "^2.5.2",
     "postcss-import": "^8.1.2",
@@ -43,7 +48,7 @@
     "postcss-url": "^5.1.2",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.0"
+    "webpack": "^1.13.1"
   },
   "dependencies": {
     "exports-loader": "^0.6.3",
