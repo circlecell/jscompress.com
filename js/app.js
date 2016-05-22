@@ -47,10 +47,6 @@ var app =
 
 	'use strict';
 	
-	var _minify = __webpack_require__(1);
-	
-	var _minify2 = _interopRequireDefault(_minify);
-	
 	var _matreshka = __webpack_require__(3);
 	
 	var _matreshka2 = _interopRequireDefault(_matreshka);
@@ -63,9 +59,17 @@ var app =
 	
 	var _tabPane2 = _interopRequireDefault(_tabPane);
 	
-	var _fileList = __webpack_require__(6);
+	var _upload = __webpack_require__(10);
 	
-	var _fileList2 = _interopRequireDefault(_fileList);
+	var _upload2 = _interopRequireDefault(_upload);
+	
+	var _copyPaste = __webpack_require__(7);
+	
+	var _copyPaste2 = _interopRequireDefault(_copyPaste);
+	
+	var _output = __webpack_require__(9);
+	
+	var _output2 = _interopRequireDefault(_output);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -75,17 +79,8 @@ var app =
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var prop = _matreshka2.default.binders.prop;
-	
-	
-	var getJSBlob = function getJSBlob(data) {
-		return new Blob([data], {
-			type: 'text/javascript'
-		});
-	};
-	
-	module.exports = new (function (_MK) {
-		_inherits(Application, _MK);
+	module.exports = new (function (_MK$Object) {
+		_inherits(Application, _MK$Object);
 	
 		function Application() {
 			var _this;
@@ -93,81 +88,56 @@ var app =
 			_classCallCheck(this, Application);
 	
 			(_this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this)), _this).set({
-				activeTabName: 'upload',
-				fileList: new _fileList2.default()
-			}).bindNode({
-				code: '#code',
-				output: '#output',
-				outputDataURI: ['#download', prop('href')],
-				activeTabName: ['.tab-nav > li', (0, _tabNav2.default)()]
-			}).bindNode({
-				activeTabName: ['.tabs > .tab-pane', (0, _tabPane2.default)()]
-	
-			}).linkProps('input', 'code', null, {
-				setOnInit: false,
-				debounce: true
-			}).linkProps('input', 'files', function (files) {
-				return files.map(function (file) {
-					return file.readerResult;
-				}).join(';');
-			}, {
-				setOnInit: false
-			}).linkProps('inputBlob', 'input', getJSBlob).linkProps('inputSize', 'inputBlob', function (blob) {
-				return blob.size;
-			}).linkProps('output', 'input', _minify2.default, {
-				debounce: true,
-				setOnInit: false
-			}).linkProps('outputBlob', 'output', getJSBlob).linkProps('outputDataURI', 'outputBlob', URL.createObjectURL).linkProps('outputSize', 'outputBlob', function (blob) {
-				return blob.size;
-			}).linkProps('compression', 'inputSize outputSize', function (inSize, outSize) {
-				return 100 - outSize / inSize * 100;
-			}).linkProps('saving', 'inputSize outputSize', function (inSize, outSize) {
-				return (inSize - outSize) / 1024;
+				activeTabName: 'upload'
+			}).addDataKeys('upload copyPaste output').setClassFor({
+				upload: _upload2.default,
+				copyPaste: _copyPaste2.default,
+				output: _output2.default
 			}).on({
-				'change:files': function changeFiles() {
-					return _this.set('code', '', {
-						skipLinks: true
-					});
+				'*@change:active': function changeActive(evt) {
+					if (evt.value === true) {
+						var _iteratorNormalCompletion = true;
+						var _didIteratorError = false;
+						var _iteratorError = undefined;
+	
+						try {
+							for (var _iterator = _this[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+								var tab = _step.value;
+	
+								if (tab !== evt.self) {
+									tab.active = false;
+								}
+							}
+						} catch (err) {
+							_didIteratorError = true;
+							_iteratorError = err;
+						} finally {
+							try {
+								if (!_iteratorNormalCompletion && _iterator.return) {
+									_iterator.return();
+								}
+							} finally {
+								if (_didIteratorError) {
+									throw _iteratorError;
+								}
+							}
+						}
+					}
 				},
-				'change:output': function changeOutput() {
-					return _this.activeTabName = 'output';
+				'upload@submitCode copyPaste@submitCode': function uploadSubmitCodeCopyPasteSubmitCode(code) {
+					_this.output.active = true;
+					_this.output.inputCode = code;
 				}
 			});
+	
 			return _this;
 		}
 	
 		return Application;
-	}(_matreshka2.default))();
+	}(_matreshka2.default.Object))();
 
 /***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = minify;
-	
-	var _uglifyJsBrowser = __webpack_require__(2);
-	
-	var _uglifyJsBrowser2 = _interopRequireDefault(_uglifyJsBrowser);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function minify(code) {
-	    var compressor = _uglifyJsBrowser2.default.Compressor({});
-	    var ast = _uglifyJsBrowser2.default.parse(code);
-	
-	    ast.figure_out_scope();
-	    ast = ast.transform(compressor);
-	    ast.mangle_names();
-	    return ast.print_to_string();
-	} /*eslint new-cap: ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}]*/
-	;
-
-/***/ },
+/* 1 */,
 /* 2 */
 /***/ function(module, exports) {
 
@@ -3907,35 +3877,11 @@ var app =
 	
 			(_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(FileList)).call.apply(_Object$getPrototypeO, [this].concat(_toConsumableArray(data)))), _this), _this.itemRenderer = '\n\t\t<div>\n\t\t\t{{name}}\n\t\t\t<span class="remove">REMOVE</span>\n\t\t</div>\n\t', _temp).bindNode({
 				sandbox: '#upload',
-				container: ':sandbox .file-list',
-				fileWrapper: ':sandbox .file-wrapper',
-				files: [':bound(fileWrapper)', dropFiles('text')],
-				length: [':sandbox .clear, :sandbox .compress', {
-					setValue: function setValue(v) {
-						this.disabled = !v;
-					}
-				}]
-			}).bindNode({
-				files: [':sandbox .file-input', file('text')]
+				container: ':sandbox .file-list'
 			}).on({
 				'*@click::(.remove)': function clickRemove(evt) {
 					return _this.pull(evt.self);
-				},
-				'change:files': function changeFiles() {
-					_this.recreate(_this.files.map(function (_ref) {
-						var name = _ref.name;
-						var readerResult = _ref.readerResult;
-						return { name: name, readerResult: readerResult };
-					}));
-				},
-				'click::(.compress)': function clickCompress() {
-					alert('yey');
-				},
-				'click::(.clear)': function clickClear() {
-					return _this.recreate();
 				}
-			}).bindNode('dragovered', ':bound(fileWrapper)', className('dragovered')).bindNode({ // dragOver
-				dragovered: [':bound(fileWrapper)', dragOver()]
 			}).rerender();
 			return _this;
 		}
@@ -3943,41 +3889,318 @@ var app =
 		return FileList;
 	}(_matreshka2.default.Array);
 	
-	/*
-	const app = new Matreshka.Class({
-	  'extends': Matreshka,
-	  constructor: function() {
-		this
-		.set('dragovered', false)
-		.bindNode('dragovered', '.matreshka-file-wrapper', {
-		  on: null,
-		  getValue: null,
-			 setValue(v) {console.log(this)
-			   this.classList.toggle('dragovered', !!v)
-			 }
-		   })
-		  .bindNode({
-			sandbox: '.matreshka-file-wrapper',
-			dragovered: [':sandbox', {
-			  on: 'dragover dragenter dragleave dragend drop',
-			  getValue(o) {
-				const eventType = o.domEvent && o.domEvent.type;
-				if(o.domEvent) {
-				  //o.domEvent.preventDefault();
-				}
-			   console.log(eventType == 'dragover' || eventType == 'dragenter')
-				return eventType == 'dragover' || eventType == 'dragenter';
-			  },
-			  setValue: null
-			}]
-		  })
-	
-		.on('change:dragovered', evt => console.log('ha dragovered', this.dragovered))
-	  }
-	});*/
-	
-	
 	exports.default = FileList;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _matreshka = __webpack_require__(3);
+	
+	var _matreshka2 = _interopRequireDefault(_matreshka);
+	
+	var _tab = __webpack_require__(8);
+	
+	var _tab2 = _interopRequireDefault(_tab);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CopyPaste = function (_Tab) {
+		_inherits(CopyPaste, _Tab);
+	
+		function CopyPaste() {
+			var _Object$getPrototypeO;
+	
+			var _this;
+	
+			_classCallCheck(this, CopyPaste);
+	
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
+	
+			(_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(CopyPaste)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this).set({
+				active: true
+			}).bindNode({
+				form: ':sandbox form[name="copyPasteForm"]',
+				code: ':bound(form) [name="code"]'
+			}).on({
+				'submit::form': function submitForm(evt) {
+					evt.preventDefault();
+					_this.trigger('submitCode', _this.code);
+				}
+			});
+			return _this;
+		}
+	
+		return CopyPaste;
+	}(_tab2.default);
+	
+	exports.default = CopyPaste;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _matreshka = __webpack_require__(3);
+	
+	var _matreshka2 = _interopRequireDefault(_matreshka);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var display = _matreshka2.default.binders.display;
+	
+	var Tab = function (_MK$Object) {
+		_inherits(Tab, _MK$Object);
+	
+		function Tab() {
+			var data = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+			var app = arguments[1];
+	
+			var _this;
+	
+			var name = arguments[2];
+	
+			_classCallCheck(this, Tab);
+	
+			(_this = _possibleConstructorReturn(this, Object.getPrototypeOf(Tab).call(this, data)), _this).set({
+				active: false
+			}).bindNode({
+				sandbox: '#' + name,
+				navItem: '.tab-nav-item[data-tab="' + name + '"]',
+				active: [':sandbox', display()]
+			}).on({
+				'click::navItem': function clickNavItem() {
+					return _this.active = true;
+				}
+			});
+			return _this;
+		}
+	
+		return Tab;
+	}(_matreshka2.default.Object);
+	
+	exports.default = Tab;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _matreshka = __webpack_require__(3);
+	
+	var _matreshka2 = _interopRequireDefault(_matreshka);
+	
+	var _tab = __webpack_require__(8);
+	
+	var _tab2 = _interopRequireDefault(_tab);
+	
+	var _minify = __webpack_require__(11);
+	
+	var _minify2 = _interopRequireDefault(_minify);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var getJSBlob = function getJSBlob(data) {
+		return new Blob([data], {
+			type: 'text/javascript'
+		});
+	};
+	
+	var getBlobSize = function getBlobSize(blob) {
+		return blob.size;
+	};
+	
+	var prop = _matreshka2.default.binders.prop;
+	
+	var Output = function (_Tab) {
+		_inherits(Output, _Tab);
+	
+		function Output() {
+			var _Object$getPrototypeO;
+	
+			var _this;
+	
+			_classCallCheck(this, Output);
+	
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
+	
+			(_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Output)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this).set({
+				inputCode: ''
+			}).bindNode({
+				outputDataURI: [':sandbox #download', prop('href')],
+				compression: ':sandbox .compression',
+				saving: ':sandbox .saving',
+				outputCode: ':sandbox .output-code'
+			}).linkProps('inputBlob', 'inputCode', getJSBlob).linkProps('inputSize', 'inputBlob', getBlobSize).linkProps('outputCode', 'inputCode', _minify2.default, { setOnInit: false }).linkProps('outputBlob', 'outputCode', getJSBlob).linkProps('outputSize', 'outputBlob', getBlobSize).linkProps('outputDataURI', 'outputBlob', URL.createObjectURL).linkProps('compression', 'inputSize outputSize', function (inSize, outSize) {
+				return 100 - outSize / inSize * 100 || 0;
+			}).linkProps('saving', 'inputSize outputSize', function (inSize, outSize) {
+				return (inSize - outSize) / 1024;
+			});
+			return _this;
+		}
+	
+		return Output;
+	}(_tab2.default);
+	
+	exports.default = Output;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _tab = __webpack_require__(8);
+	
+	var _tab2 = _interopRequireDefault(_tab);
+	
+	var _fileList = __webpack_require__(6);
+	
+	var _fileList2 = _interopRequireDefault(_fileList);
+	
+	var _matreshka = __webpack_require__(3);
+	
+	var _matreshka2 = _interopRequireDefault(_matreshka);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _MK$binders = _matreshka2.default.binders;
+	var dropFiles = _MK$binders.dropFiles;
+	var file = _MK$binders.file;
+	var className = _MK$binders.className;
+	var dragOver = _MK$binders.dragOver;
+	
+	var Upload = function (_Tab) {
+		_inherits(Upload, _Tab);
+	
+		function Upload() {
+			var _Object$getPrototypeO;
+	
+			var _this;
+	
+			_classCallCheck(this, Upload);
+	
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
+	
+			(_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Upload)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this).setClassFor('fileList', _fileList2.default).bindNode({
+				fileWrapper: ':sandbox .file-wrapper',
+				files: [':bound(fileWrapper)', dropFiles('text')],
+				length: [':sandbox .clear, :sandbox .compress', {
+					setValue: function setValue(v) {
+						this.disabled = !v;
+					}
+				}],
+				dragovered: [':bound(fileWrapper)', dragOver()]
+			}).bindNode({
+				files: [':sandbox .file-input', file('text')],
+				dragovered: [':bound(fileWrapper)', className('dragovered')]
+			}).on({
+				'change:files': function changeFiles() {
+					var _this$fileList;
+	
+					(_this$fileList = _this.fileList).push.apply(_this$fileList, _toConsumableArray(_this.files.map(function (_ref) {
+						var name = _ref.name;
+						var readerResult = _ref.readerResult;
+						return { name: name, readerResult: readerResult };
+					})));
+				},
+				'click::(.clear)': function clickClear() {
+					return _this.fileList.recreate();
+				},
+				'click::(.compress)': function clickCompress() {
+					_this.trigger('submitCode', _this.fileList.map(function (item) {
+						return item.readerResult;
+					}).join(';'));
+				}
+			});
+	
+			return _this;
+		}
+	
+		return Upload;
+	}(_tab2.default);
+	
+	exports.default = Upload;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = minify;
+	
+	var _uglifyJsBrowser = __webpack_require__(2);
+	
+	var _uglifyJsBrowser2 = _interopRequireDefault(_uglifyJsBrowser);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function minify(code) {
+	    var compressor = _uglifyJsBrowser2.default.Compressor({});
+	    var ast = _uglifyJsBrowser2.default.parse(code);
+	
+	    ast.figure_out_scope();
+	    ast = ast.transform(compressor);
+	    ast.mangle_names();
+	    return ast.print_to_string();
+	} /*eslint new-cap: ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}]*/
+	;
 
 /***/ }
 /******/ ]);

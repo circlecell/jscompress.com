@@ -4,21 +4,24 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body>
-		<h1>Online Javascript Compression Tool</h1>
+		<h1>Online JavaScript Compression Tool</h1>
         <main>
             <ul class="tab-nav">
-    			<li data-tab="copy-paste" class="tab-nav-item">Copy &amp; Paste Javascript Code</li>
+    			<li data-tab="copyPaste" class="tab-nav-item">Copy &amp; Paste Javascript Code</li>
     			<li data-tab="upload" class="tab-nav-item">Upload Javascript Files</li>
     			<li data-tab="output" class="tab-nav-item">Output</li>
     		</ul>
     		<div class="tabs">
-    			<div class="tab-pane" id="copy-paste">
-                    <textarea id="code">
-            function test() {
-                var longVariableName = 42;
-                alert(longVariableName);
-            }
-                    </textarea>
+    			<div class="tab-pane" id="copyPaste">
+					<form name="copyPasteForm">
+						<textarea name="code">
+function test() {
+    var longVariableName = 42;
+    alert(longVariableName);
+}
+	                    </textarea>
+						<button class="button" type="submit">Compress JavaScript</button>
+					</form>
     			</div>
     			<div class="tab-pane" id="upload">
 					<div class="file-wrapper">
@@ -35,8 +38,9 @@
 					</div>
     			</div>
     			<div class="tab-pane" id="output">
-    				<output id="output"></output>
+    				<textarea class="output-code"></textarea>
                     <a class="button" id="download" download="compressed.js">Download</a>
+					Stats: <output class="compression"></output>% compression, saving <output class="saving"></output> kb
     			</div>
     		</div>
         </main>

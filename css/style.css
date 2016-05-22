@@ -35,11 +35,22 @@ main {
     height: 500px;
 }
 
-#copy-paste textarea {
+#copyPaste form {
+    height: 100%;
+}
+
+#copyPaste textarea {
     width: 90%;
     display: block;
     margin: 0 auto;
     height: 90%;
+}
+
+textarea.output-code {
+	width: 90%;
+	display: block;
+	margin: 0 auto;
+	height: 90%;
 }
 
 .button {
