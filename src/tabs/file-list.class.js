@@ -1,7 +1,5 @@
 import MK from 'matreshka';
 
-const { dropFiles, file, className, dragOver } = MK.binders;
-
 export default class FileList extends MK.Array {
 	itemRenderer = `
 		<div>
@@ -16,7 +14,7 @@ export default class FileList extends MK.Array {
 				container: ':sandbox .file-list',
 			})
 			.on({
-				'*@click::(.remove)': evt => this.pull(evt.self),
+				'*@click::(.remove)': ({ self }) => this.pull(self)
 			})
 			.rerender();
 	}

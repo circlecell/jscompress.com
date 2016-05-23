@@ -1,6 +1,7 @@
 import Tab from './tab.class';
 import FileList from './file-list.class';
 import MK from 'matreshka';
+import validate from '../util/validate';
 
 const { dropFiles, file, className, dragOver } = MK.binders;
 
@@ -11,12 +12,12 @@ export default class Upload extends Tab {
 			.bindNode({
 				fileWrapper: ':sandbox .file-wrapper',
 				files: [':bound(fileWrapper)', dropFiles('text')],
-				length: [':sandbox .clear, :sandbox .compress', {
+				dragovered: [':bound(fileWrapper)', dragOver()],
+				'fileList.length': [':sandbox .clear, :sandbox .compress', {
 					setValue(v) {
 						this.disabled = !v;
 					}
-				}],
-				dragovered: [':bound(fileWrapper)', dragOver()]
+				}]
 			})
 			.bindNode({
 				files: [':sandbox .file-input', file('text')],
@@ -25,14 +26,36 @@ export default class Upload extends Tab {
 			.on({
 				'change:files': () => {
 					this.fileList.push(...this.files.map(
-						({name, readerResult}) => ({name, readerResult})
-					))
+						({ name, readerResult }) => ({ name, readerResult })
+					));
 				},
-				'click::(.clear)': () => this.fileList.recreate(),
+				'click::(.clear)': () => {
+					this.fileList.recreate();
+					this.error = '';
+				},
 				'click::(.compress)': () => {
-					this.trigger('submitCode', this.fileList.map(item => item.readerResult).join(';'));
-				}
-			})
+					const errors = [],
+						results = [];
 
+					for (const item of this.fileList) {
+						const { readerResult, name } = item,
+							{ isValid, error } = validate(readerResult);
+
+						results.push(readerResult);
+
+						if (!isValid) {
+							errors.push(`File ${name}: ${error}`);
+						}
+					}
+
+					if (errors.length) {
+						this.error = errors.join('<br>');
+					} else {
+						this.error = '';
+
+						this.trigger('submitCode', results.join(';'));
+					}
+				}
+			});
 	}
 }

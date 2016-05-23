@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body>
@@ -13,6 +14,7 @@
     		</ul>
     		<div class="tabs">
     			<div class="tab-pane" id="copyPaste">
+					<div class="error"></div>
 					<form name="copyPasteForm">
 						<textarea name="code">
 function test() {
@@ -24,6 +26,7 @@ function test() {
 					</form>
     			</div>
     			<div class="tab-pane" id="upload">
+					<div class="error"></div>
 					<div class="file-wrapper">
 						<input type="file" multiple id="file-input" class="file-input">
 						<div class="file-list">

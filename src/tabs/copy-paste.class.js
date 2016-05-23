@@ -1,5 +1,5 @@
-import MK from 'matreshka';
 import Tab from './tab.class';
+import validate from '../util/validate';
 
 export default class CopyPaste extends Tab {
 	constructor(...args) {
@@ -14,7 +14,19 @@ export default class CopyPaste extends Tab {
 			.on({
 				'submit::form': evt => {
 					evt.preventDefault();
-					this.trigger('submitCode', this.code);
+
+					const { code } = this,
+						{ isValid, error } = validate(code);
+
+					if (!isValid) {
+						this.error = error;
+					} else {
+						this.error = '';
+						this.trigger('submitCode', code);
+					}
+				},
+				'change:code': () => {
+					this.error = '';
 				}
 			});
 	}

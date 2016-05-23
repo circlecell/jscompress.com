@@ -84,7 +84,6 @@ textarea.output-code {
   color: #0f3c4b;
   padding-top: 215px;
   padding-bottom: 100px;
-
 }
 
 .file-wrapper.dragovered {
@@ -109,4 +108,12 @@ textarea.output-code {
 
 .file-wrapper .file-list {
     text-align: center;
+}
+
+.error {
+	color: red;
+}
+
+.error:empty {
+    display: none;
 }

@@ -1,9 +1,9 @@
 import MK from 'matreshka';
 import Tab from './tab.class';
-import minify from './minify';
+import minify from '../util/minify';
 
 const getJSBlob = data => new Blob([data], {
-    type: 'text/javascript'
+	type: 'text/javascript'
 });
 
 const getBlobSize = blob => blob.size;

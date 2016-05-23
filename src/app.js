@@ -1,11 +1,7 @@
 import MK from 'matreshka';
-import tabNavBinder from './tab-nav.binder';
-import tabPaneBinder from './tab-pane.binder';
 import Upload from './tabs/upload.class';
 import CopyPaste from './tabs/copy-paste.class';
-import Output from './tabs/output.class'
-
-
+import Output from './tabs/output.class';
 
 module.exports = new class Application extends MK.Object {
 	constructor() {
@@ -21,9 +17,9 @@ module.exports = new class Application extends MK.Object {
 			})
 			.on({
 				'*@change:active': evt => {
-					if(evt.value === true) {
-						for(const tab of this) {
-							if(tab !== evt.self) {
+					if (evt.value === true) {
+						for (const tab of this) {
+							if (tab !== evt.self) {
 								tab.active = false;
 							}
 						}
@@ -31,11 +27,9 @@ module.exports = new class Application extends MK.Object {
 				},
 				'upload@submitCode copyPaste@submitCode': code => {
 					this.output.active = true;
-					this.output.inputCode = code
+					this.output.inputCode = code;
 				}
-			})
-
-
+			});
 	}
 
 };

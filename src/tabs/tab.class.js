@@ -1,6 +1,6 @@
 import MK from 'matreshka';
 
-const { display } = MK.binders;
+const { display, html } = MK.binders;
 
 export default class Tab extends MK.Object {
 	constructor(data = {}, app, name) {
@@ -13,8 +13,11 @@ export default class Tab extends MK.Object {
 				navItem: `.tab-nav-item[data-tab="${name}"]`,
 				active: [':sandbox', display()]
 			})
+			.bindOptionalNode('error', ':sandbox .error', html())
 			.on({
-				'click::navItem': () => this.active = true
+				'click::navItem': () => {
+					this.active = true;
+				}
 			});
 	}
 }
