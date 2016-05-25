@@ -9,3 +9,5 @@ First of all you need to install [NodeJS 6](https://nodejs.org/en/) or above. If
 To run development server you need to run ``npm run dev-server`` and open [http://localhost:8100](http://localhost:8100).
 
 If you need to build real app (without dev server stuff) run ``npm run bundle``. This command will be run automatically before commit.
+
+Styles are placed in **/pcss/** folder, JavaScript source you can find at **/src/** folder.
