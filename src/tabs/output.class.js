@@ -1,6 +1,7 @@
 import MK from 'matreshka';
 import Tab from './tab.class';
 import minify from '../util/minify';
+import round from 'lodash.round';
 
 const getJSBlob = data => new Blob([data], {
 	type: 'text/javascript'
@@ -17,7 +18,7 @@ export default class Output extends Tab {
 				inputCode: ''
 			})
 			.bindNode({
-				outputDataURI: [':sandbox #download', prop('href')],
+				outputDataURI: [':sandbox .download', prop('href')],
 				compression: ':sandbox .compression',
 				saving: ':sandbox .saving',
 				outputCode: ':sandbox .output-code'
@@ -29,8 +30,11 @@ export default class Output extends Tab {
 			.linkProps('outputSize', 'outputBlob', getBlobSize)
 			.linkProps('outputDataURI', 'outputBlob', URL.createObjectURL)
 			.linkProps('compression', 'inputSize outputSize',
-				(inSize, outSize) => 100 - outSize / inSize * 100 || 0)
+				(inSize, outSize) => round(100 - outSize / inSize * 100 || 0, 2))
 			.linkProps('saving', 'inputSize outputSize',
-				(inSize, outSize) => (inSize - outSize) / 1024);
+				(inSize, outSize) => round((inSize - outSize) / 1024, 2))
+			.on({
+				'keypress::outputCode': evt => evt.preventDefault()
+			});
 	}
 }

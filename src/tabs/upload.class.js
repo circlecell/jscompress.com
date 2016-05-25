@@ -49,7 +49,7 @@ export default class Upload extends Tab {
 					}
 
 					if (errors.length) {
-						this.error = errors.join('<br>');
+						this.error = errors.join('\n');
 					} else {
 						this.error = '';
 

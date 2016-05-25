@@ -11,11 +11,11 @@ export default function validate(code) {
 		try {
 			UglifyJS.parse(code);
 		} catch (e) {
-			const { line, col, pos, message = 'Unknown error' } = e;
+			const { line, col, message = 'Unknown error' } = e;
 			let info = '';
 
-			if (line || col || pos) {
-				info = ` (line: ${line}, col: ${col}, pos: ${pos})`;
+			if (line || col) {
+				info = ` (line: ${line}, col: ${col})`;
 			}
 
 			isValid = false;

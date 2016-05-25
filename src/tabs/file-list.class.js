@@ -2,9 +2,9 @@ import MK from 'matreshka';
 
 export default class FileList extends MK.Array {
 	itemRenderer = `
-		<div>
+		<div class="file-item">
 			{{name}}
-			<span class="remove">REMOVE</span>
+			<span class="remove"></span>
 		</div>
 	`;
 	constructor(data = []) {

@@ -1,9 +1,9 @@
 import MK from 'matreshka';
 
-const { display, html } = MK.binders;
+const { display, className } = MK.binders;
 
 export default class Tab extends MK.Object {
-	constructor(data = {}, app, name) {
+	constructor(data = {}, parent, name) {
 		super(data)
 			.set({
 				active: false
@@ -13,7 +13,10 @@ export default class Tab extends MK.Object {
 				navItem: `.tab-nav-item[data-tab="${name}"]`,
 				active: [':sandbox', display()]
 			})
-			.bindOptionalNode('error', ':sandbox .error', html())
+			.bindNode({
+				active: [':bound(navItem)', className('active')]
+			})
+			.bindOptionalNode('error', ':sandbox .error')
 			.on({
 				'click::navItem': () => {
 					this.active = true;

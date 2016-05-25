@@ -17,6 +17,32 @@ main {
 }
 
 
+textarea {
+    width: 100%;
+    display: block;
+    height: 500px;
+}
+
+.button {
+    background-color: #0078e7;
+    color: #fff;
+    padding: .5em 1em;
+    text-decoration: none;
+	&:disabled {
+		background: grey;
+	}
+}
+
+.error {
+	color: red;
+    font-family: monospace;
+    white-space: pre;
+	&:empty {
+		display: none;
+	}
+}
+
+
 .tab-nav {
     margin-bottom: 30px;
     li {
@@ -32,38 +58,10 @@ main {
 }
 
 .tab-pane {
-    height: 500px;
+    min-height: 500px;
+    padding: 5%;
 }
 
-#copyPaste {
-	form {
-		height: 100%;
-	}
-    textarea {
-        width: 90%;
-        display: block;
-        margin: 0 auto;
-        height: 90%;
-    }
-}
-
-textarea.output-code {
-	width: 90%;
-	display: block;
-	margin: 0 auto;
-	height: 90%;
-}
-
-
-.button {
-    background-color: #0078e7;
-    color: #fff;
-    padding: .5em 1em;
-    text-decoration: none;
-	&:disabled {
-		background: grey;
-	}
-}
 
 
 .file-wrapper {
@@ -86,7 +84,7 @@ textarea.output-code {
   padding-bottom: 100px;
 
   &.dragovered {
-    outline-offset: -20px;
+      outline-offset: -20px;
       outline-color: #c8dadf;
       background-color: #f0f0f0;
   }
@@ -109,11 +107,16 @@ textarea.output-code {
   .file-list {
 	  text-align: center;
   }
+
+  .file-item {
+      .remove::after {
+          content: '❌';
+          cursor: pointer;
+      }
+  }
 }
 
-.error {
-	color: red;
-	&:empty {
-		display: none;
-	}
+
+.compression, .saving {
+    background: #ccc;
 }
