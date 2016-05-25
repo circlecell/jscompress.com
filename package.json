@@ -7,9 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile-uglifyjs": "uglifyjs --self -c -m -o ./node_modules/uglify-js/uglify-js-browser.js",
     "postinstall": "npm run compile-uglifyjs",
-    "bundle": "webpack",
+    "bundle": "webpack --production",
     "develop": "webpack-dev-server --port 8100"
   },
+  "pre-commit": [
+    "bundle"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/circlecell/jscompress.com.git"
@@ -45,6 +48,7 @@
     "postcss-loader": "^0.9.1",
     "postcss-nested": "^1.0.0",
     "postcss-url": "^5.1.2",
+    "pre-commit": "^1.1.3",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

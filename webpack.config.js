@@ -1,6 +1,7 @@
 "use strict";
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin'),
+	production = require('minimist')(process.argv.slice(2)).production,
  	webpack = require('webpack'),
 	path = require('path'),
 	postcssPlugins = [
@@ -16,16 +17,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin'),
 
 module.exports = [{
 	context: `${__dirname}/src`,
-	entry: [
-        'webpack-dev-server/client?http://localhost:8100',
-		'./app'
-	],
+	entry: production ? [
+			'./app'
+		] : [
+			'webpack-dev-server/client?http://localhost:8100',
+			'./app'
+		],
 	output: {
 		path: `${__dirname}/dist`,
 		filename: "app.js",
 		library: "app",
-        libraryTarget: 'var',
-        publicPath: '/dist/',
+		libraryTarget: 'var',
+		publicPath: '/dist/',
 	},
 	module: {
 		preLoaders: [{
@@ -54,9 +57,9 @@ module.exports = [{
 			test: /\.css$|\.pcss$/,
 			loader: ExtractTextPlugin.extract("style", ["css", "postcss"])
 		}, {
-            test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
-            loader: 'url-loader?limit=100000'
-        }]
+			test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
+			loader: 'url-loader?limit=100000'
+		}]
 	},
 	postcss: postcssPlugins,
 	plugins: [
