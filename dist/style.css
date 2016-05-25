@@ -16,6 +16,33 @@ main {
     width: 90%;
 }
 
+textarea {
+    width: 100%;
+    display: block;
+    height: 500px;
+}
+
+.button {
+    background-color: #0078e7;
+    color: #fff;
+    padding: .5em 1em;
+    text-decoration: none;
+}
+
+.button:disabled {
+    background: grey;
+}
+
+.error {
+	color: red;
+    font-family: monospace;
+    white-space: pre;
+}
+
+.error:empty {
+    display: none;
+}
+
 .tab-nav {
     margin-bottom: 30px;
 }
@@ -32,36 +59,8 @@ main {
 }
 
 .tab-pane {
-    height: 500px;
-}
-
-#copyPaste form {
-    height: 100%;
-}
-
-#copyPaste textarea {
-    width: 90%;
-    display: block;
-    margin: 0 auto;
-    height: 90%;
-}
-
-textarea.output-code {
-	width: 90%;
-	display: block;
-	margin: 0 auto;
-	height: 90%;
-}
-
-.button {
-    background-color: #0078e7;
-    color: #fff;
-    padding: .5em 1em;
-    text-decoration: none;
-}
-
-.button:disabled {
-    background: grey;
+    min-height: 500px;
+    padding: 5%;
 }
 
 .file-wrapper {
@@ -110,10 +109,11 @@ textarea.output-code {
     text-align: center;
 }
 
-.error {
-	color: red;
+.file-wrapper .file-item .remove::after {
+    content: '\274C';
+    cursor: pointer;
 }
 
-.error:empty {
-    display: none;
+.compression, .saving {
+    background: #ccc;
 }
