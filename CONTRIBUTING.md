@@ -2,7 +2,7 @@
 
 Contributings are always welcome, nothing specific. Since there are no unit or e2e tests, you need to provide a link to working example of a bugfix or a feature. Just use gh-pages branch when you make pull request.
 
-# How to run and make changes
+## How to run and make changes
 
 First of all you need to install [NodeJS 6](https://nodejs.org/en/) or above. If you already have another version of NodeJS, install [NVM](https://github.com/creationix/nvm) then run ``nvm install 6``. After, you'll need to run ``nvm use 6`` which switches NodeJS to v6 and NPM to v3. Then install needed deps via ``npm install`` (it also compiles browser version of UglifyJS). That's it, your environment is installed. The project is bundled by Webpack, but it's installed locally.
 
