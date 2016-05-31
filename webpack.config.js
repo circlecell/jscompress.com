@@ -6,11 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin'),
 	path = require('path'),
 	postcssPlugins = [
 		require('postcss-import'),
-		require('postcss-url')({
-			url: "inline",
-			from: "pcss/stype.pcss"
-		}),
-		require('postcss-nested')(),
+		//require('postcss-nested')(),
 		require('postcss-cssnext')(),
 		require('postcss-calc')()
 	];

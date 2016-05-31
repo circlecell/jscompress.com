@@ -28,33 +28,41 @@ textarea {
     color: #fff;
     padding: .5em 1em;
     text-decoration: none;
-	&:disabled {
-		background: grey;
-	}
+
+}
+
+.button:disabled {
+    background: grey;
 }
 
 .error {
 	color: red;
     font-family: monospace;
     white-space: pre;
-	&:empty {
-		display: none;
-	}
+
+}
+
+.error:empty {
+    display: none;
 }
 
 
 .tab-nav {
     margin-bottom: 30px;
-    li {
-        padding: .5em 1em;
-        cursor: pointer;
-        display: inline-block;
-        border-bottom: 3px solid transparent;
 
-        &.active {
-            border-bottom-color: #aaa;;
-        }
-    }
+}
+
+.tab-nav li {
+    padding: .5em 1em;
+    cursor: pointer;
+    display: inline-block;
+    border-bottom: 3px solid transparent;
+
+
+}
+
+.tab-nav li.active {
+    border-bottom-color: #aaa;;
 }
 
 .tab-pane {
@@ -83,37 +91,39 @@ textarea {
   padding-top: 215px;
   padding-bottom: 100px;
 
-  &.dragovered {
-      outline-offset: -20px;
-      outline-color: #c8dadf;
-      background-color: #f0f0f0;
-  }
 
-  .file-input {
-      width: 0.1px;
-      height: 0.1px;
-      opacity: 0;
-      overflow: hidden;
-      position: absolute;
-      z-index: -1;
-  }
+}
 
-  .file-label {
-    font-weight: bold;
-	cursor: pointer;
+.file-wrapper.dragovered {
+    outline-offset: -20px;
+    outline-color: #c8dadf;
+    background-color: #f0f0f0;
+}
 
-  }
+.file-wrapper .file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
 
-  .file-list {
-	  text-align: center;
-  }
+.file-wrapper .file-label {
+  font-weight: bold;
+  cursor: pointer;
 
-  .file-item {
-      .remove::after {
-          content: '❌';
-          cursor: pointer;
-      }
-  }
+}
+
+.file-wrapper .file-list {
+    text-align: center;
+}
+
+.file-wrapper .file-item {
+    .remove::after {
+        content: '❌';
+        cursor: pointer;
+    }
 }
 
 
