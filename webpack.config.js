@@ -1,33 +1,33 @@
 "use strict";
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin'),
-	production = require('minimist')(process.argv.slice(2)).production,
+const production = require('minimist')(process.argv.slice(2)).production,
  	webpack = require('webpack'),
-	path = require('path'),
-	postcssPlugins = [
-		require('postcss-import'),
-		//require('postcss-nested')(),
-		require('postcss-cssnext')(),
-		require('postcss-calc')()
-	];
+	CopyWebpackPlugin = require('copy-webpack-plugin'),
+	path = require('path');
 
-module.exports = [{
-	context: `${__dirname}/src`,
-	entry: production ? [
-			'./app'
-		] : [
-			'webpack-dev-server/client?http://localhost:8100',
-			'./app'
-		],
+
+
+const NODE_ENV = process.env.NODE_ENV;
+
+const entry = [];
+
+if(NODE_ENV === 'development') {
+    entry.push('webpack-dev-server/client?http://localhost:8100');
+}
+
+entry.push('./js/index');
+
+module.exports = {
+	context: __dirname,
+	entry,
 	output: {
 		path: `${__dirname}/dist`,
-		filename: "app.js",
+		filename: "js/app.js",
 		library: "app",
 		libraryTarget: 'var',
-		publicPath: '/dist/',
 	},
 	module: {
-		preLoaders: [{
+		loaders: [{
 			test: /.js?$/,
 			loaders: ['babel', 'eslint'],
 			include: path.resolve('src/')
@@ -36,29 +36,12 @@ module.exports = [{
 	devtool: 'source-map',
 	eslint: {
 		configFile: '.eslintrc.json'
-	}
-}, {
-	context: `${__dirname}/pcss`,
-	entry: [
-		'webpack-dev-server/client?http://localhost:8100',
-		'./style.pcss'
-	],
-	output: {
-		path: `${__dirname}/dist`,
-		filename: "style.css",
-		publicPath: '/dist/',
 	},
-	module: {
-		loaders: [{
-			test: /\.css$|\.pcss$/,
-			loader: ExtractTextPlugin.extract("style", ["css", "postcss"])
-		}, {
-			test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
-			loader: 'url-loader?limit=100000'
-		}]
-	},
-	postcss: postcssPlugins,
 	plugins: [
-		new ExtractTextPlugin("style.css", { allChunks: true })
+		new CopyWebpackPlugin([
+			{ from: 'css/style.css', to: 'css/style.css' },
+			{ from: 'index.html', to: 'index.html' },
+            { from: 'img', to: 'img' }
+		])
 	]
-}];
+};
