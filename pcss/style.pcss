@@ -5,81 +5,136 @@
 }
 
 body {
-	 font-family: Lucida Grande, Helvetica Neue, Helvetica, Arial, Verdana, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	text-align: center;
+	background: #fafbfc;
+	padding-top: 15px;
+}
+
+container {
+	display: block;
+	margin: 0 auto;
+	max-width: 1000px;
+	text-align: left;
 }
 
 main {
-    background: #efefef;
-    border-top: 3px solid #F8DC3B;
-    margin: 0 auto;
-    max-width: 1200px;
-    width: 90%;
+    margin: 15px 0 0 0;
 }
 
+info {
+	display: block;
+	margin: 45px 0;
+}
+
+ad {
+	display: block;
+	margin: 0;
+	text-align: center;
+}
+	ad.top {
+		float: right;
+	}
+	ad.bottom {
+		margin: 25px 0;
+		background: #e1e1e1;
+		padding: 10px;
+	}
+
+hr {
+	border-color: transparent;
+	clear: both;
+}
 
 textarea {
     width: 100%;
     display: block;
-    height: 500px;
+    height: 300px;
+    border: 1px solid #e1e1e1;
+    margin: 0 0 20px 0;
+    padding: 10px;
+}
+
+h1.logo {
+	display: block;
+	text-align: left;
+	margin: 25px 0 0;
+	font-weight: normal;
+	font-size: 21px;
+	float: left;
+	max-width: 272px;
+}
+	h1.logo img {
+		float: left;
+		margin: 0 10px 0 0;
+	}
+
+info li{
+	margin: 10px 0 0 15px;
+	padding: 0;
 }
 
 .button {
-    background-color: #0078e7;
-    color: #fff;
-    padding: .5em 1em;
+    background-color: #fff;
+    padding: 5px 10px;
     text-decoration: none;
-
+    border: 1px solid #e1e1e1;
+    box-shadow: 1px 1px #c1c1c1;
+    font-size: 18px;
 }
-
-.button:disabled {
-    background: grey;
-}
+	.button:hover {
+		cursor: pointer;
+	}
+	.button.disabled {
+		background: grey;
+	}
+	.button.download {
+		margin-right: 15px;
+	}
 
 .error {
 	color: red;
     font-family: monospace;
     white-space: pre;
+}
+	.error:empty {
+		display: none;
+	}
 
+p {
+	font-size: 14px;
 }
 
-.error:empty {
-    display: none;
-}
-
-
-.tab-nav {
-    margin-bottom: 30px;
-
+p.heading {
+	margin-top: 20px;
+	margin-bottom: 8px;
+	font-size: 15px;
 }
 
 .tab-nav li {
     padding: .5em 1em;
+    font-size: 15px;
     cursor: pointer;
     display: inline-block;
-    border-bottom: 3px solid transparent;
-
-
 }
-
-.tab-nav li.active {
-    border-bottom-color: #aaa;;
-}
+	.tab-nav li.active {
+		background: #e1e1e1;
+		border-radius: 2px 2px 0 0;
+	}
 
 .tab-pane {
-    min-height: 500px;
-    padding: 5%;
+    min-height: 300px;
 }
 
 
 
 .file-wrapper {
   box-sizing: border-box;
-
   font-size: 1.25rem;
   margin: 0 auto;
-  width: 680px;
-  background-color: #c8dadf;
-  outline: 2px dashed #92b0b3;
+  width: 100%;
+  background-color: #e1e1e1;
+  outline: 2px dashed #ccc;
   outline-offset: -10px;
   transition: outline-offset .15s ease-in-out, background-color .15s linear;
   position: relative;
@@ -87,46 +142,38 @@ textarea {
   background-repeat: no-repeat;
   background-size: 90px;
   background-position: center 90px;
-  color: #0f3c4b;
-  padding-top: 215px;
-  padding-bottom: 100px;
-
-
+  padding-top: 140px;
+  padding-bottom: 120px;
+  text-align: center;
 }
 
-.file-wrapper.dragovered {
-    outline-offset: -20px;
-    outline-color: #c8dadf;
-    background-color: #f0f0f0;
-}
-
-.file-wrapper .file-input {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
-
-.file-wrapper .file-label {
-  font-weight: bold;
-  cursor: pointer;
-
-}
-
-.file-wrapper .file-list {
-    text-align: center;
-}
-
-.file-wrapper .file-item {
-    .remove::after {
+	.file-wrapper.dragovered {
+	    outline-offset: -20px;
+	    outline-color: #c8dadf;
+	    background-color: #f0f0f0;
+	}
+	
+	.file-wrapper .file-input {
+	    width: 0.1px;
+	    height: 0.1px;
+	    opacity: 0;
+	    overflow: hidden;
+	    position: absolute;
+	    z-index: -1;
+	}
+	.file-wrapper .file-label {
+	    font-weight: bold;
+		cursor: pointer;
+	
+	  }
+	
+	.file-wrapper .file-item.remove::after {
         content: '❌';
         cursor: pointer;
-    }
-}
+	}
 
 
 .compression, .saving {
-    background: #ccc;
+    background: lightyellow;
+    padding: 3px;
 }
