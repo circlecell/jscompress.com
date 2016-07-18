@@ -21,7 +21,7 @@ module.exports = {
 	context: __dirname,
 	entry,
 	output: {
-		path: `${__dirname}/dist`,
+		path: path.resolve('dist/'),
 		filename: "js/app.js",
 		library: "app",
 		libraryTarget: 'var',
