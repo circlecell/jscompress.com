@@ -1,6 +1,12 @@
 language: node_js
 node_js:
 - '6'
+install:
+- npm install --loglevel warn
+script:
+- npm run test
+- npm run bundle
+- npm run deploy
 env:
   global:
   - secure: sT2sNon+zFVamrV2MD4QL0/WTPI/Uk9B2AtGbMxJ7U1Gxd+ATIbzVdK/0A8YEpxxCTgYqyh8xZG0DGauvb2bstfyavdRKmOHewiLdq7pKuJqk/8fVhgl4reKBtxsRiNxFxjECBQ45x+IgO3IK6VOCrC1FUok+mhERjszoS2wBBk=

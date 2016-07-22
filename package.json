@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run lint",
     "compile-uglifyjs": "uglifyjs --self -c -m -o ./node_modules/uglify-js/uglify-js-browser.js",
     "postinstall": "npm run compile-uglifyjs",
     "bundle": "NODE_ENV=production webpack --config tools/webpack.config.babel.js",
