@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '6'
 install:
-- npm cache clean
+- rm -r node_modules
 - npm install --loglevel warn
 script:
 - npm run test
