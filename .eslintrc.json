@@ -1,19 +1,16 @@
 {
-	"parser": "babel-eslint",
-	"extends": "airbnb",
-	"rules": {
-		"indent": ["error", "tab"],
-		"no-var": "error",
-		"one-var": 0,
-		"comma-dangle": 0,
-		"import/no-unresolved": 0
-	},
-	"env": {
-		"browser": true,
-		"jasmine": true
-
-	},
-	"globals": {
-		"nofn": true
-	}
+    "parser": "babel-eslint",
+    "extends": [
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "airbnb"
+    ],
+    "rules": {
+        "indent": ["error", 4],
+        "no-var": "error",
+        "comma-dangle": 0
+    },
+    "env": {
+        "browser": true
+    }
 }
