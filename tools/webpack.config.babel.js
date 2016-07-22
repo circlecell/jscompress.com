@@ -9,9 +9,9 @@ const plugins = [];
 
 if (NODE_ENV === 'development') {
     entry.push('webpack-dev-server/client?http://localhost:8100');
-	plugins.push(new OpenBrowserPlugin({
-		url: 'http://localhost:8100'
-	}));
+    plugins.push(new OpenBrowserPlugin({
+        url: 'http://localhost:8100'
+    }));
 }
 
 entry.push('./js/index');
