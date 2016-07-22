@@ -6,7 +6,7 @@ Contributings are always welcome, nothing specific. Since there are no unit or e
 
 Prerequirements: NodeJS 6+, NPM 3+.
 
-Install needed deps via ``npm install`` (it also compiles browser version of UglifyJS). That's it.
+Install needed deps via ``npm install`` (it also compiles browser version of UglifyJS).
 
 To run development server you need to run ``npm run dev-server`` and open [http://localhost:8100](http://localhost:8100).
 
