@@ -1,7 +1,7 @@
-import Tab from './tab.class';
+import Tab from '../tab.class';
 import FileList from './file-list.class';
 import MK from 'matreshka';
-import validate from '../util/validate';
+import validate from '../../util/validate';
 
 const { dropFiles, file, className, dragOver } = MK.binders;
 

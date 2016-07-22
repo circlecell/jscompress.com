@@ -1,7 +1,7 @@
 import MK from 'matreshka';
-import Upload from './tabs/upload.class';
-import CopyPaste from './tabs/copy-paste.class';
-import Output from './tabs/output.class';
+import Upload from './tabs/upload';
+import CopyPaste from './tabs/copy-paste';
+import Output from './tabs/output';
 
 module.exports = new class Application extends MK.Object {
     constructor() {

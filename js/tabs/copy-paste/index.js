@@ -1,5 +1,5 @@
-import Tab from './tab.class';
-import validate from '../util/validate';
+import Tab from '../tab.class';
+import validate from '../../util/validate';
 
 export default class CopyPaste extends Tab {
     constructor(...args) {

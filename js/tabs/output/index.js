@@ -1,6 +1,6 @@
 import MK from 'matreshka';
-import Tab from './tab.class';
-import minify from '../util/minify';
+import Tab from '../tab.class';
+import minify from '../../util/minify';
 import round from 'lodash.round';
 
 const getJSBlob = data => new Blob([data], {
