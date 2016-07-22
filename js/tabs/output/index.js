@@ -1,5 +1,5 @@
 import MK from 'matreshka';
-import Tab from '../tab.class';
+import Tab from '../tab';
 import minify from '../../util/minify';
 import round from 'lodash.round';
 

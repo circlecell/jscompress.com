@@ -1,5 +1,5 @@
-import Tab from '../tab.class';
-import FileList from './file-list.class';
+import Tab from '../tab';
+import FileList from './file-list';
 import MK from 'matreshka';
 import validate from '../../util/validate';
 
