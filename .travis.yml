@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '6'
 install:
-- npm uninstall -g eslint eslint-plugin-react
+- npm prune
 - npm install --loglevel warn
 script:
 - npm run test
