@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="shortcut icon" type="image/png" href="/img/jscompress-logo-square.png">
+		<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,400italic' rel='stylesheet' type='text/css'>
+	    <title>JSCompress: Minify Javascript Online / Online JavaScript Compression</title>
+
+	    <meta name="keywords" content="javascript compressor, compress javascript, minify javascript, minify js online, online javascript packer, js packer tool, online jsmin, uglify js">
+	    <meta name="description" content="Free online instant javascript compression tool. Copy and paste your code in or upload multiple files to combine them together.">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+
+		<container>
+
+			<ad class="top">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:728px;height:90px"
+				     data-ad-client="ca-pub-8400268452481648"
+				     data-ad-slot="5102772595"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</ad>
+
+			<h1 class="logo">
+				<img src="img/jscompress-logo-square.png" alt="JS Compress Online JavaScript Compression Tool" height="48" />
+				JavaScript Compression Tool
+			</h1>
+
+			<hr>
+
+	        <main>
+	            <ul class="tab-nav">
+	    			<li data-tab="copyPaste" class="tab-nav-item">Copy &amp; Paste Javascript Code</li>
+	    			<li data-tab="upload" class="tab-nav-item">Upload Javascript Files</li>
+	    			<li data-tab="output" class="tab-nav-item">Output</li>
+	    		</ul>
+	    		<div class="tabs">
+	    			<div class="tab-pane" id="copyPaste">
+						<output class="error"></output>
+						<form name="copyPasteForm">
+							<textarea name="code">
+function test() {
+	var longVariableName = 42;
+	alert(longVariableName);
+}
+		                    </textarea>
+							<button class="button" type="submit">Compress JavaScript</button>
+						</form>
+	    			</div>
+	    			<div class="tab-pane" id="upload">
+						<output class="error"></output>
+						<div class="file-wrapper">
+							<input type="file" multiple id="file-input" class="file-input">
+							<div class="file-list">
+								<label for="file-input" class="file-label">Choose files</label> or drag them here.
+								<div class="buttons">
+									<button class="button compress">Compress</button>
+									<button class="button clear">Remove all</button>
+								</div>
+
+								<div class="no-files"></div>
+							</div>
+						</div>
+	    			</div>
+	    			<div class="tab-pane" id="output">
+	    				<textarea class="output-code"></textarea>
+	                    <a class="button download" download="compressed.js">Download</a>
+						Stats: <output class="compression"></output>% compression, saving <output class="saving"></output> kb
+	    			</div>
+	    		</div>
+	        </main>
+
+	        <ad class="bottom">
+	        	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	        	<ins class="adsbygoogle"
+	        	     style="display:inline-block;width:728px;height:90px"
+	        	     data-ad-client="ca-pub-8400268452481648"
+	        	     data-ad-slot="5102772595"></ins>
+	        	<script>
+	        	(adsbygoogle = window.adsbygoogle || []).push({});
+	        	</script>
+	        </ad>
+
+	        <info>
+	        	<p class="heading"><strong>What Is This?</strong></info>
+	        	<p>
+	        		JSCompress.com is an online javascript compressor that allows you to compress and minify your javascript files. Compressed javascript files are ideal for production environments since they typically <strong>reduce the size of the file by 30-80%</strong>.
+	        	</p>
+
+	        	<p class="heading"><strong>Why Would I Want To Compress Javascript?</strong></info>
+	        	<p>There are a number of reasons why compressing your javascript files is a good idea:</p>
+	        	<ul>
+	        		<li>Quicker download times for your users.</li>
+	        		<li>Reduced bandwidth consumption of your website.</li>
+	        		<li>Reduced number of HTTP requests on your server when combining many javascript files into one compressed file, thus reducing the server load and allowing more visitors to access your website.</li>
+	        		<li>Comments and whitespace are not needed for javascript execution; Removing them will reduce file size and speed up script execution times.</li>
+	        	</ul>
+
+	        	<p class="heading"><strong>What Javascript Compression Method is Used?</strong></info>
+	        	<p>JSCompress.com uses <a href="https://github.com/mishoo/UglifyJS2">UglifyJS2</a> for all javascript minification and compression.</p>
+
+	        	<p class="heading"></info>
+	        	<p><a href="https://github.com/circlecell/jscompress.com">Source code on GitHub</a>. Also check out <a href="http://JSONLint.com">JSONLint.com</a>.</p>
+
+	        </info>
+
+        </container>
+
+		<script src="js/app.js"></script>
+	</body>
+</html>

@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	text-align: center;
+	background: #fafbfc;
+	padding-top: 15px;
+}
+
+container {
+	display: block;
+	margin: 0 auto;
+	max-width: 1000px;
+	text-align: left;
+}
+
+main {
+    margin: 15px 0 0 0;
+}
+
+info {
+	display: block;
+	margin: 45px 0;
+}
+
+ad {
+	display: block;
+	margin: 0;
+	text-align: center;
+}
+	ad.top {
+		float: right;
+	}
+	ad.bottom {
+		margin: 25px 0;
+		background: #e1e1e1;
+		padding: 10px;
+	}
+
+hr {
+	border-color: transparent;
+	clear: both;
+}
+
+textarea {
+    width: 100%;
+    display: block;
+    height: 300px;
+    border: 1px solid #e1e1e1;
+    margin: 0 0 20px 0;
+    padding: 10px;
+}
+
+h1.logo {
+	display: block;
+	text-align: left;
+	margin: 25px 0 0;
+	font-weight: normal;
+	font-size: 21px;
+	float: left;
+	max-width: 272px;
+}
+	h1.logo img {
+		float: left;
+		margin: 0 10px 0 0;
+	}
+
+info li{
+	margin: 10px 0 0 15px;
+	padding: 0;
+}
+
+.button {
+    background-color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: 1px solid #e1e1e1;
+    box-shadow: 1px 1px #c1c1c1;
+    font-size: 18px;
+}
+	.button:hover {
+		cursor: pointer;
+	}
+	.button.disabled {
+		background: grey;
+	}
+	.button.download {
+		margin-right: 15px;
+	}
+
+.error {
+	color: red;
+    font-family: monospace;
+    white-space: pre;
+}
+	.error:empty {
+		display: none;
+	}
+
+p {
+	font-size: 14px;
+}
+
+p.heading {
+	margin-top: 20px;
+	margin-bottom: 8px;
+	font-size: 15px;
+}
+
+.tab-nav li {
+    padding: .5em 1em;
+    font-size: 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+	.tab-nav li.active {
+		background: #e1e1e1;
+		border-radius: 2px 2px 0 0;
+	}
+
+.tab-pane {
+    min-height: 300px;
+}
+
+
+
+.file-wrapper {
+  box-sizing: border-box;
+  font-size: 1.25rem;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #e1e1e1;
+  outline: 2px dashed #ccc;
+  outline-offset: -10px;
+  transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  position: relative;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43"><path fill="#92b0b3" d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"></path></svg>');
+  background-repeat: no-repeat;
+  background-size: 90px;
+  background-position: center 90px;
+  padding-top: 140px;
+  padding-bottom: 120px;
+  text-align: center;
+}
+
+	.file-wrapper.dragovered {
+	    outline-offset: -20px;
+	    outline-color: #c8dadf;
+	    background-color: #f0f0f0;
+	}
+	
+	.file-wrapper .file-input {
+	    width: 0.1px;
+	    height: 0.1px;
+	    opacity: 0;
+	    overflow: hidden;
+	    position: absolute;
+	    z-index: -1;
+	}
+	.file-wrapper .file-label {
+	    font-weight: bold;
+		cursor: pointer;
+	
+	  }
+	
+	.file-wrapper .file-item.remove::after {
+        content: '❌';
+        cursor: pointer;
+	}
+
+
+.compression, .saving {
+    background: lightyellow;
+    padding: 3px;
+}
