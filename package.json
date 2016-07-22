@@ -7,10 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile-uglifyjs": "uglifyjs --self -c -m -o ./node_modules/uglify-js/uglify-js-browser.js",
     "postinstall": "npm run compile-uglifyjs",
-    "bundle": "NODE_ENV=production webpack",
-    "dev-server": "NODE_ENV=development webpack-dev-server --port 8100",
+    "bundle": "NODE_ENV=production webpack --config tools/webpack.config.babel.js",
+    "dev-server": "NODE_ENV=development webpack-dev-server --config tools/webpack.config.babel.js --port 8100",
     "check-updates": "ncu",
-    "upgrade": "npm run check-updates -- --upgradeAll && npm install"
+    "upgrade": "npm run check-updates -- --upgradeAll && npm install",
+    "lint": "eslint . --ext .js --cache --ignore-pattern '**/node_modules/**' --ignore-pattern '**/dist/**'",
+    "deploy": "babel-node tools/deploy"
   },
   "repository": {
     "type": "git",
@@ -27,11 +29,13 @@
   },
   "homepage": "https://github.com/circlecell/jscompress.com#readme",
   "devDependencies": {
+    "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-1": "^6.5.0",
+    "babel-register": "^6.9.0",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.23.1",
     "eslint": "^3.1.1",
@@ -42,6 +46,7 @@
     "eslint-plugin-react": "^5.2.2",
     "npm-check-updates": "^2.7.1",
     "npm-run-all": "^2.3.0",
+    "scp2": "^0.5.0",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
