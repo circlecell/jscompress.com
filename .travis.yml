@@ -10,5 +10,5 @@ script:
 - npm run deploy
 env:
   global:
-  - secure: sVkj6BiCOhIrfASVzU9bNpSPjwzGJbrDn5+x9BPCK12yUoTXXiDEARvNLXo+hTj+4kyOXkGHVs6POn92/8ttWz8vICRGKo/6bez5GItdZbYZkAGsWcyT+XxNCCmM6C/lsV3HJWVw2ylAERappAsfcJts5DXhTaKA4VFVymBGATQ=
-  - secure: ccvenelABVrrGHwgqkIgobbXEXc+s94VP6AW/vAloorX7KCrl9MqxOVpJ96x/rd71OX8KGxOzP/jL4mCGRwCeDXZ8BvEa+nPvK2jZXlMXdSEDtyyentZKKthHJXd1L25XXZ8FfbaqqOcLmnuxXGDsw55QkXxrUDN8IczXz/V7+Q=
+  - ENV_DEPLOY_USER=deployer
+  - secure: G7IXuTKGi8ajsI3ak4lhPg11D46Kd/iuVF41+/qhn9pqY5KE2mFnmAmDmjD72/z9ZFfxC88alumt27yWPFUCJLIG8xV7ysueqWCZ88hVYEdxgCAd95F8Q4oqrr7S1OgUKIWvBnDYnzOY3xKsRWvB8PcEMlnwPu9meXMzGGM/u50=
