@@ -15,7 +15,7 @@ body {
     display: none;
 }
 
-container {
+.container {
 	display: block;
 	margin: 0 auto;
 	max-width: 1000px;
@@ -24,23 +24,23 @@ container {
 
 main {
     margin: 15px 0 0 0;
-    min-height: 380px;
+    min-height: 385px;
 }
 
-info {
+.info {
 	display: block;
 	margin: 45px 0;
 }
 
-ad {
+.ad {
 	display: block;
 	margin: 0;
 	text-align: center;
 }
-	ad.top {
+	.ad.top {
 		float: right;
 	}
-	ad.bottom {
+	.ad.bottom {
 		margin: 25px 0;
 		background: #e1e1e1;
 		padding: 10px;
@@ -74,9 +74,10 @@ h1.logo {
 		margin: 0 10px 0 0;
 	}
 
-info li{
+.info li{
 	margin: 10px 0 0 15px;
 	padding: 0;
+    font-size: 14px;
 }
 
 .button {
