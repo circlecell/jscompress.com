@@ -10,7 +10,8 @@ const plugins = [];
 if (NODE_ENV === 'development') {
     entry.push('webpack-dev-server/client?http://localhost:8100');
     plugins.push(new OpenBrowserPlugin({
-        url: 'http://localhost:8100'
+        url: 'http://localhost:8100',
+        ignoreErrors: true
     }));
 }
 
@@ -30,7 +31,7 @@ module.exports = {
         path: path.resolve('dist/'),
         filename: 'js/app.js',
         library: 'app',
-        libraryTarget: 'var',
+        libraryTarget: 'var'
     },
     module: {
         loaders: [{
@@ -42,6 +43,5 @@ module.exports = {
     devtool: 'source-map',
     eslint: {
         configFile: '.eslintrc.json'
-    },
-
+    }
 };
