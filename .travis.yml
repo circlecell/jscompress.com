@@ -8,7 +8,7 @@ script:
 - npm test
 before_install:
 - openssl aes-256-cbc -K $encrypted_fc687038ac7d_key -iv $encrypted_fc687038ac7d_iv
-  -in deploy_rsa.enc -out ../deploy_rsa -d
+  -in deploy_rsa.enc -out deploy_rsa -d
 addons:
   ssh_known_hosts: 192.241.157.86
 before_deploy:
