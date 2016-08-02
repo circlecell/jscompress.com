@@ -11,6 +11,10 @@ body {
 	padding-top: 15px;
 }
 
+.hide {
+    display: none;
+}
+
 container {
 	display: block;
 	margin: 0 auto;
@@ -20,6 +24,7 @@ container {
 
 main {
     margin: 15px 0 0 0;
+    min-height: 380px;
 }
 
 info {
@@ -142,8 +147,8 @@ p.heading {
   background-repeat: no-repeat;
   background-size: 90px;
   background-position: center 90px;
-  padding-top: 140px;
-  padding-bottom: 120px;
+  padding-top: 180px;
+  padding-bottom: 110px;
   text-align: center;
 }
 
@@ -152,7 +157,7 @@ p.heading {
 	    outline-color: #c8dadf;
 	    background-color: #f0f0f0;
 	}
-	
+
 	.file-wrapper .file-input {
 	    width: 0.1px;
 	    height: 0.1px;
@@ -164,13 +169,18 @@ p.heading {
 	.file-wrapper .file-label {
 	    font-weight: bold;
 		cursor: pointer;
-	
+
 	  }
-	
-	.file-wrapper .file-item.remove::after {
-        content: '❌';
-        cursor: pointer;
-	}
+
+    .file-wrapper .file-item .remove::after {
+          content: '❌';
+          cursor: pointer;
+          color: gray;
+  	}
+
+        .file-wrapper .file-item .remove:hover::after {
+            color: black;
+    	}
 
 
 .compression, .saving {

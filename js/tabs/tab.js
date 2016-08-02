@@ -1,6 +1,6 @@
 import MK from 'matreshka';
 
-const { display, className } = MK.binders;
+const { className } = MK.binders;
 
 export default class Tab extends MK.Object {
     constructor(data = {}, parent, name) {
@@ -11,7 +11,7 @@ export default class Tab extends MK.Object {
             .bindNode({
                 sandbox: `#${name}`,
                 navItem: `.tab-nav-item[data-tab="${name}"]`,
-                active: [':sandbox', display()]
+                active: [':sandbox', className('!hide')]
             })
             .bindNode({
                 active: [':bound(navItem)', className('active')]

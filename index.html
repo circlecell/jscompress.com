@@ -52,7 +52,7 @@ function test() {
 							<button class="button" type="submit">Compress JavaScript</button>
 						</form>
 	    			</div>
-	    			<div class="tab-pane" id="upload">
+	    			<div class="tab-pane hide" id="upload">
 						<output class="error"></output>
 						<div class="file-wrapper">
 							<input type="file" multiple id="file-input" class="file-input">
@@ -67,7 +67,7 @@ function test() {
 							</div>
 						</div>
 	    			</div>
-	    			<div class="tab-pane" id="output">
+	    			<div class="tab-pane hide" id="output">
 	    				<textarea class="output-code"></textarea>
 	                    <a class="button download" download="compressed.js">Download</a>
 						Stats: <output class="compression"></output>% compression, saving <output class="saving"></output> kb
