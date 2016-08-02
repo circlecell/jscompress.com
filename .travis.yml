@@ -8,7 +8,6 @@ script:
 - npm run test
 - npm run bundle
 - npm run deploy
-env:
-  global:
-  - ENV_DEPLOY_USER=deployer
-  - secure: n4kSBUfT4zwzM4X/KbRnmrEXBbfjfBI0qi4IzclLpOXpVixIh400/AuKSH4YGW3q1hK7NO2+pPtpWVxGR3+YtoDhlo3fvKbTAxS6OCkb3Iv9VmXkeEuYHjdGq+LSjhMxyWRk5B6SUaWMWv73pvlZCrTqFCOQlRcRTWRwCqleBc8=
+before_install:
+- openssl aes-256-cbc -K $encrypted_fc687038ac7d_key -iv $encrypted_fc687038ac7d_iv
+  -in deploy_rsa.enc -out ../deploy_rsa -d

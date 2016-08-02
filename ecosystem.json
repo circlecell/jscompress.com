@@ -1,0 +1,25 @@
+{
+  "apps" : [
+    {
+      "name"      : "jsonlint",
+      "script"    : "index.js",
+      "env": {},
+      "env_production" : {
+        "NODE_ENV": "production",
+        "PORT": "5001"
+      }
+    }
+  ],
+
+  "deploy" : {
+    "production" : {
+      "user" : "deployer",
+      "host" : "192.241.157.86",
+      "ref"  : "origin/master",
+      "repo" : "git@github.com:circlecell/jscompress.com",
+      "path" : "/var/web/jscompress.com",
+      "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
+      "post-deploy" : "rm -rf node_modules; npm install; npm run bundle"
+    },
+  }
+}

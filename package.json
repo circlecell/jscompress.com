@@ -12,7 +12,7 @@
     "check-updates": "ncu",
     "upgrade": "npm run check-updates -- --upgradeAll && npm install",
     "lint": "eslint . --ext .js --cache --ignore-pattern '**/node_modules/**' --ignore-pattern '**/dist/**'",
-    "deploy": "babel-node tools/deploy"
+    "deploy": "pm2 deploy ecosystem.json production"
   },
   "repository": {
     "type": "git",
@@ -57,5 +57,8 @@
     "lodash.round": "^4.0.2",
     "matreshka": "^1.9.1",
     "uglify-js": "^2.7.0"
+  },
+  "peerDependencies": {
+    "pm2": "^1.1.3"
   }
 }
