@@ -1,3 +1,4 @@
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import OpenBrowserPlugin from 'open-browser-webpack-plugin';
 import path from 'path';

@@ -1,6 +1,6 @@
+import MK from 'matreshka';
 import Tab from '../tab';
 import FileList from './file-list';
-import MK from 'matreshka';
 import validate from '../../util/validate';
 
 const { dropFiles, file, className, dragOver } = MK.binders;

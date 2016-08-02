@@ -1,7 +1,7 @@
 import MK from 'matreshka';
+import round from 'lodash.round';
 import Tab from '../tab';
 import minify from '../../util/minify';
-import round from 'lodash.round';
 
 const getJSBlob = data => new Blob([data], {
     type: 'text/javascript'
@@ -30,7 +30,7 @@ export default class Output extends Tab {
             .linkProps('outputSize', 'outputBlob', getBlobSize)
             .linkProps('outputDataURI', 'outputBlob', URL.createObjectURL)
             .linkProps('compression', 'inputSize outputSize',
-                (inSize, outSize) => round(100 - outSize / inSize * 100 || 0, 2))
+                (inSize, outSize) => round(100 - (outSize / (inSize * 100)) || 0, 2))
             .linkProps('saving', 'inputSize outputSize',
                 (inSize, outSize) => round((inSize - outSize) / 1024, 2))
             .on({
