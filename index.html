@@ -10,6 +10,15 @@
 	    <meta name="keywords" content="javascript compressor, compress javascript, minify javascript, minify js online, online javascript packer, js packer tool, online jsmin, uglify js">
 	    <meta name="description" content="Free online instant javascript compression tool. Copy and paste your code in or upload multiple files to combine them together.">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('service-worker.js').then(function() {
+				console.log('CLIENT: service worker registration complete.');
+			}, function() {
+				console.error(e);
+			});
+		}
+		</script>
 	</head>
 	<body>
 

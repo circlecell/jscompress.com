@@ -18,11 +18,11 @@ if (NODE_ENV === 'development') {
 
 entry.push('./js/index');
 plugins.push(new CopyWebpackPlugin([
-	{ from: 'css/style.css', to: 'css/style.css' },
-	{ from: 'index.html', to: 'index.html' },
-	{ from: 'img', to: 'img' }
+	{ from: 'css/style.css' },
+	{ from: 'index.html' },
+	{ from: 'img' },
+    { from: 'service-worker.js' }
 ]));
-
 
 module.exports = {
     entry,
