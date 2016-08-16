@@ -22,9 +22,9 @@ entry.push(
 );
 
 plugins.push(new CopyWebpackPlugin([
-	{ from: 'css/style.css' },
+	{ from: 'css', to: 'css' },
 	{ from: 'index.html' },
-	{ from: 'img' },
+	{ from: 'img', to: 'img' },
     { from: 'service-worker.js' }
 ]));
 
