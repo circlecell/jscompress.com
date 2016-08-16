@@ -124,6 +124,15 @@ p.heading {
     font-size: 15px;
 }
 
+.use-ecmascript-next-label {
+    float: right;
+	padding: 0.5em 1em;
+	color: #888;
+    font-size: 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+
 .tab-nav li {
     padding: 0.5em 1em;
     font-size: 15px;

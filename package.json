@@ -6,7 +6,9 @@
   "scripts": {
     "test": "npm run lint && npm run stylelint",
     "compile-uglifyjs": "uglifyjs --self -c -m -o ./node_modules/uglify-js/uglify-js-browser.js",
-    "postinstall": "npm run compile-uglifyjs",
+    "compile-uglifyjs-next": "./uglify-js-next/node_modules/.bin/uglifyjs --self -c -m -o ./uglify-js-next/node_modules/uglify-js/uglify-js-browser.js",
+    "install-uglifyjs-next": "npm install github:mishoo/UglifyJS2#harmony --prefix uglify-js-next",
+    "postinstall": "npm run compile-uglifyjs && npm run install-uglifyjs-next && npm run compile-uglifyjs-next",
     "bundle": "NODE_ENV=production webpack --config ./tools/webpack.config.babel.js",
     "develop": "NODE_ENV=development webpack-dev-server --config tools/webpack.config.babel.js --port 8100",
     "check-updates": "ncu",

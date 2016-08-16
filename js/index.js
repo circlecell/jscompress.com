@@ -2,12 +2,14 @@ import MK from 'matreshka';
 import Upload from './tabs/upload';
 import CopyPaste from './tabs/copy-paste';
 import Output from './tabs/output';
+import { setUseECMAScriptNext } from './util/get-uglify-js';
 
 module.exports = new class Application extends MK.Object {
     constructor() {
         super()
             .set({
-                activeTabName: 'upload'
+                activeTabName: 'upload',
+                useECMAScriptNext: !!localStorage.useECMAScriptNext
             })
             .addDataKeys('upload copyPaste output')
             .setClassFor({
@@ -15,6 +17,18 @@ module.exports = new class Application extends MK.Object {
                 copyPaste: CopyPaste,
                 output: Output
             })
+            .bindNode('useECMAScriptNext', '.use-ecmascript-next')
+            .on('change:useECMAScriptNext', () => {
+                const { useECMAScriptNext } = this;
+                
+                setUseECMAScriptNext(useECMAScriptNext);
+
+                if(useECMAScriptNext) {
+                    localStorage.useECMAScriptNext = 'y';
+                } else {
+                    delete localStorage.useECMAScriptNext
+                }
+            }, true)
             .on({
                 '*@change:active': evt => {
                     if (evt.value === true) {

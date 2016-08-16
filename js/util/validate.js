@@ -1,7 +1,7 @@
-// eslint-disable-next-line
-import UglifyJS from 'exports?UglifyJS!uglify-js/uglify-js-browser';
+import getUglifyJS from './get-uglify-js';
 
 export default function validate(code) {
+    const UglifyJS = getUglifyJS();
     let isValid = true;
     let error = null;
 

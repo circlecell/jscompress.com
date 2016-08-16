@@ -1,8 +1,7 @@
-/* eslint new-cap: ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}] */
-// eslint-disable-next-line
-import UglifyJS from 'exports?UglifyJS!uglify-js/uglify-js-browser';
+import getUglifyJS from './get-uglify-js';
 
 export default function minify(code) {
+    const UglifyJS = getUglifyJS();
     const compressor = UglifyJS.Compressor({});
     let ast = UglifyJS.parse(code);
 
