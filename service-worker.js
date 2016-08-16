@@ -3,7 +3,7 @@ self.addEventListener('install', event => {
     console.log('WORKER: install event in progress.');
     event.waitUntil(
         caches
-        .open('v1')
+        .open('v2')
         .then(cache => cache.addAll([
             '/',
             '/css/style.css',
