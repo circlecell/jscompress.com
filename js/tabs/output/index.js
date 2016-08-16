@@ -34,7 +34,12 @@ export default class Output extends Tab {
             .linkProps('saving', 'inputSize outputSize',
                 (inSize, outSize) => round((inSize - outSize) / 1024, 2))
             .on({
-                'keypress::outputCode': evt => evt.preventDefault()
+                'keypress::outputCode': ({ domEvent }) => {
+                    // alolow to use ctrl + A, ctrl + C etc
+                    if (!domEvent.ctrlKey) {
+                        domEvent.preventDefault();
+                    }
+                }
             });
     }
 }
