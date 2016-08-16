@@ -16,7 +16,11 @@ if (NODE_ENV === 'development') {
     }));
 }
 
-entry.push('./js/index');
+entry.push(
+    'babel-polyfill',
+    './js/index'
+);
+
 plugins.push(new CopyWebpackPlugin([
 	{ from: 'css/style.css' },
 	{ from: 'index.html' },
