@@ -20,13 +20,13 @@ module.exports = new class Application extends MK.Object {
             .bindNode('useECMAScriptNext', '.use-ecmascript-next')
             .on('change:useECMAScriptNext', () => {
                 const { useECMAScriptNext } = this;
-                
+
                 setUseECMAScriptNext(useECMAScriptNext);
 
-                if(useECMAScriptNext) {
+                if (useECMAScriptNext) {
                     localStorage.useECMAScriptNext = 'y';
                 } else {
-                    delete localStorage.useECMAScriptNext
+                    delete localStorage.useECMAScriptNext;
                 }
             }, true)
             .on({
