@@ -2,3 +2,4 @@ node_modules
 dist
 .eslintcache
 *.log
+uglify-js-next
