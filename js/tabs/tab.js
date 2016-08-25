@@ -1,8 +1,7 @@
-import MK from 'matreshka';
+import MatreshkaObject from 'matreshka/object';
+import className from 'matreshka/binders/classname';
 
-const { className } = MK.binders;
-
-export default class Tab extends MK.Object {
+export default class Tab extends MatreshkaObject {
     constructor(data = {}, parent, name) {
         super(data)
             .set({
@@ -11,10 +10,13 @@ export default class Tab extends MK.Object {
             .bindNode({
                 sandbox: `#${name}`,
                 navItem: `.tab-nav-item[data-tab="${name}"]`,
-                active: [':sandbox', className('!hide')]
-            })
-            .bindNode({
-                active: [':bound(navItem)', className('active')]
+                active: [{
+                    node: ':sandbox',
+                    binder: className('hide', false)
+                }, {
+                    node: ':bound(navItem)',
+                    binder: className('active')
+                }]
             })
             .bindOptionalNode('error', ':sandbox .error')
             .on({

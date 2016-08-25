@@ -1,27 +1,37 @@
-import MK from 'matreshka';
+import className from 'matreshka/binders/classname';
+import { dropFiles, dragOver, file } from 'matreshka-binders-file';
 import Tab from '../tab';
 import FileList from './file-list';
 import validate from '../../util/validate';
 
-const { dropFiles, file, className, dragOver } = MK.binders;
-
 export default class Upload extends Tab {
     constructor(...args) {
         super(...args)
-            .setClassFor('fileList', FileList)
+            .instantiate('fileList', FileList)
             .bindNode({
                 fileWrapper: ':sandbox .file-wrapper',
-                files: [':bound(fileWrapper)', dropFiles('text')],
-                dragovered: [':bound(fileWrapper)', dragOver()],
-                'fileList.length': [':sandbox .clear, :sandbox .compress', {
-                    setValue(v) {
-                        this.disabled = !v;
+                files: [{
+                    node: ':bound(fileWrapper)',
+                    binder: dropFiles('text')
+                }, {
+                    node: ':sandbox .file-input',
+                    binder: file('text')
+                }],
+                dragovered: [{
+                    node: ':bound(fileWrapper)',
+                    binder: dragOver()
+                }, {
+                    node: ':bound(fileWrapper)',
+                    binder: className('dragovered')
+                }],
+                'fileList.length': {
+                    node: ':sandbox .clear, :sandbox .compress',
+                    binder: {
+                        setValue(v) {
+                            this.disabled = !v;
+                        }
                     }
-                }]
-            })
-            .bindNode({
-                files: [':sandbox .file-input', file('text')],
-                dragovered: [':bound(fileWrapper)', className('dragovered')]
+                }
             })
             .on({
                 'change:files': () => {

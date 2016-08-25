@@ -1,6 +1,6 @@
-import MK from 'matreshka';
+import MatreshkaArray from 'matreshka/array';
 
-export default class FileList extends MK.Array {
+export default class FileList extends MatreshkaArray {
     itemRenderer = `
         <div class="file-item">
             {{name}}

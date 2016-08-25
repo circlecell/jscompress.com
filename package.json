@@ -60,7 +60,8 @@
   "dependencies": {
     "exports-loader": "^0.6.3",
     "lodash.round": "^4.0.4",
-    "matreshka": "^1.9.1",
+    "matreshka": "^2.0.0-prealpha.15",
+    "matreshka-binders-file": "0.0.0",
     "uglify-js": "^2.7.1"
   },
   "peerDependencies": {

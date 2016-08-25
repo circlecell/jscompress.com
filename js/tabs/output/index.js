@@ -1,15 +1,11 @@
-import MK from 'matreshka';
 import round from 'lodash.round';
+import prop from 'matreshka/binders/prop';
 import Tab from '../tab';
 import minify from '../../util/minify';
 
-const getJSBlob = data => new Blob([data], {
-    type: 'text/javascript'
-});
+const getJSBlob = data => new Blob([data], { type: 'text/javascript' });
 
 const getBlobSize = blob => blob.size;
-
-const { prop } = MK.binders;
 
 export default class Output extends Tab {
     constructor(...args) {
@@ -18,21 +14,49 @@ export default class Output extends Tab {
                 inputCode: ''
             })
             .bindNode({
-                outputDataURI: [':sandbox .download', prop('href')],
                 compression: ':sandbox .compression',
                 saving: ':sandbox .saving',
-                outputCode: ':sandbox .output-code'
+                outputCode: ':sandbox .output-code',
+                outputDataURI: {
+                    node: ':sandbox .download',
+                    binder: prop('href')
+                }
             })
-            .linkProps('inputBlob', 'inputCode', getJSBlob)
-            .linkProps('inputSize', 'inputBlob', getBlobSize)
-            .linkProps('outputCode', 'inputCode', minify, { setOnInit: false })
-            .linkProps('outputBlob', 'outputCode', getJSBlob)
-            .linkProps('outputSize', 'outputBlob', getBlobSize)
-            .linkProps('outputDataURI', 'outputBlob', URL.createObjectURL)
-            .linkProps('compression', 'inputSize outputSize',
-                (inSize, outSize) => round(100 - ((100 * outSize) / inSize) || 0, 2))
-            .linkProps('saving', 'inputSize outputSize',
-                (inSize, outSize) => round((inSize - outSize) / 1024, 2))
+            .calc({
+                inputBlob: {
+                    source: 'inputCode',
+                    handler: getJSBlob
+                },
+                inputSize: {
+                    source: 'inputBlob',
+                    handler: getBlobSize
+                },
+                outputCode: {
+                    source: 'inputCode',
+                    handler: minify,
+                    event: { setOnInit: false }
+                },
+                outputBlob: {
+                    source: 'outputCode',
+                    handler: getJSBlob
+                },
+                outputSize: {
+                    source: 'outputBlob',
+                    handler: getBlobSize
+                },
+                outputDataURI: {
+                    source: 'outputBlob',
+                    handler: URL.createObjectURL
+                },
+                compression: {
+                    source: ['inputSize', 'outputSize'],
+                    handler: (inSize, outSize) => round(100 - ((100 * outSize) / inSize) || 0, 2)
+                },
+                saving: {
+                    source: ['inputSize', 'outputSize'],
+                    handler: (inSize, outSize) => round((inSize - outSize) / 1024, 2)
+                }
+            })
             .on({
                 'keypress::outputCode': ({ domEvent }) => {
                     // alolow to use ctrl + A, ctrl + C etc

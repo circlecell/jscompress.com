@@ -1,18 +1,18 @@
-import MK from 'matreshka';
+import MatreshkaObject from 'matreshka/object';
 import Upload from './tabs/upload';
 import CopyPaste from './tabs/copy-paste';
 import Output from './tabs/output';
 import { setUseECMAScriptNext } from './util/get-uglify-js';
 
-module.exports = new class Application extends MK.Object {
+module.exports = new class Application extends MatreshkaObject {
     constructor() {
         super()
             .set({
                 activeTabName: 'upload',
                 useECMAScriptNext: !!localStorage.useECMAScriptNext
             })
-            .addDataKeys('upload copyPaste output')
-            .setClassFor({
+            .addDataKeys(['upload', 'copyPaste', 'output'])
+            .instantiate({
                 upload: Upload,
                 copyPaste: CopyPaste,
                 output: Output
