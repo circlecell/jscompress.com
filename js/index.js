@@ -4,7 +4,7 @@ import CopyPaste from './tabs/copy-paste';
 import Output from './tabs/output';
 import { setUseECMAScriptNext } from './util/get-uglify-js';
 
-module.exports = new class Application extends MatreshkaObject {
+class Application extends MatreshkaObject {
     constructor() {
         super()
             .set({
@@ -30,7 +30,7 @@ module.exports = new class Application extends MatreshkaObject {
                 }
             }, true)
             .on({
-                '*@change:active': evt => {
+                '*@change:active': (evt) => {
                     if (evt.value === true) {
                         for (const tab of this) {
                             if (tab !== evt.self) {
@@ -39,11 +39,12 @@ module.exports = new class Application extends MatreshkaObject {
                         }
                     }
                 },
-                'upload@submitCode copyPaste@submitCode': code => {
+                'upload@submitCode copyPaste@submitCode': (code) => {
                     this.output.active = true;
                     this.output.inputCode = code;
                 }
             });
     }
+}
 
-};
+module.exports = new Application();

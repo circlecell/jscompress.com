@@ -12,7 +12,7 @@ export default class CopyPaste extends Tab {
                 code: ':bound(form) [name="code"]'
             })
             .on({
-                'submit::form': evt => {
+                'submit::form': (evt) => {
                     evt.preventDefault();
 
                     const { code } = this;
