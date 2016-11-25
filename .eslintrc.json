@@ -1,15 +1,14 @@
 {
     "parser": "babel-eslint",
     "extends": [
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "airbnb"
+        "airbnb-base"
     ],
     "rules": {
         "indent": ["error", 4],
         "no-var": "error",
         "comma-dangle": ["error", "never"],
-        "new-cap": ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}]
+        "new-cap": ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}],
+        "no-restricted-syntax": 0
     },
     "env": {
         "browser": true
