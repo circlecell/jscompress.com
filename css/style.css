@@ -204,102 +204,100 @@ p.heading {
     padding: 3px;
 }
 
-
 /* BSA ad */
 .bsa-ad {
-  display: flex;
-  margin: 2em 0 1em;
-  padding: 1.5em 1em;
-  border-radius: 3px;
-  background-color: #E6EBF0;
-  background-color: hsl(210, 25%, 92%);
-
-  flex-flow: row nowrap;
+    display: flex;
+    margin: 2em 0 1em;
+    padding: 1.5em 1em;
+    border-radius: 3px;
+    background-color: #e6ebf0;
+    background-color: hsl(210, 25%, 92%);
+    flex-flow: row nowrap;
 }
 
 .partner {
-  display: flex;
-  flex-direction: column;
-  width: 44%;
-
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: 44%;
+    justify-content: center;
 }
 
 .partner p {
-  margin-bottom: .3em;
-  font-size: 1.5em;
+    margin-bottom: 0.3em;
+    font-size: 1.5em;
 }
 
 .partner strong {
-  padding: .1em .3em;
-  border-radius: 3px;
-  background-color: #f8dc3c;
-  color: #2e2e2c;
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    background-color: #f8dc3c;
+    color: #2e2e2c;
 }
 
 .partner sub {
-  font-weight: 200;
-  font-size: 1.3em;
+    font-weight: 200;
+    font-size: 1.3em;
 }
 
 .bsa-cpc #_default_ {
-  position: relative;
-  display: flex;
-  font-size: 14px;
-  line-height: 1.5;
+    position: relative;
+    display: flex;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .bsa-cpc .default-ad {
-  display: none;
+    display: none;
 }
 
 .bsa-cpc ._default_ {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  margin: 0 1em;
-  padding: 1em;
-  width: 50%;
-  border-radius: 3px;
-  background-color: #fff;
-  line-height: 1.5;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0 1em;
+    padding: 1em;
+    width: 50%;
+    border-radius: 3px;
+    background-color: #fff;
+    line-height: 1.5;
 }
 
 .bsa-cpc a {
-  color: inherit;
-  text-decoration: none;
-  transition: background-color .15s ease-in-out;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .bsa-cpc a:hover {
-  background-color: #f8dc3c;
+    background-color: #f8dc3c;
 }
 
 .bsa-cpc .default-image img {
-  display: block;
-  float: left;
-  margin-right: 10px;
-  width: 36px;
-  border-radius: 7.5%;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    width: 36px;
+    border-radius: 7.5%;
 }
 
 .bsa-cpc .default-title,
 .bsa-cpc .default-description {
-  display: block;
-  margin-left: 46px;
-  max-width: calc(100% - 36px);
+    display: block;
+    margin-left: 46px;
+    max-width: calc(100% - 36px);
 }
 
 .bsa-cpc .default-title {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 759px) {
-  .bsa-cpc #_default_ {
-    flex-wrap: wrap;
-  }
-  .bsa-cpc ._default_ {
-    margin: .2em 1em;
-    width: 100%;
-  }
+    .bsa-cpc #_default_ {
+        flex-wrap: wrap;
+    }
+
+    .bsa-cpc ._default_ {
+        margin: 0.2em 1em;
+        width: 100%;
+    }
 }
