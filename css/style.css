@@ -1,58 +1,191 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    text-align: center;
     background: #fafbfc;
-    padding-top: 15px;
+    line-height: 26px;
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word !important;
+    font-family: 'Open Sans', sans-serif;
 }
-
+.toggle,
+[id^=drop] {
+    display: none;
+}
+header {
+    width: 100%;
+    background-color: #fff;
+    z-index: 1;
+    border-bottom: 1px solid #f0f0f0;
+}
+nav {
+    margin: 0 auto 0;
+    padding: 0 15px;
+    color: #353535;
+    font-size: 13px;
+    max-width: 1100px;
+}
+.dev-tools-logo {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0 0 12px;
+    float: left;
+    background: #F8DD3C;
+    border-radius: 2px;
+    text-align: center;
+    margin: 5px 0 0 0;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+.logo {
+    display: block;
+    padding: 6px 15px 0;
+    float: left;
+}
+.logo h1 {
+    font-size: 13px;
+    font-weight: 700;
+    float: left;
+    margin: 0;
+}
+.sub-title,
+tagline-title {
+    font-weight: 400
+}
+nav:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+nav ul {
+    float: right;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 0;
+}
+nav ul li {
+    margin: 0;
+    display: inline-block;
+    background-color: #fafafa;
+    padding: 7px 0;
+    border-left: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
+}
+nav a {
+    display: block;
+    padding: 0 15px;
+    color: #333;
+    text-decoration: none;
+}
+nav ul li ul li:hover {
+    background: #f4f4f4;
+}
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    border-top: 1px solid #f0f0f0;
+    z-index: 100;
+}
+nav ul li:hover>ul {
+    display: inherit;
+}
+nav ul ul li {
+    width: 320px;
+    float: none;
+    display: list-item;
+    position: relative;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 7px 0;
+}
+nav ul ul li.jscompress {
+    border-left: 5px solid #F8DC3C;
+}
+nav ul ul li.json {
+    border-left: 5px solid #1E8BC3;
+}
+nav ul ul li.compare {
+    border-left: 5px solid #446CB3;
+}
+nav ul ul li.dns {
+    border-left: 5px solid #C0392B;
+}
+nav ul ul li.keygen {
+    border-left: 5px solid #EB9532;
+}
+nav ul ul ul li {
+    position: relative;
+    top: -60px;
+    left: 300px;
+}
+li>a:only-child:after {
+    content: '';
+}
+.three-lines {
+    position: relative;
+    display: inline-block;
+    width: 0.8em;
+    height: 0.65em;
+    margin-right: 0.8em;
+    border-top: 0.1em solid #333;
+    border-bottom: 0.1em solid #333;
+}
+.three-lines:before {
+    content: "";
+    position: absolute;
+    top: 0.25em;
+    left: 0;
+    width: 100%;
+    border-top: 0.1em solid #333;
+}
 .hide {
     display: none;
 }
-
 .container {
     display: block;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 1100px;
+    padding: 0 15px;
     text-align: left;
 }
-
+.ad.top img,
+.ad.bottom img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
 main {
-    margin: 15px 0 0;
+    margin: 0;
     min-height: 385px;
 }
-
 .info {
     display: block;
-    margin: 45px 0;
+    margin: 30px 0;
 }
-
 .ad {
     display: block;
     margin: 0;
     text-align: center;
 }
-
 .ad.top {
-    float: right;
+    margin: 30px 0 25px;
 }
-
 .ad.bottom {
-    margin: 25px 0;
-    background: #e1e1e1;
-    padding: 10px;
+    margin: 30px 0 25px;
 }
-
 hr {
     border-color: transparent;
     clear: both;
 }
-
 textarea {
     width: 100%;
     display: block;
@@ -61,97 +194,76 @@ textarea {
     margin: 0 0 20px;
     padding: 10px;
 }
-
-h1.logo {
-    display: block;
-    text-align: left;
-    margin: 25px 0 0;
-    font-weight: normal;
-    font-size: 21px;
-    float: left;
-    max-width: 272px;
+.info ul {
+    margin-top: 10px;
 }
-
-h1.logo img {
-    float: left;
-    margin: 0 10px 0 0;
-}
-
 .info li {
-    margin: 10px 0 0 15px;
+    margin: 0 0 0 15px;
     padding: 0;
     font-size: 14px;
 }
-
 .button {
     background-color: #fff;
-    padding: 5px 10px;
+    padding: 10px 15px;
     text-decoration: none;
     border: 1px solid #e1e1e1;
-    box-shadow: 1px 1px #c1c1c1;
-    font-size: 18px;
+    font-size: 14px;
+    font-family: Open Sans, sans-serif;
+    font-weight: 700;
+    color: #333;
+    margin-top: 10px;
 }
-
 .button:hover {
     cursor: pointer;
+    cursor: pointer;
+    background: #f3f3f3;
+    border: 1px solid #d1d1d1;
 }
-
 .button.disabled {
     background: grey;
 }
-
 .button.download {
     margin-right: 15px;
 }
-
 .error {
     color: red;
     font-family: monospace;
     white-space: pre;
 }
-
 .error:empty {
     display: none;
 }
-
 p {
     font-size: 14px;
 }
-
 p.heading {
     margin-top: 20px;
-    margin-bottom: 8px;
     font-size: 15px;
+    font-weight: 700;
 }
-
 .use-ecmascript-next-label {
     float: right;
-    padding: 0.5em 1em;
+    padding: 3px 0 3px 15px;
     color: #888;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
     display: inline-block;
 }
-
 .tab-nav li {
-    padding: 0.5em 1em;
-    font-size: 15px;
+    padding: 3px 15px;
+    font-size: 14px;
     cursor: pointer;
     display: inline-block;
 }
-
 .tab-nav li.active {
-    background: #e1e1e1;
-    border-radius: 2px 2px 0 0;
+    background: #e5e5e5;
+    border-radius: 3px 3x 0 0;
 }
-
 .tab-pane {
     min-height: 300px;
 }
-
 .file-wrapper {
     box-sizing: border-box;
-    font-size: 1.25rem;
     margin: 0 auto;
     width: 100%;
     background-color: #e1e1e1;
@@ -167,13 +279,11 @@ p.heading {
     padding-bottom: 110px;
     text-align: center;
 }
-
 .file-wrapper.dragovered {
     outline-offset: -20px;
     outline-color: #c8dadf;
     background-color: #f0f0f0;
 }
-
 .file-wrapper .file-input {
     width: 0.1px;
     height: 0.1px;
@@ -182,74 +292,105 @@ p.heading {
     position: absolute;
     z-index: -1;
 }
-
 .file-wrapper .file-label {
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
 }
-
 .file-wrapper .file-item .remove::after {
     content: '❌';
     cursor: pointer;
     color: gray;
 }
-
 .file-wrapper .file-item .remove:hover::after {
     color: black;
 }
-
 .compression,
 .saving {
     background: lightyellow;
     padding: 3px;
 }
-
+footer {
+    text-align: center;
+    max-width: 1100px;
+    padding: 15px 15px 5px;
+    margin: 0 auto 0;
+    border-top: 1px solid #eee;
+    font-size: 13px;
+    font-weight: 700;
+}
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+@media all and (max-width: 775px) {
+    .description-title,
+    .use-ecmascript-next-label {
+        display: none
+    }
+    .more-dev {
+        display: none
+    }
+    .three-lines {
+        margin: 0
+    }
+}
+@media all and (max-width: 525px) {
+    .sub-title,
+    .tagline-title {
+        display: none
+    }
+    nav ul ul li {
+        width: 180px
+    }
+    .tab-nav li {
+        width: 100%;
+        font-size: 13px
+    }
+    .tab-nav li.active {
+        border-radius: 2px 2px 2px 2px
+    }
+}
 /* BSA ad */
+
 .bsa-ad {
     display: flex;
-    margin: 2em 0 1em;
+    margin: 30px 0 0;
     padding: 1.5em 1em;
     border-radius: 3px;
     background-color: #e6ebf0;
     background-color: hsl(210, 25%, 92%);
     flex-flow: row nowrap;
 }
-
 .partner {
     display: flex;
     flex-direction: column;
     width: 44%;
     justify-content: center;
 }
-
 .partner p {
     margin-bottom: 0.3em;
     font-size: 1.5em;
 }
-
 .partner strong {
     padding: 0.1em 0.3em;
     border-radius: 3px;
     background-color: #f8dc3c;
     color: #2e2e2c;
 }
-
 .partner sub {
     font-weight: 200;
     font-size: 1.3em;
 }
-
 .bsa-cpc #_default_ {
     position: relative;
     display: flex;
     font-size: 14px;
     line-height: 1.5;
 }
-
 .bsa-cpc .default-ad {
     display: none;
 }
-
 .bsa-cpc ._default_ {
     position: relative;
     display: block;
@@ -261,17 +402,14 @@ p.heading {
     background-color: #fff;
     line-height: 1.5;
 }
-
 .bsa-cpc a {
     color: inherit;
     text-decoration: none;
     transition: background-color 0.15s ease-in-out;
 }
-
 .bsa-cpc a:hover {
     background-color: #f8dc3c;
 }
-
 .bsa-cpc .default-image img {
     display: block;
     float: left;
@@ -279,23 +417,19 @@ p.heading {
     width: 36px;
     border-radius: 7.5%;
 }
-
 .bsa-cpc .default-title,
 .bsa-cpc .default-description {
     display: block;
     margin-left: 46px;
     max-width: calc(100% - 36px);
 }
-
 .bsa-cpc .default-title {
-    font-weight: 600;
+    font-weight: 700;
 }
-
 @media only screen and (min-width: 320px) and (max-width: 759px) {
     .bsa-cpc #_default_ {
         flex-wrap: wrap;
     }
-
     .bsa-cpc ._default_ {
         margin: 0.2em 1em;
         width: 100%;

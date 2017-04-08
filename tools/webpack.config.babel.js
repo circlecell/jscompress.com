@@ -24,8 +24,7 @@ entry.push(
 plugins.push(new CopyWebpackPlugin([
     { from: 'css', to: 'css' },
     { from: 'index.html' },
-    { from: 'img', to: 'img' },
-    { from: 'service-worker.js' }
+    { from: 'img', to: 'img' }
 ]));
 
 module.exports = {
