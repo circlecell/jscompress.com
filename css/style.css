@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url("//fonts.googleapis.com/css?family=Open+Sans:400,700");
 * {
     margin: 0;
     padding: 0;
@@ -157,10 +157,23 @@ li>a:only-child:after {
     padding: 0 15px;
     text-align: left;
 }
+.ad {
+    text-align: center;
+}
+.ad::after {
+    content: "";
+    display: table;
+    clear: both;
+}
 .ad.top img,
 .ad.bottom img {
     max-width: 100%;
     height: auto;
+    margin: 0 auto;
+}
+
+.ad .bsap iframe {
+    float: none!important;
     margin: 0 auto;
 }
 main {
@@ -204,7 +217,7 @@ textarea {
 }
 .button {
     background-color: #fff;
-    padding: 10px 15px;
+    padding: 10px 15px 9px;
     text-decoration: none;
     border: 1px solid #e1e1e1;
     font-size: 14px;
@@ -254,10 +267,10 @@ p.heading {
     font-size: 14px;
     cursor: pointer;
     display: inline-block;
+    border-radius: 3px 3px 0 0;
 }
 .tab-nav li.active {
     background: #e5e5e5;
-    border-radius: 3px 3x 0 0;
 }
 .tab-pane {
     min-height: 300px;
