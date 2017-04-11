@@ -4,7 +4,7 @@ Contributings are always welcome, nothing specific. Since there are no unit or e
 
 ## How to run and make changes
 
-Prerequirements: NodeJS 6+, NPM 3+.
+Prerequirements: NodeJS 7+, NPM 4+.
 
 Install needed deps via ``npm install`` (it also compiles browser version of UglifyJS).
 
