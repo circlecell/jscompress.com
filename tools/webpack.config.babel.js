@@ -25,7 +25,7 @@ plugins.push(new CopyWebpackPlugin([
     { from: 'css', to: 'css' },
     { from: 'index.html' },
     { from: 'img', to: 'img' },
-    { from: 'icons', to: 'icons' },
+    { from: 'icons', to: 'icons' }
 ]));
 
 module.exports = {
