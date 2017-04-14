@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-- '6'
+- '7'
 install:
-- npm prune
-- npm install --loglevel warn
+- yarn install
 script:
 - npm test
 before_install:
+- npm install yarn -g
 - openssl aes-256-cbc -K $encrypted_fc687038ac7d_key -iv $encrypted_fc687038ac7d_iv
   -in deploy_rsa.enc -out deploy_rsa -d
 addons:

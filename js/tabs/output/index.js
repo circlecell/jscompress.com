@@ -1,4 +1,5 @@
 import round from 'lodash.round';
+import JSZip from 'jszip';
 import prop from 'matreshka/binders/prop';
 import Tab from '../tab';
 import minify from '../../util/minify';
@@ -45,8 +46,17 @@ export default class Output extends Tab {
                     handler: getBlobSize
                 },
                 outputDataURI: {
-                    source: 'outputBlob',
-                    handler: URL.createObjectURL
+                    source: 'outputCode',
+                    handler: async (outputCode) => {
+                        const zip = new JSZip();
+
+                        zip.file('compressed.js', outputCode);
+
+                        const blob = await zip.generateAsync({ type: 'blob' });
+
+                        return URL.createObjectURL(blob);
+                    },
+                    event: { promiseCalc: true }
                 },
                 compression: {
                     source: ['inputSize', 'outputSize'],
@@ -59,9 +69,17 @@ export default class Output extends Tab {
             })
             .on({
                 'keypress::outputCode': ({ domEvent }) => {
-                    // alolow to use ctrl + A, ctrl + C etc
+                    // allow to use ctrl + A, ctrl + C etc
                     if (!domEvent.ctrlKey) {
                         domEvent.preventDefault();
+                    }
+                },
+                'change:active': ({ value }) => {
+                    if (value) {
+                        setTimeout(() => {
+                            this.nodes.outputCode.focus();
+                            this.nodes.outputCode.select();
+                        }, 50);
                     }
                 }
             });

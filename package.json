@@ -1,7 +1,8 @@
 {
   "name": "jscompress.com",
   "version": "2.0.1",
-  "description": "",
+  "private": true,
+  "description": "The JavaScript Compression Tool",
   "main": "index.js",
   "scripts": {
     "test": "npm run lint",
@@ -11,7 +12,7 @@
     "postinstall": "npm run compile-uglifyjs && npm run compile-uglifyjs-next",
     "bundle": "NODE_ENV=production webpack --config ./tools/webpack.config.babel.js",
     "develop": "NODE_ENV=development webpack-dev-server --config tools/webpack.config.babel.js --port 8100",
-    "upgrade": "ncu --upgradeAll && npm install",
+    "upgrade": "ncu --upgradeAll && yarn install",
     "lint": "eslint . --ext .js --cache --ignore-pattern '**/node_modules/**' --ignore-pattern '**/dist/**'",
     "deploy": "pm2 deploy ecosystem.json production",
     "stylelint": "stylelint css/style.css"
@@ -45,19 +46,21 @@
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-plugin-import": "^2.2.0",
     "npm-check-updates": "^2.10.5",
+    "npmlog": "^4.0.2",
     "open-browser-webpack-plugin": "0.0.5",
     "rimraf": "^2.6.1",
     "script-loader": "^0.7.0",
     "style-loader": "^0.16.1",
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
-    "webpack": "^2.3.3",
+    "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
     "exports-loader": "^0.6.4",
+    "jszip": "^3.1.3",
     "lodash.round": "^4.0.4",
-    "matreshka": "^2.3.1",
+    "matreshka": "^2.4.0",
     "matreshka-binders-file": "0.0.2",
     "uglify-js": "^2.8.22"
   },
