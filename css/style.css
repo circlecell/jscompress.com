@@ -176,6 +176,12 @@ li>a:only-child:after {
     float: none!important;
     margin: 0 auto;
 }
+
+.ad .bsap a {
+    float: none;
+    margin: 0 auto;
+}
+
 main {
     margin: 0;
     min-height: 385px;
