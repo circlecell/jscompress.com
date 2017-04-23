@@ -200,6 +200,8 @@ main {
 }
 .ad.bottom {
     margin: 30px 0 25px;
+    border-top: 1px solid #eee;
+    padding: 30px 0 5px;
 }
 hr {
     border-color: transparent;
