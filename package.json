@@ -53,7 +53,7 @@
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
     "uglifyjs-webpack-plugin": "^0.4.3",
-    "webpack": "^2.6.0",
+    "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
