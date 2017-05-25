@@ -1,28 +1,50 @@
-import getUglifyJS from './get-uglify-js';
+import { transform as babiliTransform } from 'babili-standalone';
+import { useECMAScriptNext } from './use-ecmascript-next';
+import UglifyJS from './uglify-js-browser';
 
-export default function validate(code) {
-    const UglifyJS = getUglifyJS();
-    let isValid = true;
-    let error = null;
+function uglifyValidate(code) {
+    const { error: resultError } = UglifyJS.minify(code);
 
-    if (!code) {
-        isValid = false;
-        error = 'Falsy value is not valid code';
-    } else {
-        try {
-            UglifyJS.parse(code);
-        } catch (e) {
-            const { line, col, message = 'Unknown error' } = e;
-            let info = '';
+    if (resultError) {
+        const { line, col, message = 'Unknown error' } = resultError;
+        let info = '';
 
-            if (line || col) {
-                info = ` (line: ${line}, col: ${col})`;
-            }
-
-            isValid = false;
-            error = message + info;
+        if (line || col) {
+            info = ` (line: ${line}, col: ${col})`;
         }
+
+        return {
+            isValid: false,
+            error: message + info
+        };
     }
 
-    return { isValid, error };
+    return {
+        isValid: true,
+        error: null
+    };
+}
+
+function babelValidate(code) {
+    try {
+        babiliTransform(code);
+    } catch (e) {
+        return {
+            isValid: false,
+            error: `${e}`
+        };
+    }
+
+    return { isValid: true };
+}
+
+export default function validate(code) {
+    if (code === '') {
+        return {
+            isValid: false,
+            error: 'Empty string is not valid code'
+        };
+    }
+
+    return useECMAScriptNext ? babelValidate(code) : uglifyValidate(code);
 }

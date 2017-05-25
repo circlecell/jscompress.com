@@ -8,7 +8,8 @@
         "no-var": "error",
         "comma-dangle": ["error", "never"],
         "new-cap": ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}],
-        "no-restricted-syntax": 0
+        "no-restricted-syntax": 0,
+        "import/no-mutable-exports": 0
     },
     "env": {
         "browser": true

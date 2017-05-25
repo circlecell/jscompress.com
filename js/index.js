@@ -2,7 +2,7 @@ import MatreshkaObject from 'matreshka/object';
 import Upload from './tabs/upload';
 import CopyPaste from './tabs/copy-paste';
 import Output from './tabs/output';
-import { setUseECMAScriptNext } from './util/get-uglify-js';
+import { setUseECMAScriptNext } from './util/use-ecmascript-next';
 
 class Application extends MatreshkaObject {
     constructor() {

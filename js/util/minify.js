@@ -1,12 +1,7 @@
-import getUglifyJS from './get-uglify-js';
+import { transform as babiliTransform } from 'babili-standalone';
+import { useECMAScriptNext } from './use-ecmascript-next';
+import UglifyJS from './uglify-js-browser';
 
 export default function minify(code) {
-    const UglifyJS = getUglifyJS();
-    const compressor = UglifyJS.Compressor({});
-    let ast = UglifyJS.parse(code);
-
-    ast.figure_out_scope();
-    ast = ast.transform(compressor);
-    ast.mangle_names();
-    return ast.print_to_string();
+    return useECMAScriptNext ? babiliTransform(code).code : UglifyJS.minify(code).code;
 }
