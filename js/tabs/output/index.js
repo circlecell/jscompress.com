@@ -1,6 +1,5 @@
 import round from 'lodash.round';
 import JSZip from 'jszip';
-import prop from 'matreshka/binders/prop';
 import Tab from '../tab';
 import minify from '../../util/minify';
 
@@ -20,7 +19,19 @@ export default class Output extends Tab {
                 outputCode: ':sandbox .output-code',
                 outputDataURI: {
                     node: ':sandbox .download',
-                    binder: prop('href')
+                    binder: {
+                        setValue(v, { node }) {
+                            if (v) {
+                                node.href = v;
+                                node.download = 'jscompress-result.zip';
+                                node.classList.remove('disabled');
+                            } else {
+                                node.removeAttribute('href');
+                                node.removeAttribute('download');
+                                node.classList.add('disabled');
+                            }
+                        }
+                    }
                 }
             })
             .calc({
@@ -48,6 +59,10 @@ export default class Output extends Tab {
                 outputDataURI: {
                     source: 'outputCode',
                     handler: async (outputCode) => {
+                        if (!outputCode) {
+                            return null;
+                        }
+
                         const zip = new JSZip();
 
                         zip.file('compressed.js', outputCode);

@@ -10,7 +10,7 @@
     "install": "rimraf uglify-js-next && npm install github:mishoo/UglifyJS2#harmony --prefix uglify-js-next",
     "postinstall": "npm run compile-uglifyjs",
     "bundle": "NODE_ENV=production webpack --config ./tools/webpack.config.babel.js",
-    "develop": "NODE_ENV=development webpack-dev-server --config tools/webpack.config.babel.js --port 8100",
+    "develop": "NODE_ENV=development PORT=8089 webpack-dev-server --config tools/webpack.config.babel.js",
     "upgrade": "ncu --upgradeAll && npm install",
     "lint": "eslint . --ext .js --cache --ignore-pattern '**/node_modules/**' --ignore-pattern '**/dist/**'",
     "deploy": "pm2 deploy ecosystem.json production",

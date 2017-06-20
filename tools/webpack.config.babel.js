@@ -4,15 +4,15 @@ import OpenBrowserPlugin from 'open-browser-webpack-plugin';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import path from 'path';
 
-const { NODE_ENV } = process.env;
+const { NODE_ENV, PORT } = process.env;
 
 const entry = [];
 const plugins = [];
 
 if (NODE_ENV === 'development') {
-    entry.push('webpack-dev-server/client?http://localhost:8100');
+    entry.push(`webpack-dev-server/client?http://localhost:${PORT}`);
     plugins.push(new OpenBrowserPlugin({
-        url: 'http://localhost:8100',
+        url: `http://localhost:${PORT}`,
         ignoreErrors: true
     }));
 }
@@ -36,6 +36,9 @@ plugins.push(new CopyWebpackPlugin([
 module.exports = {
     entry,
     plugins,
+    devServer: {
+        port: PORT
+    },
     context: path.resolve(__dirname, '..'),
     output: {
         path: path.resolve('dist/'),

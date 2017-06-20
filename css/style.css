@@ -267,11 +267,14 @@ textarea {
     border: 1px solid #d1d1d1;
 }
 .button.disabled {
-    background: grey;
+    background: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
 }
 .button.download {
     margin-right: 15px;
 }
+
 .error {
     color: red;
     font-family: monospace;
