@@ -35,9 +35,11 @@ export default class Upload extends Tab {
             })
             .on({
                 'change:files': () => {
-                    this.fileList.push(...this.files.map(
-                        ({ name, readerResult }) => ({ name, readerResult })
-                    ));
+                    this.fileList.push(...this.files.map(({
+                        name, readerResult
+                    }) => ({
+                        name, readerResult
+                    })));
                 },
                 'click::(.clear)': () => {
                     this.fileList.recreate();
