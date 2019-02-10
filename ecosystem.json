@@ -19,7 +19,7 @@
       "repo" : "git@github.com:circlecell/jscompress.com",
       "path" : "/var/web/jscompress.com",
       "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
-      "post-deploy" : "npm ci; npm run bundle"
+      "post-deploy" : "rm -rf node_modules && npm ci && npm run bundle"
     },
   }
 }
