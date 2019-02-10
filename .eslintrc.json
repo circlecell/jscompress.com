@@ -4,7 +4,7 @@
         "airbnb-base"
     ],
     "rules": {
-        "indent": ["error", 4],
+        "indent": ["error", 2],
         "no-var": "error",
         "comma-dangle": ["error", "never"],
         "new-cap": ["error", {"capIsNewExceptions": ["UglifyJS.Compressor"]}],

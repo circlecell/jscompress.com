@@ -5,46 +5,46 @@ import Output from './tabs/output';
 import { setUseECMAScriptNext } from './util/use-ecmascript-next';
 
 class Application extends MatreshkaObject {
-    constructor() {
-        super()
-            .set({
-                activeTabName: 'upload',
-                useECMAScriptNext: !!localStorage.useECMAScriptNext
-            })
-            .addDataKeys(['upload', 'copyPaste', 'output'])
-            .instantiate({
-                upload: Upload,
-                copyPaste: CopyPaste,
-                output: Output
-            })
-            .bindNode('useECMAScriptNext', '.use-ecmascript-next')
-            .on('change:useECMAScriptNext', () => {
-                const { useECMAScriptNext } = this;
+  constructor() {
+    super()
+      .set({
+        activeTabName: 'upload',
+        useECMAScriptNext: !!localStorage.useECMAScriptNext
+      })
+      .addDataKeys(['upload', 'copyPaste', 'output'])
+      .instantiate({
+        upload: Upload,
+        copyPaste: CopyPaste,
+        output: Output
+      })
+      .bindNode('useECMAScriptNext', '.use-ecmascript-next')
+      .on('change:useECMAScriptNext', () => {
+        const { useECMAScriptNext } = this;
 
-                setUseECMAScriptNext(useECMAScriptNext);
+        setUseECMAScriptNext(useECMAScriptNext);
 
-                if (useECMAScriptNext) {
-                    localStorage.useECMAScriptNext = 'y';
-                } else {
-                    delete localStorage.useECMAScriptNext;
-                }
-            }, true)
-            .on({
-                '*@change:active': (evt) => {
-                    if (evt.value === true) {
-                        for (const tab of this) {
-                            if (tab !== evt.self) {
-                                tab.active = false;
-                            }
-                        }
-                    }
-                },
-                'upload@submitCode copyPaste@submitCode': (code) => {
-                    this.output.active = true;
-                    this.output.inputCode = code;
-                }
-            });
-    }
+        if (useECMAScriptNext) {
+          localStorage.useECMAScriptNext = 'y';
+        } else {
+          delete localStorage.useECMAScriptNext;
+        }
+      }, true)
+      .on({
+        '*@change:active': (evt) => {
+          if (evt.value === true) {
+            for (const tab of this) {
+              if (tab !== evt.self) {
+                tab.active = false;
+              }
+            }
+          }
+        },
+        'upload@submitCode copyPaste@submitCode': (code) => {
+          this.output.active = true;
+          this.output.inputCode = code;
+        }
+      });
+  }
 }
 
 module.exports = new Application();

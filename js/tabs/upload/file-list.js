@@ -7,15 +7,16 @@ export default class FileList extends MatreshkaArray {
             <span class="remove"></span>
         </div>
     `;
+
     constructor(data = []) {
-        super(...data)
-            .bindNode({
-                sandbox: '#upload',
-                container: ':sandbox .file-list'
-            })
-            .on({
-                '*@click::(.remove)': ({ self }) => this.pull(self)
-            })
-            .rerender();
+      super(...data)
+        .bindNode({
+          sandbox: '#upload',
+          container: ':sandbox .file-list'
+        })
+        .on({
+          '*@click::(.remove)': ({ self }) => this.pull(self)
+        })
+        .rerender();
     }
 }

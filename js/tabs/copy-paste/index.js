@@ -2,32 +2,32 @@ import Tab from '../tab';
 import validate from '../../util/validate';
 
 export default class CopyPaste extends Tab {
-    constructor(...args) {
-        super(...args)
-            .set({
-                active: true
-            })
-            .bindNode({
-                form: ':sandbox form[name="copyPasteForm"]',
-                code: ':bound(form) [name="code"]'
-            })
-            .on({
-                'submit::form': (evt) => {
-                    evt.preventDefault();
+  constructor(...args) {
+    super(...args)
+      .set({
+        active: true
+      })
+      .bindNode({
+        form: ':sandbox form[name="copyPasteForm"]',
+        code: ':bound(form) [name="code"]'
+      })
+      .on({
+        'submit::form': (evt) => {
+          evt.preventDefault();
 
-                    const { code } = this;
-                    const { isValid, error } = validate(code);
+          const { code } = this;
+          const { isValid, error } = validate(code);
 
-                    if (!isValid) {
-                        this.error = error;
-                    } else {
-                        this.error = '';
-                        this.trigger('submitCode', code);
-                    }
-                },
-                'change:code': () => {
-                    this.error = '';
-                }
-            });
-    }
+          if (!isValid) {
+            this.error = error;
+          } else {
+            this.error = '';
+            this.trigger('submitCode', code);
+          }
+        },
+        'change:code': () => {
+          this.error = '';
+        }
+      });
+  }
 }
