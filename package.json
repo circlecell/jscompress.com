@@ -8,7 +8,6 @@
   "scripts": {
     "test": "npm run lint",
     "compile-uglifyjs": "uglifyjs --self -c -m -o ./node_modules/uglify-js/uglify-js-browser.js",
-    "install": "rimraf uglify-js-next && npm install github:mishoo/UglifyJS2#harmony --prefix uglify-js-next",
     "postinstall": "npm run compile-uglifyjs",
     "bundle": "NODE_ENV=production webpack --config ./tools/webpack.config.babel.js --mode production",
     "dev": "NODE_ENV=development PORT=8089 webpack-dev-server --config tools/webpack.config.babel.js --mode development",
@@ -54,14 +53,13 @@
     "style-loader": "^0.23.1",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
-    "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "babel-standalone": "^6.26.0",
-    "babili-standalone": "^0.0.10",
+    "@babel/standalone": "^7.3.2",
+    "babel-preset-minify": "^0.5.0",
     "exports-loader": "^0.7.0",
     "lodash.round": "^4.0.4",
     "matreshka": "^2.4.0",

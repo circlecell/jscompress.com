@@ -47,4 +47,4 @@ class Application extends MatreshkaObject {
   }
 }
 
-module.exports = new Application();
+export default new Application();

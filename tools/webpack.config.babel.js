@@ -1,7 +1,6 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import OpenBrowserPlugin from 'open-browser-webpack-plugin';
-import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import path from 'path';
 
 const { NODE_ENV, PORT } = process.env;
@@ -15,10 +14,6 @@ if (NODE_ENV === 'development') {
     url: `http://localhost:${PORT}`,
     ignoreErrors: true
   }));
-}
-
-if (NODE_ENV === 'production') {
-  plugins.push(new UglifyJSPlugin());
 }
 
 entry.push(
@@ -59,5 +54,8 @@ module.exports = {
       Babel: 'babel-standalone'
     }
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
+  optimization: {
+    minimize: true
+  }
 };
