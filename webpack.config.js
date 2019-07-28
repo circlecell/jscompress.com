@@ -1,7 +1,7 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import OpenBrowserPlugin from 'open-browser-webpack-plugin';
-import path from 'path';
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const path = require('path');
 
 const { NODE_ENV, PORT } = process.env;
 
@@ -35,10 +35,11 @@ module.exports = {
   devServer: {
     port: PORT
   },
-  context: path.resolve(__dirname, '..'),
+  context: __dirname,
   output: {
     path: path.resolve('dist/'),
     filename: 'js/app.js',
+    chunkFilename: '[name]-chunk-[chunkhash].js',
     library: 'app',
     libraryTarget: 'var'
   },

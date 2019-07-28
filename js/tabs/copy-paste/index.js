@@ -12,11 +12,11 @@ export default class CopyPaste extends Tab {
         code: ':bound(form) [name="code"]'
       })
       .on({
-        'submit::form': (evt) => {
+        'submit::form': async (evt) => {
           evt.preventDefault();
 
           const { code } = this;
-          const { isValid, error } = validate(code);
+          const { isValid, error } = await validate(code);
 
           if (!isValid) {
             this.error = error;

@@ -45,7 +45,7 @@ export default class Output extends Tab {
         outputCode: {
           source: 'inputCode',
           handler: minify,
-          event: { setOnInit: false }
+          event: { setOnInit: false, promiseCalc: true }
         },
         outputBlob: {
           source: 'outputCode',

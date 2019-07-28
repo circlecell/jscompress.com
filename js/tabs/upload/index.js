@@ -45,13 +45,13 @@ export default class Upload extends Tab {
           this.fileList.recreate();
           this.error = '';
         },
-        'click::(.compress)': () => {
+        'click::(.compress)': async () => {
           const errors = [];
           const results = [];
 
           for (const item of this.fileList) {
             const { readerResult, name } = item;
-            const { isValid, error } = validate(readerResult);
+            const { isValid, error } = await validate(readerResult);
 
             results.push(readerResult);
 
