@@ -1,8 +1,8 @@
-import minify from 'babel-preset-minify';
-import { transform, registerPreset } from '@babel/standalone';
-
-registerPreset('minify', minify);
-
-export default function babelTransform(code) {
-  return transform(code, { presets: [['minify', { builtIns: false }]], comments: false }).code;
+export default async function babelTransform(code) {
+  return (await import(
+    /* webpackChunkName: "babelTransform" */
+    /* webpackMode: "lazy" */
+    /* webpackPrefetch: true */
+    './babelTransformChunk'
+  )).default(code);
 }

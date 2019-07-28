@@ -1,5 +1,6 @@
 import { useECMAScriptNext } from './use-ecmascript-next';
 import UglifyJS from './uglify-js-browser';
+import babelTransform from './babelTransform';
 
 function uglifyValidate(code) {
   const { error: resultError } = UglifyJS.minify(code);
@@ -26,7 +27,7 @@ function uglifyValidate(code) {
 
 async function babelValidate(code) {
   try {
-    (await import('./babelTransform')).default(code);
+    await babelTransform(code);
   } catch (e) {
     return {
       isValid: false,
