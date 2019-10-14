@@ -2,9 +2,9 @@ import round from 'lodash.round';
 import Tab from '../tab';
 import minify from '../../util/minify';
 
-const getJSBlob = data => new Blob([data], { type: 'text/javascript' });
+const getJSBlob = (data) => new Blob([data], { type: 'text/javascript' });
 
-const getBlobSize = blob => blob.size;
+const getBlobSize = (blob) => blob.size;
 
 export default class Output extends Tab {
   constructor(...args) {
