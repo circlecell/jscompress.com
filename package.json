@@ -31,21 +31,21 @@
   },
   "homepage": "https://github.com/circlecell/jscompress.com#readme",
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/polyfill": "^7.6.0",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/register": "^7.6.2",
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.0",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/register": "^7.7.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "copy-webpack-plugin": "^5.0.4",
+    "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
-    "eslint": "^6.5.1",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "npm-check-updates": "^3.1.24",
+    "npm-check-updates": "^3.2.0",
     "npmlog": "^4.1.2",
     "open-browser-webpack-plugin": "0.0.5",
     "rimraf": "^3.0.0",
@@ -53,20 +53,20 @@
     "style-loader": "^1.0.0",
     "stylelint": "^11.1.1",
     "stylelint-config-standard": "^19.0.0",
-    "webpack": "^4.41.1",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.2"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "@babel/standalone": "^7.6.4",
+    "@babel/standalone": "^7.7.1",
     "babel-preset-minify": "^0.5.1",
     "exports-loader": "^0.7.0",
     "lodash.round": "^4.0.4",
     "matreshka": "^2.4.0",
     "matreshka-binders-file": "0.0.2",
-    "uglify-js": "^3.6.1"
+    "uglify-js": "^3.6.8"
   },
   "peerDependencies": {
-    "pm2": "^4.0.1"
+    "pm2": "^4.1.2"
   }
 }
