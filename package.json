@@ -9,7 +9,7 @@
     "test": "npm run lint",
     "compile-uglifyjs": "uglifyjs --self -c -m -o ./node_modules/uglify-js/uglify-js-browser.js",
     "postinstall": "npm run compile-uglifyjs",
-    "bundle": "NODE_ENV=production webpack --mode production",
+    "build": "NODE_ENV=production webpack --mode production",
     "dev": "NODE_ENV=development PORT=8089 webpack-dev-server --mode development",
     "upgrade": "ncu -u && npm install",
     "lint": "eslint . --ext .js --ignore-pattern '**/node_modules/**' --ignore-pattern '**/dist/**'",
