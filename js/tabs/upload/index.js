@@ -1,5 +1,5 @@
-import className from 'matreshka/binders/classname';
-import { dropFiles, dragOver, file } from 'matreshka-binders-file';
+import { className } from 'seemple/binders';
+import { dropFiles, dragOver, file } from 'file-binders';
 import Tab from '../tab';
 import FileList from './file-list';
 import validate from '../../util/validate';

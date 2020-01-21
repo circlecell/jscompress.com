@@ -1,10 +1,10 @@
-import MatreshkaObject from 'matreshka/object';
+import SeempleObject from 'seemple/object';
 import Upload from './tabs/upload';
 import CopyPaste from './tabs/copy-paste';
 import Output from './tabs/output';
 import { setUseECMAScriptNext } from './util/use-ecmascript-next';
 
-class Application extends MatreshkaObject {
+class Application extends SeempleObject {
   constructor() {
     super()
       .set({

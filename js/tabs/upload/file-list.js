@@ -1,6 +1,6 @@
-import MatreshkaArray from 'matreshka/array';
+import SeempleArray from 'seemple/array';
 
-export default class FileList extends MatreshkaArray {
+export default class FileList extends SeempleArray {
     itemRenderer = `
         <div class="file-item">
             {{name}}

@@ -1,7 +1,7 @@
-import MatreshkaObject from 'matreshka/object';
-import className from 'matreshka/binders/classname';
+import SeempleObject from 'seemple/object';
+import { className } from 'seemple/binders';
 
-export default class Tab extends MatreshkaObject {
+export default class Tab extends SeempleObject {
   constructor(data = {}, parent, name) {
     super(data)
       .set({
