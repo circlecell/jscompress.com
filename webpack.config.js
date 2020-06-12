@@ -21,9 +21,11 @@ entry.push(
   './js/index'
 );
 
-plugins.push(new CopyWebpackPlugin([
-  { from: 'static' }
-]));
+plugins.push(new CopyWebpackPlugin({
+  patterns: [
+    { from: 'static' }
+  ]
+}));
 
 module.exports = {
   entry,

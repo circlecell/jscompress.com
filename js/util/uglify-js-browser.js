@@ -1,4 +1,4 @@
 // eslint-disable-next-line import/no-unresolved, import/extensions, import/no-webpack-loader-syntax
-import UglifyJSBrowser from 'exports-loader?UglifyJS!uglify-js/uglify-js-browser';
+import { UglifyJS } from 'exports-loader?type=commonjs&exports=UglifyJS!uglify-js/uglify-js-browser';
 
-export default UglifyJSBrowser;
+export default UglifyJS;
