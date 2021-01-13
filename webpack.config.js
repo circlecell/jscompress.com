@@ -1,6 +1,5 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const path = require('path');
 
 const { NODE_ENV, PORT } = process.env;
@@ -10,10 +9,6 @@ const plugins = [];
 
 if (NODE_ENV === 'development') {
   entry.push(`webpack-dev-server/client?http://localhost:${PORT}`);
-  plugins.push(new OpenBrowserPlugin({
-    url: `http://localhost:${PORT}`,
-    ignoreErrors: true
-  }));
 }
 
 entry.push(
@@ -31,7 +26,8 @@ module.exports = {
   entry,
   plugins,
   devServer: {
-    port: PORT
+    port: PORT,
+    open: true
   },
   context: __dirname,
   output: {
