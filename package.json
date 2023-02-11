@@ -45,7 +45,7 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
-    "npm-check-updates": "^10.2.5",
+    "npm-check-updates": "^16.7.4",
     "npmlog": "^4.1.2",
     "rimraf": "^3.0.2",
     "script-loader": "^0.7.2",
